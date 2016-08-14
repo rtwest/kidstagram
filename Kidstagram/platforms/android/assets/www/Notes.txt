@@ -1,7 +1,9 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
 
-- Routing not working.  How to change Views with new $urlRouterProvider and $stateProvider.  ROUTING IN IONIC
+- Routing
+	- replace globalService.changeView() with $state.go() everywhere
+	- in HTML make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
 
 - Not clear Azure is working.  Brought over a JS config.  Recently added same/similar info in NG .constant in app.js
 

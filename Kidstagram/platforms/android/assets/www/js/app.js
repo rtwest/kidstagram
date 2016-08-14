@@ -59,7 +59,7 @@ angular.module('cordovaNG', [
    
     // Now set up the states
     $stateProvider
-      .state('sigin', {
+      .state('signin', {
           url: '/signin',
           templateUrl: 'signin/signin.html',
           controller: 'signinController'
@@ -69,6 +69,47 @@ angular.module('cordovaNG', [
           templateUrl: 'oobe/oobe.html',
           controller: 'oobeController'
       })
+    .state('clientstart', {
+        url: '/clientstart',
+        templateUrl: 'clientstart/clientstart.html',
+        controller: 'clientstartController'
+    })
+    .state('admindash', {
+        url: '/admindash',
+        templateUrl: 'admindash/admindash.html',
+        controller: 'admindashController'
+    })
+    .state('gallery', {
+        url: '/gallery',
+        templateUrl: 'gallery/gallery.html',
+        controller: 'galleryController'
+    })
+    .state('canvas', {
+        url: '/canvas',
+        templateUrl: 'canvas/canvas.html',
+        controller: 'canvasController'
+    })
+    .state('clientproperties', {
+        url: '/clientproperties',
+        templateUrl: 'clientproperties/clientproperties.html',
+        controller: 'clientpropertiesController'
+    })
+    .state('invitationlist', {
+        url: '/invitationlist',
+        templateUrl: 'invitationlist/invitationlist.html',
+        controller: 'invitationlistController'
+    })
+    .state('picture', {
+        url: '/pictureview',
+        templateUrl: 'pictureview/pictureview.html',
+        controller: 'pictureviewController'
+    })
+    .state('gallerypicture', {
+        url: '/gallerypicture',
+        templateUrl: 'gallerypicture/gallerypicture.html',
+        controller: 'gallerypictureController'
+    })
+
 
 
 })//end config
@@ -97,9 +138,12 @@ angular.module('cordovaNG', [
 
         // Global functions
         // ----------------
-        changeView: function (view) { // Simple method to change view anywhere
-            $location.path(view); // path not hash
-        },
+
+        // NOT USED ANYMORE
+        //changeView: function (view) { // Simple method to change view anywhere
+        //    $location.path(view); // path not hash
+        //},
+
         simpleKeys: function (original) { // Helper Recommedation from AngularJS site. Return a copy of an object with only non-object keys we need this to avoid circular references - though I'm not really sure why
             return Object.keys(original).reduce(function (obj, key) {
                 obj[key] = typeof original[key] === 'object' ? '{ ... }' : original[key];
@@ -140,7 +184,7 @@ angular.module('cordovaNG', [
 // ==================================================
 
 
-.controller('startupController', function ($scope, globalService, Azureservice) {
+.controller('startupController', function ($scope, globalService, Azureservice, $state) {
 
     // Scope is like the partial view datamodel.  'message' is defined in the paritial view
     //$scope.message = 'Angular routing is working too';
@@ -159,29 +203,29 @@ angular.module('cordovaNG', [
 
         if (globalService.userarray[1] == 'admin') { // if user type is 'admin', go to admin home screen
             PushNotificationSetup();  // register for push notification after you know the user has an ID
-            globalService.changeView('admindash');
+            $state.go('admindash');
             console.log('user is admin');
         }
         else if (globalService.userarray[1] == 'client') { // if user type is 'client', go to client home screen
             PushNotificationSetup(); // register for push notification after you know the user has an ID
-            globalService.changeView('clientstart');
+            $state.go('clientstart');
             console.log('user is client');
         }
         else { //if neither, go to user type screen and start over
-            globalService.changeView('signin');
+            $state.go('signin');
             console.log('user is unknown type, go to user role selection');
         };
 
     }
         // If no user but first time start up flag is set, go to user type screen
     else if (localStorage.RYB_oobeflag) {
-        globalService.changeView('signin');
+        $state.go('signin');
         console.log('user is unknown type - but oobe flag set, go to user role selection');
     }
         // If first time start up flag no set, go to start up screen
     else {
         console.log('no oobe flag, go to oobe');
-        globalService.changeView('oobe');
+        $state.go('oobe');
     };
     // ==================================================
 
