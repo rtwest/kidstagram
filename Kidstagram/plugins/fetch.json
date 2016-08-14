@@ -1,0 +1,46 @@
+{
+    "cordova-plugin-dialogs": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-dialogs"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "phonegap-plugin-push": {
+        "source": {
+            "type": "registry",
+            "id": "phonegap-plugin-push"
+        },
+        "is_top_level": true,
+        "variables": {
+            "SENDER_ID": "168753624064"
+        }
+    },
+    "org.rtwest.Canvas2ImagePlugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rtwest/Canvas2ImagePlugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.microsoft.azure-mobile-services": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rtwest/azure-mobile-services-cordova.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-wkwebview-engine": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-wkwebview-engine"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}

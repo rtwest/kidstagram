@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="io.cordova.myapp6de195" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" defaultLocale="en-US">
+<widget id="com.rockitshop.cordovapushnotification" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" defaultLocale="en-US" defaultlocale="en-US">
   <name>Kidstagram</name>
-  <description>An Ionic Framework and Cordova project for Visual Studio</description>
-  <author email="vscordovatools@microsoft.com" href="http://taco.visualstudio.com">Visual Studio JS Mobile Tooling</author>
+  <description>Encourages computer use and introduces concepts of network sharing in a safe environment with parental controls.  For ages 4 and up.</description>
+  <author email="vscordovatools@microsoft.com" href="http://taco.visualstudio.com">Ryan West</author>
   <content src="index.html" />
-  <access origin="*" />
+  <access origin="https://service-poc.azure-mobile.net" />
   <preference name="webviewbounce" value="false" />
   <preference name="UIWebViewBounce" value="false" />
   <preference name="DisallowOverscroll" value="true" />
   <preference name="SplashScreenDelay" value="2000" />
   <preference name="FadeSplashScreenDuration" value="2000" />
-  <preference name="android-minSdkVersion" value="16" />
+  <preference name="android-minSdkVersion" value="19" />
   <preference name="BackupWebStorage" value="none" />
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar" />
@@ -81,4 +81,16 @@
     <icon src="resources/windows/icon/logo71x71.scale-100.png" width="71" height="71" />
     <icon src="resources/windows/icon/wide310x150.scale-100.png" width="310" height="150" />
   </platform>
+  <preference name="Orientation" value="portrait" />
+  <access origin="http://rtwdevstorage.blob.core.windows.net" />
+  <access origin="https://fonts.googleapis.com" />
+  <access origin="https://fonts.gstatic.com" />
+  <preference name="android-maxSdkVersion" value="22" />
+  <plugin name="cordova-plugin-dialogs" version="1.2.1" />
+  <plugin name="phonegap-plugin-push" version="1.8.1">
+    <variable name="SENDER_ID" value="168753624064" />
+  </plugin>
+  <plugin name="org.rtwest.Canvas2ImagePlugin" version="0.7.1" src="https://github.com/rtwest/Canvas2ImagePlugin.git" />
+  <plugin name="com.microsoft.azure-mobile-services" version="1.2.9" src="https://github.com/rtwest/azure-mobile-services-cordova.git" />
+  <plugin name="cordova-plugin-wkwebview-engine" version="1.0.3" />
 </widget>
