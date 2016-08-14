@@ -1,0 +1,246 @@
+﻿W O R K I N G   R I G H T   N O W
+-----------------------------
+
+- Routing not working.  How to change Views with new $urlRouterProvider and $stateProvider.  ROUTING IN IONIC
+
+- Not clear Azure is working.  Brought over a JS config.  Recently added same/similar info in NG .constant in app.js
+
+
+- ** PROBLEM: Push notification not received on iOS.  iOS sends through Node.js fine.  APN not sending to device.  Problem with Certificates?
+TEST CASES
+- Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
+- On Invitation Accept, Insert into Event Record  /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.  Alternatively, do this from Admin side after invitation accept
+
+
+
+ TO DO
+-----------------------------
+- XX - RESEARCH - WHY THE FAIL ON CONNECTING TO AZURE SOMETIMES?
+- XX - RESEARCH - ALSO NEED TO CLEAN BLOB STORAGE WEEKLY.  Maybe have to convert mobile services to app services.  Get scheduler.  Web Pages.  New Pricing?? 
+- XX - remove console.log for better performance
+
+- PROBLEM: GalleryView - weird thing when Canceling Share, then Deleting picture - this deletes the previous picture not one selected.  Will be less likely for this case when UI is better.
+- * Loaders and Progress indicators when awaiting on Azure response
+- * Need better Picture Save Indicator.  Need better Picuture Shared indicator
+- Need to check for web connection on load and alert
+- ??? Need to restrict permissions on azure tables to authenticate users for admin and client(probably) 
+- Kid Design Like Nintendo 3DS - Class DoJo - sticker like white borders and box shadows
+- Clients create Avatar - Random Avatar like HopScotch
+ - Lanie says - add paint bucket, sized erasers, print option, only color in the lines
+
+
+P R O B L E M S
+-----------------------------
+- ***REGISTERING FOR PUSH SOMETIMES FAILS AND TAKE A WHILE TO - IT BLOCKS OTHER AZURE CALLS UNTIL IT FAILS
+     - IIS error says it dones have permission for NTFS web.config file
+-- Log in on Admin side - took long time after facebook log in :  need spinner.  This is because of long Azure checking?
+- Had a problem in creating Azure push notifications.  I think I solved it by remove the Azure mobile web services JS file - which was redundant to the Azure cordova plugin.  I thought I needed the JS file for the NG Azure JS wrapper but all the Azure table CRUD ops work fine without it.
+- Insert JS on NODE for FRIEND INSERT.  Need registered clients to test if Push Notification works.
+- !!! Registering for Push Notification seems to block other Azure calls when waiting for response.  
+- Avoid calling Azure on the View load because you'll be making lots to external calls if the View is loaded frequently
+- On ClientProperties on the Admin side, have a client array locally, then query azure for client's friends, then query Azure recursively for those friends details.  Gets to be a lot.
+- Don't forget, if you delete a Client, you have to delete it from other records across all tables
+- The iteration on friends to go get details of each friend is still going over the count and errors.  Mitigated with an IF,THEN check
+//  - Security Content Policy with PouchDB.  Added -- <meta http-equiv="Content-Security-Policy" connect-src * blob: data:; ... ...> which seems to work.
+
+
+
+// FAIL BUILD ON IOS
+	- This works on iOS7 and above.
+	- Solution uses https://github.com/wbt11a/Canvas2ImagePlugin.git with this fix:
+		- //NSData* imageData = [NSData dataFromBase64String:[command.arguments objectAtIndex:0]];
+		- NSData *imageData = [[NSData alloc] initWithBase64EncodedString:[command.arguments objectAtIndex:0] options:0];
+	- also need to remove "Alog" reference
+	- Have to go to iOS and build using XCode.  Worked targeting iOS 9 from XCode
+	- Ignore error in not finding  Sqlite.tbd frame XCode frameworks
+// SAVING IMAGE FAIL ON ANDROID
+	- In Android 6+ and API level 23+ there is a new in-time permissions model like iOS that Canvas2Image doesn't support.
+	- Fix is to add new permission model or target lower level API (22) in Config.xml.
+
+
+
+
+
+
+S T O R A G E 
+=======================================================================================
+Azure Tables
+------------
+PARENT RECORD: id, name, email
+KID RECORD: id, name, parent_id, registration_code, reg_status, avatar_id, parent_name, parent_email
+FRIEND RECORD: id, kid1_id, kid2_id, kid1_name, kid2_name
+INVITATION RECORD: id, fromparent_id, toparent_id, fromkid (name), tokid (name), fromparent_name, toparent_name, fromkid_id, tokid_id.  - Status is implied as pending because its in the table.  Remove when accepted.
+EVENT RECORD: id, picture_url, fromkid_id, fromkid_name, tokid_id, tokid_name, event_type, comment_content, datetime
+Picture is in Blob storage with BLOB RECORD: Name/ID, URL, DateTime
+
+Pouch DB Tables in "drawappDatabase" on client side for large storage
+------------------------------------
+IMAGE RECORD: _id, filepath on device, datetime, commentarray
+
+Array on client side for small storage  
+----------------------------------
+Other local client side needs
+- Flag for first time launch: Look for "localStorage.getItem('RYB_oobeflag')"
+- FaceBook Access Token: Calling the NbFB module automatically stores the user's FaceBook token:  Look for "localStorage.getItem('fbAccessToken')"
+- What user mode is this in? Look for "localStorage.getItem('RYB_userarray')"
+	- 'RYB_userarray' (id, usertype, name, email, first name, avatar ..other_as_needed..)
+		- globalService.userarray[]
+		- admin details (id, usertype, name, email, first name, avatar)
+		- client details (id, usertype, '', avatar, first name) - if not, show client code input
+- In CLIENT mode
+	- FRIENDS ARRAY - list of friends (name, kid_id, avatar_id,) 
+	- 'RYB_imagepropertiesarray' - replacement of PouchDB, this is a list of images (id, filepath, datetime,commentarray)  // This is an array of objects - [{...,...}{...,...}{...,...}]
+							 - { id: UniquePictureID, filepath: filepath, datetime: Date.now(), commentarray: [] };
+							 - comment_element = { event_type: event, name: name, avatar: avatar, kid_id: kid_id }
+- In ADMIN mode, list of clients (kid_id, name, avatar_id, registrationcode)   // This is an array of arrays - [[...,...][...,...][...,...]]
+	- 'RYB_clientarray'
+
+=======================================================================================
+
+
+
+View
+------------
+- Add splash screen
+- Start with Gallery as Home screen.  Seed it with one picture.
+-	easy button for New Picture.  easy button for Add Friends.
+-	show shares and likes on the gallery - remember kids are learning counting - be visual.
+-	order by most recent activity - new picture, new likes, new stickers
+-	show your pictures, and pictures shared with you.  
+-		Clearly divide these. split screen.
+-		Color code friends. Stack pictures by friend. Profile image has colored circle background. Image shared has colored background.
+-		Easy button to like friends picture
+- gallery detailed image view
+-	where you delete image if yours
+-	if shared image, you can like it here also
+
+
+
+PouchDB Examples http://pouchdb.com/guides/documents.html
+==============================
+// New local database
+------------------------------
+var drawappDatabase = new PouchDB("drawappDatabase", { adapter: 'websql' }); //If adapter is not given, it defaults to IndexedDB, then fails over to WebSQL
+
+// Insert record/doc into database
+------------------------------
+var uid = new Date().toJSON(); // make the ID a timestamp because PouchDB returns ordered ID (so now by datetime)
+var record = { "_id": uid, "filepath": filepath, "datetime": Date.now() }; //JSON for record.  Update has to include all fields               
+// Use .put for update or add new.  Use .post for just add new
+globalService.drawappDatabase.put(record, function (error, response) { //record, onDBsuccess, onDBerror
+    if (error) {
+        console.log(error);
+        return;
+    } else if (response && response.ok) {  // On successful filepath save to PouchDB
+        console.log(response)
+    }
+});
+// Retrieve record/doc WHERE from database
+------------------------------
+globalService.drawappDatabase.get(Record_ID).then(function (Found_Record) {
+    alert(JSON.stringify(Found_Record))
+});
+// Get all records (called 'docs' in PouchDB) from local storage (websql or indexeded)
+------------------------------
+// include_docs:true is need to get the whole record
+globalService.drawappDatabase.allDocs({include_docs: true}).then(function (result) {
+    // Split the JSON collection into an Array of JSON
+    // Each PouchDB row has a .doc object.  To split into array of just these rows, map the array to contain just the .doc objects.
+    records = result.rows.map(function (row) { // this iterates through the JSON
+        //row.doc.Date = new Date(row.doc.Date);  // you can change data on the way as you iterate through
+        return row.doc;  // return just the 'doc' parts in the JSON
+    });
+    //alert(JSON.stringify(records));
+    $scope.galleryItems = records; // Put the array of records into this view's scope
+    $scope.$apply(); // @@@ CRITICAL: To get view to update after $scope datamodel has updated -- but no UI action triggered it, use .$apply() @@@
+    // ---
+}).catch(function (err) {
+    console.log(err);  
+});
+// Delete record/doc from database - delete is an update
+------------------------------
+globalService.drawappDatabase.get(Record_ID).then(function(Found_Record) {
+  return globalService.drawappDatabase.remove(Found_Record);
+}).then(function (result) {
+  console.log(result); 
+}).catch(function (err) {
+  console.log(err);
+});
+
+
+
+
+
+
+
+Azure Wrapper Examples
+==============================
+- Uses JSON obj
+- You can use custom row IDs when inserting
+- When updating, specify the row ID and values to update
+- https://github.com/TerryMooreII/angular-azure-mobile-service
+// Query example where col = val
+------------------------------
+Azureservice.read('parents', "$filter=email eq 'bogus@test.com' or name eq 'FirstName'")
+  .then(function (items) {
+      console.log(items)
+      console.log(items.length)
+  }).catch(function (error) {
+      console.log(error)
+  })
+// Different query example with Parament Object not string
+------------------------------
+Azureservice.query('invitations',{
+    criteria:{
+		id: '1234-qwer-1234-asdf',
+		status: '0'
+		}
+    })
+    .then(function(items) {
+        console.log('Query successful');
+        $scope.item = items;
+    }, function(err) {
+        console.error('Azure Error: ' + err);
+    });
+// Get a single item
+------------------------------
+Azureservice.getById('todoListTable', '5A25CD78-F2D9-413C-81CA-6EC090590AAF')
+    .then(function(item) {
+        console.log('Query successful');
+        $scope.item = item;
+    }, function(err) {
+        console.error('Azure Error: ' + err);
+    });
+// Insert example with customer row ID
+------------------------------
+Azureservice.insert('parents', {
+    id: globalService.makeUniqueID(), // made GUID for Azure table
+    name: 'johny quest',
+    email: 'test@test.com',
+})
+.then(function () {
+    console.log('Insert successful');
+}, function (err) {
+    console.error('Azure Error: ' + err);
+});
+// Update example with customer row ID
+------------------------------
+Azureservice.update('kids', {
+    id: rowGUID, // ID for the row to update
+    status: 'accepted', // column(s) to update
+})
+.then(function () {
+    console.log('Update successful');
+}, function (err) {
+    console.error('Azure Error: ' + err);
+});
+// Delete example with customer row ID
+------------------------------
+Azureservice.del('tablename', {
+    id: rowGUID // ID for the row to delete    
+})
+.then(function() {
+        console.log('Delete successful');
+}, function(err) {
+        console.error('Azure Error: ' + err);
+});

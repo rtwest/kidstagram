@@ -1,0 +1,33 @@
+﻿<!-- Picture view -->
+
+<p>Picture view</p>
+
+Still need to check if this picture if one YOU shared so you go to GalleryPictureView instead of PictureView
+
+
+<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="goBack()">Back </button>
+
+<div>{{kidname}}</div>
+<div>{{kidavatar}}</div>
+
+
+<img src="{{pictureurl}}" alt="Shared drawing" style="max-width:100%;height:auto;display:block;margin:0 auto;" />
+
+
+    <p>Share a Comment or Like the Picture</p>
+
+    <div ng-show="showLikeButton">
+        <div ng-click="likeClick()">Like Button</div>
+    </div>
+    <div ng-show="!showLikeButton">
+        <div>You sent {{kidname}} a like!</div>
+    </div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+﻿<!-- Gallery -->
+
+
+<!--Bootstrap3+Material class-->
+<div class="navbar navbar-default" style="padding-top:20px; z-index:10;background-color:transparent;overflow-x:auto;box-shadow:none;-webkit-box-shadow:none;">
+
+    <!--Comman Toolbar-->
+    <div class="palette-case" style="width:320px">
+
+        <button type="button" class="btn btn-default" style="box-shadow:none;" ng-click="goBack()">
+            <div class="svgicon back"></div>
+        </button>
+
+    </div> <!--end toolbar-->
+</div>
+
+
+<div>{{kidname}}</div>
+<div>{{kidavatar}}</div>
+
+
+<div class="row">
+    <!--'For Each' loop using object 'galleryItems' known to the $scope when defined in the controller (look for $scope.galleryItems) -->
+    <!--'picture' is a new local var here for looping -- picture.'name' is working through JSON keys-->
+    <!--'orderBy' sorts and '-datetime' means is decending order (+) would be ascending order -->
+    <div ng-repeat="picture in galleryItems | orderBy : '-datetime'" ng-include="'repeaterTemplate.html'"></div>
+ </div> 
+<!-- This is one way to specify the repeater item template used above
+    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+    Have to have the element ID on everything because the obj id is passed where ever you click
+-->
+<script type="text/ng-template" id="repeaterTemplate.html">
+        <!--only this div's id works - need to have this ID on anything clicked-->
+        <div class="col-xs-6 col-sm-4">
+            <img id="{{picture.id}},{{picture.filepath}}" ng-click="galleryImageClick($event)" src="{{picture.filepath}}" alt="Saved drawing" class="galleryimage" />
+            
+            <!--Nested repeater within the first JSON array-->
+            <div ng-repeat="subarrayitem in picture.commentarray">
+                <div style="color:red">{{subarrayitem.name}}</div>
+                <div style="color:red">{{subarrayitem.avatar}}</div>
+                <div style="color:red">{{subarrayitem.event_type}}</div>
+            </div>
+
+        </div>
+    <!--end repeater template-->
+</script>
+

@@ -1,0 +1,134 @@
+﻿<!-- Admin view of client details -->
+
+<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoAdminView()">Back</button>
+<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showInvitationForm=true;invitationSuccess=false">New invitation</button>
+
+<p>Admin view of client details</p>
+
+<div>client name, registration code, avatar</div>
+<div>{{clientName}}</div>
+<div>{{avatarID}}</div>
+<div>{{registrationCode}}</div>
+
+<div> TABBED Activity over the last 7 days</div>
+
+
+
+<!--Modal for Create New Invitation -->
+<div id="newInvitationForm" ng-show="showInvitationForm">
+    <!--ng-show is logic to toggle show/hide for this UI-->
+    <div>New invitation request</div>
+
+    <input id="parentemailinput" type="text" ng-model='parentemail' placeholder="Parent email" ng-focus="parentemail='';verifyParentSuccess=false;verifyParentError=false" />  <!--'parentemail' is only defined here and not in controller-->
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="verifyParent(parentemail)">Verify</button>
+    <div ng-show="verifyParentSuccess">success</div>
+    <div ng-show="verifyParentError">{{verifyParentErrorMessage}}</div>
+
+    <div id="kidVerificationForm" ng-show="verifyParentSuccess">
+        <input id="kidnameinput2" type="text" ng-model='kidname2' placeholder="Kid name" ng-focus="kidname2='';verifyKidSuccess=false;verifyKidError=false" />  <!--'kidname2' is only defined here and not in controller-->
+        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="verifyKid(kidname2)">Verify</button>
+        <div ng-show="verifyKidSuccess">success</div>
+        <div ng-show="verifyKidError">{{verifyKidErrorMessage}}</div>
+    </div>
+
+    <!--ng-disabled="!verifyKidSuccess" means disable this control IF NOT TRUE-->
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-disabled="!verifyKidSuccess" ng-click="addNewInvitation();parentemail='';kidname2='';verifyParentSuccess=false;verifyParentError=false;verifyKidSuccess=false;verifyKidError=false;">Send invitation</button>
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showInvitationForm=false;parentemail='';kidname2='';verifyParentSuccess=false;verifyParentError=false;verifyKidSuccess=false;verifyKidError=false">Cancel</button>
+    <div ng-show="invitationError">{{invitationErrorMessage}}</div>
+
+</div>
+<div ng-show="invitationSuccess">success</div>
+
+
+
+
+
+<!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
+<div>
+    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+    <!--'row' is a new local var created here then used in controllerJS-->
+    <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+    <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'"></div>
+    <div ng-show="noEventFlag">No events</div>
+</div>
+<!-- This is one way to specify the repeater item template used above
+    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+    Have to have the element ID on everything because the obj id is passed where ever you click-->
+<script type="text/ng-template" id="repeaterTemplate.html">
+    <div>
+        <!--If row.day is not Null, then show it-->
+        <div ng-show="row.day"><strong> day is {{row.day}}</strong></div>
+        <div>
+            <!--{{row.datetime | date:"EEEE, MMM d"}}-->
+            {{row.time}}
+        </div>
+        <div>{{row.fromkid}}</div>
+        <div>{{row.fromkidavatar}}</div>
+        <div>{{row.event_type}}</div>
+
+        <!--Nested repeater within the first JSON array-->
+        <div ng-repeat="subarrayitem in row.tokid">
+            <div style="color:red">{{subarrayitem.tokidname}}</div>
+            <div>{{subarrayitem.tokidavatar}}</div>
+            <div>{{subarrayitem.tokidreply}}</div>
+        </div>
+
+        <div ng-show="row.picture_url">
+            <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" class="smallimage" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+        </div>
+
+    </div>
+</script>
+
+<p></p>
+<p></p>
+
+
+<div>TAB FOR Friend record</div>
+<div> Manage Friends </div>
+<div> - Add friend invitation record.  How do you add one?  Need parent email for ID and kid name</div>
+<div> - Remove friend</div>
+<div> - Accept friend invitation record</div>
+
+<!--Friend List Repeater-->
+<div>
+    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+    <!--'row' is a new local var created here then used in controllerJS-->
+    <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+    <div ng-repeat="row in friendArray track by $index" ng-include="'repeaterTemplate2.html'"></div>
+    <!--<div ng-repeat="row in friendsarray | filter:globalService.selectedClient" ng-include="'repeaterTemplate2.html'"></div>-->  <!--when there are multiple clients in the array-->
+    <div ng-show="noFriendsFlag">No Friends added yet</div>
+</div>
+<!-- This is one way to specify the repeater item template used above
+    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+    Have to have the element ID on everything because the obj id is passed where ever you click-->
+<script type="text/ng-template" id="repeaterTemplate2.html">
+    <div>
+        <div>
+            friend avatar
+            {{row.friend_avatar}}
+        </div>
+        <div> friend name
+            {{row.friend_name}}
+        </div>
+        <div>
+            parent name
+            {{row.friend_parentname}}
+        </div>
+        <div>
+            parent email
+            {{row.friend_parentemail}}
+        </div>
+        <!--NEED TO GET THE FRIEND RECORD ID-->
+        <div id="{{row.record_id}}" ng-click="deleteFriendClick($event)">Delete</div>
+    </div>
+</script>
+
+
+
+
+
+
+<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoView()">
+    Button
+</button>

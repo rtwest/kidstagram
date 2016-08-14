@@ -1,0 +1,111 @@
+﻿<!-- Invitation list -->
+
+<p>Invitation list</p>
+<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoAdminView()">Back</button>
+<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-init="selectedclientindex=0" ng-click="showInvitationForm=true;invitationSuccess=false">New invitation</button>
+
+
+
+
+<!-- New Invitations List Repeater-->
+
+<div>New Invitations</div>
+<div>
+    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+    <!--'row' is a new local var created here then used in controllerJS-->
+    <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+    <div ng-repeat="row in newInvitationArray track by $index" ng-include="'repeaterTemplate.html'"></div>
+    <div ng-show="noNewInvitationsMessage">No new invitations</div>
+</div>
+<!-- This is one way to specify the repeater item template used above
+    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+    Have to have the element ID on everything because the obj id is passed where ever you click-->
+<script type="text/ng-template" id="repeaterTemplate.html">
+    <div>
+        <div>To 
+            {{row.tokid}}{{row.tokid_avatar}}
+        </div>
+        <div>From
+            {{row.fromkid}}{{row.fromkid_avatar}}
+        </div>
+        <div>
+            Parent
+            {{row.fromparent_name}}
+        </div>
+    </div>
+    <div id="{{row.id}}" ng-click="acceptInvitationClick($event)">Accept</div>
+</script>
+
+
+
+<!--Sent Invitation List Repeater-->
+
+<div>Sent Invitations</div>
+<div>
+    <div ng-repeat="row in sentInvitationArray track by $index" ng-include="'repeaterTemplate2.html'"></div>
+    <div ng-show="noSentInvitationsMessage">No pending invitations</div>
+</div>
+<script type="text/ng-template" id="repeaterTemplate2.html">
+    <div>From
+        {{row.fromkid}}{{row.fromkid_avatar}}
+    </div>
+    <div>To 
+        {{row.tokid}}{{row.tokid_avatar}}
+    </div>
+    <div>Parent
+        {{row.toparent_name}}
+    </div>
+</script>
+
+
+
+
+<!--Modal for Create New Invitation -->
+
+<div id="newInvitationForm" ng-show="showInvitationForm">
+    <!--ng-show is logic to toggle show/hide for this UI-->
+    <div>New invitation request</div>
+
+    <!--Select kid:  Repeater to list kids and toggle selection -->
+    <div>
+        <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+        <!--'row' is a new local var created here then used in controllerJS-->
+        <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+        <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplateClients.html'"></div>
+        <div ng-show="noClientFlag">No clients</div>
+    </div>
+    <script type="text/ng-template" id="repeaterTemplateClients.html">
+        <div id="{{row[0]}},{{row[1]}},{{row[2]}}" ng-click="selectedClient($event,$index);" ng-class="{'selecteddiv' : selectedclientindex == $index}">
+            <div id="{{row[0]}},{{row[1]}}">
+                {{row[1]}}
+            </div>
+            <div id="{{row[0]}},{{row[1]}},{{row[2]}}">
+                {{row[2]}}
+            </div>
+            <div id="{{row[0]}},{{row[1]}},{{row[2]}}">
+                {{row[3]}}
+            </div>
+        </div>
+    </script>
+
+    <!--Verify parent form-->
+    <input id="parentemailinput" type="text" ng-model='parentemail' placeholder="Parent email" ng-focus="parentemail='';verifyParentSuccess=false;verifyParentError=false" />  <!--'parentemail' is only defined here and not in controller-->
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="verifyParent(parentemail)">Verify</button>
+    <div ng-show="verifyParentSuccess">success</div>
+    <div ng-show="verifyParentError">{{verifyParentErrorMessage}}</div>
+
+    <!--Verify kid form-->
+    <div id="kidVerificationForm" ng-show="verifyParentSuccess">
+        <input id="kidnameinput2" type="text" ng-model='kidname2' placeholder="Kid name" ng-focus="kidname2='';verifyKidSuccess=false;verifyKidError=false" />  <!--'kidname2' is only defined here and not in controller-->
+        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="verifyKid(kidname2)">Verify</button>
+        <div ng-show="verifyKidSuccess">success</div>
+        <div ng-show="verifyKidError">{{verifyKidErrorMessage}}</div>
+    </div>
+
+    <!--ng-disabled="!verifyKidSuccess" means disable this control IF NOT TRUE-->
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-disabled="!verifyKidSuccess" ng-click="addNewInvitation();parentemail='';kidname2='';verifyParentSuccess=false;verifyParentError=false;verifyKidSuccess=false;verifyKidError=false;">Send invitation</button>
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showInvitationForm=false;parentemail='';kidname2='';verifyParentSuccess=false;verifyParentError=false;verifyKidSuccess=false;verifyKidError=false">Cancel</button>
+    <div ng-show="invitationError">{{invitationErrorMessage}}</div>
+
+</div>
+<div ng-show="invitationSuccess">success</div>

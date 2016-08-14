@@ -1,0 +1,25 @@
+﻿<!--view2-->
+
+<div>
+    <h1>View 2</h1>
+
+    <p>{{ message }}</p>
+
+
+    <!--'For Each' loop using object 'todolistforuser' known to the $scope when defined in the controller -->
+    <!--'row' is a new local var here-->
+    <!--'todoitemtitle' is a column name discoverd-->
+
+    <div ng-repeat="row in todolistforuser">
+
+        <!--ID column put into div property to hide and make available for record CRUD-->
+        <div id="{{row.id}}" ng-click="todoitemclick($event)">
+
+            <!--Crappy formatting.  Need better UI template-->
+            {{row.todoitemtitle}} -- {{row.todoitemstatus}}
+
+        </div>
+
+    </div>
+
+</div>

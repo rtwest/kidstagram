@@ -1,0 +1,47 @@
+﻿<!-- Mode Selection and SignIn -->
+
+
+
+<!--Select User Mode UI-->
+<div id="userroleselection" ng-hide="usermode!==''">
+    <div>Are your a kid or a parent?</div>
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="usermode='client'">Kid</button>
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="usermode='admin'">Parent</button>
+</div>
+
+
+
+
+
+
+<!--Client Login UI-->
+<div id="clientregistration" ng-show="usermode=='client'">
+    <div>What is your sign in code?</div>
+    <input id="regcodeinput" type="text" ng-model='clientregistrationcode' placeholder="Sign in code" ng-focus="clientregistrationcode=''"/>  <!--'clientregistrationcode' is only defined here and not on controller-->
+    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="clientLogin(clientregistrationcode)">Sign in</button>
+    <div ng-show="clientregistrationerror" id="clientErrorMessage">{{clienterrormessage}}</div>
+</div>
+
+
+
+
+
+<!--Admin Login UI-->
+<div id="adminlogin" ng-show="usermode=='admin'">
+
+    <button class="btn btn-primary" ng-click="adminLogin()">Login with Facebook</button>
+
+    <!--<button class="btn btn-block" ng-click="getProfile()">Get My Info</button>
+    <p>Name: {{user.name}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>First name: {{user.first_name}}</p>
+    <img ng-src="{{'http://graph.facebook.com/' + user.id + '/picture?type=small'}}" />
+    <textarea id="Message" placeholder="What's on your mind?" rows="5"></textarea>
+    <button class="btn btn-block" ng-click="share()">Share</button>-->
+
+
+</div>
+
+
+
+

@@ -1,0 +1,57 @@
+﻿<!--home-->
+
+<div>
+
+
+    <p>{{ message }}</p>
+
+    <p>{{ loginstatus }}</p>
+
+
+    <!--Bootstrap3+Material class-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="well infobox">
+
+                    <!--Bootstrap3+Material class-->
+                    <!--NG click event calling a Method defined in the Controller and assigned by Scope-->
+                    <button ng-click="azurelogin()" type="button" class="btn btn-flat btn-primary btn-lg withripple">Login</button>
+                    
+                    <!--Bootstrap3+Material class-->
+                    <button type="button" class="btn btn-primary btn-lg withripple">Ripple Button</button>
+                    
+                    <!--Using Bootstrap 3 styling "form-control" and watermark "placeholder" and binding to specific $scope view model variable 'managedUsernameToAdd' with ng-model-->
+                    <!--<input type="text" name="managedusernametextbox" ng-model="managedUsername" ng-trim="true" class="form-control" placeholder="enter user name" />-->
+                    <div class="form-control-wrapper">
+                        <input type="text" id="managedusernametextbox" ng-model="managedUsername" ng-trim="true" class="form-control empty" placeholder="Enter user name" />
+                        <span class="material-input"></span>
+                    </div>
+                    <button ng-click="loadFromCloud()" type="button" class="btn btn-default btn-lg withripple">load</button>
+
+                    <!--'For Each' loop using object 'todolistforuser' known to the $scope when defined in the controller -->
+                    <!--'row' is a new local var here-->
+                    <!--'todoitemtitle' is a column name discoverd-->
+                    <div ng-repeat="row in todolistforuser" ng-include="'repeaterTemplate.html'"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <!-- This is one way to specify the repeater item template used below.
+    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'" -->
+    <script type="text/ng-template" id="repeaterTemplate.html">
+        <div id="{{row.id}}" ng-click="manageduserclick($event)" style="height:40px; width:100%;margin:5px;padding:10px; background-color:#808080;color:#fff;">
+            <div style="width:80%;">
+                <i class="icon-material-keyboard-arrow-right"></i> {{row.todoitemtitle}}
+            </div>
+            <div style="width:20%;height:40px;float:right;background-color:#F8F8F8;color:#808080; margin-top:-30px;margin-right:-2px;padding:10px;">
+                <i class="icon-material-star-outline"></i> {{row.todoitemstatus}}
+            </div>
+        </div>
+    </script> 
+
+</div>
