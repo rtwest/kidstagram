@@ -3,7 +3,7 @@
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice) {
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state) {
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
 
@@ -557,7 +557,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $scope.clickEvent = globalService.simpleKeys(clickEvent);
         globalService.selectedClient = clickEvent.target.id; // Tracked the selected client in Global Var in Service
         alert('selected item = ' + globalService.selectedClient);
-        globalService.changeView('/clientproperties');
+        //globalService.changeView('/clientproperties');
+        $state.go('clientproperties');
 
     };
     // ==========================================
@@ -698,15 +699,18 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // --------------
 
     $scope.gotoInvitationView = function () {
-        globalService.changeView('/invitationlist');
+        //globalService.changeView('/invitationlist');
+        $state.go('invitationlist');
     };
     $scope.gotoCanvasView = function () {
-        globalService.changeView('/canvas');
+        //globalService.changeView('/canvas');
+        $state.go('canvas');
         globalService.lastView = '/admindash';
     };
     $scope.gotoGalleryView = function () {
         globalService.lastView = '/admindash';  // for knowing where to go with the back button
-        globalService.changeView('/gallery');
+        //globalService.changeView('/gallery');
+        $state.go('gallery');
     };
 
     
@@ -742,11 +746,13 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             $scope.idParameters = imageid + ',' + filepath;
             globalService.pictureViewParams = $scope.idParameters;  // this next view requires imageid and filepath
             alert(globalService.pictureViewParams)
-            globalService.changeView('/gallerypicture');
+            //globalService.changeView('/gallerypicture');
+            $state.go('gallerypicture');
         }
         else {
             globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
-            globalService.changeView('/picture');
+            //globalService.changeView('/picture');
+            $state.go('picture');
         };
 
         //globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view

@@ -33,18 +33,10 @@
   <body ng-app="cordovaNG">
 
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
       <ion-content>
 
           <!-- Define angular controller -->
           <div ng-controller="startupController">
-
-              <!-- Commented out this links that were testing UI routing between views-->
-              <!--<li><a href="#">Home</a></li>
-        <li><a href="#view2">View2</a></li>-->
-
 
               <!-- this is where NG content will be injected.  Class name 'pageview' is needed for Ng-Animate -->
               <!--<div class="pageview" ng-view></div>-->
@@ -62,8 +54,8 @@
 
 
 
-
-
+      <!-- JQuery mostly used for Selector convinience.  NG version sucks -->
+      <script src="lib/jquery-1.9.1.min.js"></script>
       <!-- Angular wrapper for MS Azure mobile service-->
       <script src="lib/angular-azure-mobile-service.js"></script>
       <!--Wrapper for Facebook API-->

@@ -1,6 +1,4 @@
-﻿/* Empty. Add your own CSS if you like */
-
-
+﻿
 /* TOOK OUT FOR TESTING WITH IONIC */
 /*Not sure if this should go here global or inside an id or class*/
 /*::-webkit-scrollbar { display: none; }*/
@@ -38,7 +36,7 @@ body{
 /* ========================================================= */
 
 .svgicon {
-    background-image: url('../images/kidstagramicons.svg');
+    background-image: url('../img/kidstagramicons.svg');
     background-repeat: no-repeat;
     /*background-size: 2600px 100px; /* actual size at 640 - 2x */
     background-size: 1300px 50px; /* actual size at 320 = 1x */

@@ -1,6 +1,6 @@
 ﻿// clientstartController
 
-angular.module('cordovaNG').controller('clientstartController', function ($scope, globalService, Azureservice) {
+angular.module('cordovaNG').controller('clientstartController', function ($scope, globalService, Azureservice, $state) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -348,12 +348,14 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
     // View changer.  Have to use $scope. to make available to the view
     // --------------
     $scope.gotoCanvasView = function () {
-        globalService.changeView('/canvas');
-        globalService.lastView = '/clientstart';
+        //globalService.changeView('/canvas');
+        $state.go('canvas');
+        globalService.lastView = 'clientstart';
     };
     $scope.gotoGalleryView = function () {
-        globalService.lastView = '/clientstart';  // for knowing where to go with the back button
-        globalService.changeView('/gallery');
+        globalService.lastView = 'clientstart';  // for knowing where to go with the back button
+        //globalService.changeView('/gallery');
+        $state.go('gallery');
     };
 
 
@@ -388,15 +390,17 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
             $scope.idParameters = imageid + ',' + filepath;
             globalService.pictureViewParams = $scope.idParameters;  // this next view requires imageid and filepath
             alert(globalService.pictureViewParams)
-            globalService.changeView('/gallerypicture');
+            //globalService.changeView('/gallerypicture');
+            $state.go('gallerypicture');
         }
         else {
             globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
-            globalService.changeView('/picture');             
+            //globalService.changeView('/picture');
+            $state.go('picture');
         };
 
         //globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
-        globalService.lastView = '/clientstart';  // for knowing where to go with the back button
+        globalService.lastView = 'clientstart';  // for knowing where to go with the back button
     };
 
 }); //controller end

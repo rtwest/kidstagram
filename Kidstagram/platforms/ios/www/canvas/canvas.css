@@ -1,0 +1,67 @@
+﻿#content {
+    position: absolute;
+    top: 132px;
+    left: 0px;
+    right: 0px;
+    bottom: 46px;
+    overflow: hidden;
+    /*background-color: #ddd;*/
+}
+
+#canvas {
+    /*background-size:contain;*/ /*strech to fit X*/ 
+    /*background-size:cover;*/ /*stretch to fit Y*/
+    background-size:100% 100%;  /*fit to x and y.  will squish to fit aspect ratio on the background image if different*/
+    background-repeat:no-repeat;
+}
+
+.palette-case {
+    width: 900px;
+    margin: auto;
+    text-align: center;
+    margin-bottom:10px;
+    -webkit-overflow-scrolling: touch;
+}
+/*Not sure if this should go here global or inside an id or class
+::-webkit-scrollbar { display: none; }*/
+
+.palette {
+    height: 50px;
+    width: 50px;
+    border-radius:25px;
+    float: left;
+    border:10px solid white;
+}
+
+.red {background-color: #c22;}
+.blue {background-color: #22c;}
+.green {background-color: #2c2;}
+.white {background-color: #fff;}
+.black {background-color: #000;}
+.yellow {background-color: #fcff05;}
+.orange {background-color: #ffbb00;}
+.brown {background-color: #aa8d00;}
+.ltblue {background-color: #6ce4ff;}
+.ltgreen {background-color: #5cf764;}
+.grey {background-color: #b2b2b2;}
+.pink {background-color: #ff80ed;}
+.purple {background-color: #ae00ff;}
+.beige {background-color: #edc35e;}
+.drkbrown {background-color: #6b4e00;}
+
+/*.palette2{
+    height: 40px;
+    width: 40px;
+    border-radius:2px;
+    float: left;
+    margin: 2px 6px 2px 6px;
+    border:solid 2px transparent;
+}*/
+
+
+.selectedShareClass {
+    font-weight:bold;
+}
+
+
+

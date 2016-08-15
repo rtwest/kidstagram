@@ -1,7 +1,7 @@
 ﻿// signinController
 
 
-angular.module('cordovaNG').controller('signinController', function ($scope, globalService, ngFB, Azureservice) {
+angular.module('cordovaNG').controller('signinController', function ($scope, globalService, ngFB, Azureservice,$state) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -165,8 +165,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 })
                 .then(function () {
                     //console.log('Insert successful');
-                    globalService.changeView('admindash'); // @@@ after user is added, go to admin dash
-
+                    //globalService.changeView('admindash'); // @@@ after user is added, go to admin dash
+                    $state.go('admindash');
                 }, function (err) {
                     alert('Azure Error: ' + err);
                 });
@@ -178,7 +178,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 globalService.userarray[0] = items[0].id;
                 localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
                 alert(JSON.stringify(globalService.userarray));
-                globalService.changeView('admindash'); // @@@ if user already exists, just go to admin dash
+                //globalService.changeView('admindash'); // @@@ if user already exists, just go to admin dash
+                $state.go('admindash');
             };
 
         }).catch(function (error) {
@@ -228,7 +229,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 })
                 .then(function () {
                     //console.log('Update successful');
-                    globalService.changeView('clientstart'); // @@@ go to clientstart view
+                    //globalService.changeView('clientstart'); // @@@ go to clientstart view
+                    $state.go('clientstart');
                 }, function (err) {
                     console.error('Azure Error: ' + err);
                 });

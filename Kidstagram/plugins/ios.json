@@ -1,0 +1,50 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.microsoft.azure-mobile-services": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-wkwebview-engine": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "org.rtwest.Canvas2ImagePlugin": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "168753624064",
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        }
+    }
+}

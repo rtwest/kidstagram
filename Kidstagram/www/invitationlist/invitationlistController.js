@@ -1,6 +1,6 @@
 ﻿// invitationlistController
 
-angular.module('cordovaNG').controller('invitationlistController', function ($scope, globalService, Azureservice) {
+angular.module('cordovaNG').controller('invitationlistController', function ($scope, globalService, Azureservice, $state) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -355,10 +355,12 @@ angular.module('cordovaNG').controller('invitationlistController', function ($sc
     // View changer.  Have to use $scope. to make available to the view
     // --------------
     $scope.gotoView = function () {
-        globalService.changeView('/');
+        //globalService.changeView('/');
+        //$state.go();
     };
     $scope.gotoAdminView = function () {
-        globalService.changeView('/admindash');
+        //globalService.changeView('/admindash');
+        $state.go('admindash');
     };
     
 

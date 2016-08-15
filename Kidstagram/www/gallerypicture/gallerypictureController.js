@@ -1,6 +1,6 @@
 ﻿// gallerypictureController
 
-angular.module('cordovaNG').controller('gallerypictureController', function ($scope, $http, globalService, Azureservice) {
+angular.module('cordovaNG').controller('gallerypictureController', function ($scope, $http, globalService, Azureservice, $state) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -90,8 +90,8 @@ angular.module('cordovaNG').controller('gallerypictureController', function ($sc
             };
         }; //end for
 
-        globalService.changeView('/gallery');  // Back location using the captured previous view's name
-
+        //globalService.changeView('/gallery');  // Back location using the captured previous view's name
+        $state.go(galllery);
     };
 
 
@@ -328,7 +328,8 @@ angular.module('cordovaNG').controller('gallerypictureController', function ($sc
     // View changer.  Have to use $scope. to make available to the view
     // --------------
     $scope.goBack = function () {
-        globalService.changeView('/gallery');  // Back location using the captured previous view's name
+        //globalService.changeView('/gallery');  // Back location using the captured previous view's name
+        $state.go('gallery');
     };
 
 

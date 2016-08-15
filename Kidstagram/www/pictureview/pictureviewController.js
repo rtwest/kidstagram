@@ -1,6 +1,6 @@
 ﻿// pictureviewController
 
-angular.module('cordovaNG').controller('pictureviewController', function ($scope, globalService, Azureservice) {
+angular.module('cordovaNG').controller('pictureviewController', function ($scope, globalService, Azureservice,$state) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -74,7 +74,8 @@ angular.module('cordovaNG').controller('pictureviewController', function ($scope
     // View changer.  Have to use $scope. to make available to the view
     // --------------
     $scope.goBack = function () {
-        globalService.changeView(globalService.lastView);  // Back location using the captured previous view's name
+        //globalService.changeView(globalService.lastView);  // Back location using the captured previous view's name
+        $state.go(globalService.lastView);
     };
 
 }); //controller end

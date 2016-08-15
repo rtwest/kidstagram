@@ -12,7 +12,6 @@ angular.module('cordovaNG').controller('oobeController', function ($scope, globa
     // --------------
     $scope.gotoView = function () {
         localStorage.setItem('RYB_oobeflag','1');  // set the flag that OOBE is done
-        //globalService.changeView('signin');
         $state.go('signin');
     };
 

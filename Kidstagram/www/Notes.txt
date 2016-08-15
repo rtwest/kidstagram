@@ -1,10 +1,10 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
+- Failed saving image on CanvasController
+	- Color bar not at bottom footer - need the ionic UI
+- Have to replace HTML UI with Ionic format
 
-- Routing
-	- replace globalService.changeView() with $state.go() everywhere
-	- in HTML make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
-
+- Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
 - Not clear Azure is working.  Brought over a JS config.  Recently added same/similar info in NG .constant in app.js
 
 

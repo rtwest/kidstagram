@@ -1,6 +1,6 @@
 ﻿// clientpropertiesController
 
-angular.module('cordovaNG').controller('clientpropertiesController', function ($scope, globalService, Azureservice) {
+angular.module('cordovaNG').controller('clientpropertiesController', function ($scope, globalService, Azureservice, $state) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -559,10 +559,12 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
     // View changer.  Have to use $scope. to make available to the view
     // --------------
     $scope.gotoView = function () {
-        globalService.changeView('/');
+        //globalService.changeView('/');
+        //$state.go('/');
     };
     $scope.gotoAdminView = function () {
-        globalService.changeView('/admindash');
+        //globalService.changeView('/admindash');
+        $state.go('admindash');
     };
     $scope.gotoPictureView = function (clickEvent) {
         $scope.clickEvent = globalService.simpleKeys(clickEvent);
@@ -570,7 +572,8 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
 
         globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
         globalService.lastView = '/clientproperties';  // for knowing where to go with the back button
-        globalService.changeView('/picture');
+        //globalService.changeView('/picture');
+        $state.go('picture');
     }
 
 }); //controller end

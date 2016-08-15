@@ -1,6 +1,6 @@
 ﻿// galleryController
 
-angular.module('cordovaNG').controller('galleryController', function ($scope, globalService, Azureservice) {
+angular.module('cordovaNG').controller('galleryController', function ($scope, globalService, Azureservice, $state) {
 
     // Scope is like the view datamodel.  'gallerymessage' is defined in the paritial view
     //$scope.gallerymessage = "Nothing here yet";  //- TEST ONLY
@@ -20,7 +20,8 @@ angular.module('cordovaNG').controller('galleryController', function ($scope, gl
     // View changer.  Have to use $scope. to make available to the view
     // --------------
     $scope.goBack = function () {
-        globalService.changeView(globalService.lastView); // go back to Previous view
+        //globalService.changeView(globalService.lastView); // go back to Previous view
+        $state.go(globalService.lastView);
     };
 
 
@@ -32,7 +33,8 @@ angular.module('cordovaNG').controller('galleryController', function ($scope, gl
 
         //alert($scope.image_ID_Src);  
         globalService.pictureViewParams = $scope.image_ID_Src; // put in global var to pass to the next view.  Should have Image ID and Image filepath data
-        globalService.changeView('/gallerypicture'); // Go to gallerypicture view
+        //globalService.changeView('/gallerypicture'); // Go to gallerypicture view
+        $state.go('gallerypicture');
     };
 
 }); //controller end

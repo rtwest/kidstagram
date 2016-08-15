@@ -16,7 +16,7 @@
 
 
 
-angular.module('cordovaNG').controller('canvasController', function ($scope, $http, globalService, Azureservice) {
+angular.module('cordovaNG').controller('canvasController', function ($scope, $http, globalService, Azureservice, $state) {
 
     // Scope is like the partial view datamodel.  'message' is defined in the partial html view
     //$scope.message = "Let's draw";
@@ -725,8 +725,9 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     // Function to nav to gallery view
     // ------------------------------------------------------------------
     $scope.goToGallery = function () {
-        globalService.lastView = '/canvas';  // for knowing where to go with the back button
-        globalService.changeView('/gallery');
+        globalService.lastView = 'canvas';  // for knowing where to go with the back button
+        //globalService.changeView('/gallery');
+        $state.go('gallery');
     };
 
 
@@ -748,14 +749,14 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     // -----------------------------------------------------------------------
 
     $scope.coloringbookArray = [
-        "./images/lion-small.svg",
-        "./images/unicorn-small.svg",
-        "./images/catface-small.svg",
-        "./images/tigerface-small.svg",
-        "./images/giraffe-small.svg",
-        "./images/shark-small.svg",
-        //"./images/unicorn.svg",
-        //"./images/unicorn.svg",
+        "./img/lion-small.svg",
+        "./img/unicorn-small.svg",
+        "./img/catface-small.svg",
+        "./img/tigerface-small.svg",
+        "./img/giraffe-small.svg",
+        "./img/shark-small.svg",
+        //"./img/unicorn.svg",
+        //"./img/unicorn.svg",
     ];
 
     $scope.coloringbookImageClick = function (clickEvent) {
