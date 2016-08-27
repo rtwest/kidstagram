@@ -439,6 +439,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
             initimage2.onload = function () {
                 savecanvasctx.drawImage(initimage2, 0, 0);
                 // Save the whole thing
+                alert('calling save');
                 saveImageDataToLibrary('savecanvas');
             };
         };
@@ -447,9 +448,10 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
 
     // Using plugin to save to camera roll / photo gallery and return file path
     function saveImageDataToLibrary(CanvasID) {
+        alert('called - ' + CanvasID);
         window.canvas2ImagePlugin.saveImageDataToLibrary(
             function (filepath) {
-                //alert(filepath);
+                alert(filepath);
                 //console.log('image file path is: ' + filepath); //filepath is the filename path (for android and iOS)
                 //var uid = new Date().toJSON(); // make the ID a timestamp because PouchDB returns ordered ID (so now by datetime)
 
@@ -466,7 +468,10 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 alert("Saved");
 
             },
-            function (err) {console.log(err);},
+            function (err) {
+                console.log(err);
+                alert(err);
+            },
             document.getElementById(CanvasID) // This names the element that is the Canvas.  Other params can follow here with commas...format, quality,etc... ",'.jpg', 80," 
        );
     };

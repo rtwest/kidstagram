@@ -18,62 +18,68 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
+      <!-- cordova script (this will be a 404 during development) -->
+      <script src="cordova.js"></script>
     <!--For users deploying their apps to Windows 8.1 or Android Gingerbread, platformOverrided.js
     will inject platform-specific code from the /merges folder -->
     <script src="js/platformOverrides.js"></script>
-    <!-- ionic/angularjs js -->
+      <!-- JQuery mostly used for Selector convinience.  NG version sucks -->
+      <script src="lib/jquery-1.9.1.min.js"></script>
+      <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
+    
+    <!-- Angular wrapper for MS Azure mobile service-->
+      <script src="lib/MobileServices.Web-1.2.5.min.js"></script>
+    <script src="lib/angular-azure-mobile-service.js"></script>
+    <!--Wrapper for Facebook API-->
+    <script src="lib/openfb.js"></script>
+    <script src="lib/ngopenfb.js"></script>
+    <!-- Controllers -->
+      <!-- your app's js -->
+      <script src="js/app.js"></script>
+      <script src="lib/NotificationHub.js"></script>
+    <script src="canvas/canvasController.js"></script>
+    <script src="gallery/galleryController.js"></script>
+    <script src="signin/signinController.js"></script>
+    <script src="admindash/admindashController.js"></script>
+    <script src="clientproperties/clientpropertiesController.js"></script>
+    <script src="clientstart/clientstartController.js"></script>
+    <script src="invitationlist/invitationlistController.js"></script>
+    <script src="pictureview/pictureviewController.js"></script>
+    <script src="oobe/oobeController.js"></script>
+    <script src="gallerypicture/gallerypictureController.js"></script>
+      <script src="startup/startupController.js"></script>
   </head>
 
 
   <body ng-app="cordovaNG">
 
-    <ion-pane>
-      <ion-content>
+      <!-- this is where NG content will be injected in Ionic -->
+      <ion-nav-view></ion-nav-view>
+
+    <!--<ion-pane>
+      <ion-content>-->
 
           <!-- Define angular controller -->
-          <div ng-controller="startupController">
+          <!--<div ng-controller="startupController">-->
 
               <!-- this is where NG content will be injected.  Class name 'pageview' is needed for Ng-Animate -->
               <!--<div class="pageview" ng-view></div>-->
 
               <!-- this is where NG content will be injected in Ionic.  -->
-              <ion-nav-view></ion-nav-view>
+              <!--<ion-nav-view>this is where NG content will be injected in Ionic</ion-nav-view>-->
 
               <!--<div id="log" style="opacity:1"></div>-->  <!--Hiding the log for now-->
 
-          </div>
+          <!--</div>-->
 
 
-      </ion-content>
-    </ion-pane>
+      <!--</ion-content>
+    </ion-pane>-->
 
 
 
-      <!-- JQuery mostly used for Selector convinience.  NG version sucks -->
-      <script src="lib/jquery-1.9.1.min.js"></script>
-      <!-- Angular wrapper for MS Azure mobile service-->
-      <script src="lib/angular-azure-mobile-service.js"></script>
-      <!--Wrapper for Facebook API-->
-      <script src="lib/openfb.js"></script>
-      <script src="lib/ngopenfb.js"></script>
-      <!-- Controllers -->
-        <!--<script src="app.js"></script>-->
-      <script src="lib/NotificationHub.js"></script>
-      <script src="canvas/canvasController.js"></script>
-      <script src="gallery/galleryController.js"></script>
-      <script src="signin/signinController.js"></script>
-      <script src="admindash/admindashController.js"></script>
-      <script src="clientproperties/clientpropertiesController.js"></script>
-      <script src="clientstart/clientstartController.js"></script>
-      <script src="invitationlist/invitationlistController.js"></script>
-      <script src="pictureview/pictureviewController.js"></script>
-      <script src="oobe/oobeController.js"></script>
-      <script src="gallerypicture/gallerypictureController.js"></script>
+
   </body>
 
 

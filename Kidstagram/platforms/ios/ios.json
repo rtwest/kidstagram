@@ -41,14 +41,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"CDVWKWebViewEngine\"><param name=\"ios-package\" value=\"CDVWKWebViewEngine\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"CordovaWebViewEngine\" value=\"CDVWKWebViewEngine\" />",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         },
@@ -82,7 +74,9 @@
                             "xml": "<true />",
                             "count": 1
                         }
-                    ]
+                    ],
+                    "NSAppTransportSecurity": [],
+                    "WKWebViewPluginEmbeddedServerPort": []
                 }
             }
         }
@@ -110,9 +104,6 @@
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
-        },
-        "cordova-plugin-wkwebview-engine": {
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         },
         "ionic-plugin-keyboard": {
@@ -198,14 +189,6 @@
             ]
         },
         {
-            "file": "plugins/cordova-plugin-wkwebview-engine/src/www/ios/ios-wkwebview-exec.js",
-            "id": "cordova-plugin-wkwebview-engine.ios-wkwebview-exec",
-            "pluginId": "cordova-plugin-wkwebview-engine",
-            "clobbers": [
-                "cordova.exec"
-            ]
-        },
-        {
             "file": "plugins/ionic-plugin-keyboard/www/ios/keyboard.js",
             "id": "ionic-plugin-keyboard.keyboard",
             "pluginId": "ionic-plugin-keyboard",
@@ -240,7 +223,6 @@
         "cordova-plugin-splashscreen": "3.2.2",
         "cordova-plugin-statusbar": "2.1.3",
         "cordova-plugin-whitelist": "1.2.2",
-        "cordova-plugin-wkwebview-engine": "1.0.3",
         "ionic-plugin-keyboard": "2.2.1",
         "org.rtwest.Canvas2ImagePlugin": "0.7.1",
         "phonegap-plugin-push": "1.8.1"

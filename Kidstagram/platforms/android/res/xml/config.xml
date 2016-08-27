@@ -65,7 +65,6 @@
     <preference name="windows-target-version" value="8.1" />
     <preference name="Orientation" value="portrait" />
     <access origin="http://rtwdevstorage.blob.core.windows.net" />
-    <access origin="https://fonts.googleapis.com" />
-    <access origin="https://fonts.gstatic.com" />
     <preference name="android-maxSdkVersion" value="22" />
+    <preference name="Fullscreen" value="True" />
 </widget>

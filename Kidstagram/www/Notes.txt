@@ -1,7 +1,20 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
-- Failed saving image on CanvasController
-	- Color bar not at bottom footer - need the ionic UI
+- Failed saving image on CanvasController.  
+	- maybe a CORS or security or File vs URL problem to Android?
+	- SaveCanvas works on iOS
+	- after changing the html structure for Ionic, still doesn't save on android.
+	- doesn't show anything for the Coloring Book.  Is this a clue about accessing file:// ???
+- Failed loaded on iOS. white screens.
+	- Trying out Telerik Wkwebviews for iOS.  Have one with webserver for iOS.  Still hangs on load like the other one.  
+		- Have to target iOS to version 8.3.  Seems to have problems on iOS between os versions and cli versions. 
+	- Root Cause was the structure of HTML around loading the default view and StartupController.
+	- not having any luck getting services injected on .run for iOS.  Plan B - Make a StartUp view.
+	- globalService is injected.  Azureservice is not.
+
+
+
+- Header / Footer - ionic UI makes them wrap and I need them to scroll X.  Trying set fixed width and overflow on parent.
 - Have to replace HTML UI with Ionic format
 
 - Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>

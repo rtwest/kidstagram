@@ -28,9 +28,6 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         },
-        "cordova-plugin-wkwebview-engine": {
-            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
-        },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         },

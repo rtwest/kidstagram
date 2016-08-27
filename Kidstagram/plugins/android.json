@@ -13,9 +13,6 @@
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         },
-        "cordova-plugin-wkwebview-engine": {
-            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
-        },
         "org.rtwest.Canvas2ImagePlugin": {
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         },

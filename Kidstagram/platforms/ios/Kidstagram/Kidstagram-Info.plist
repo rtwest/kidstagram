@@ -55,10 +55,6 @@
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>
         </dict>
-        <key>fonts.googleapis.com</key>
-        <dict/>
-        <key>fonts.gstatic.com</key>
-        <dict/>
       </dict>
     </dict>
     <key>UIInterfaceOrientation</key>

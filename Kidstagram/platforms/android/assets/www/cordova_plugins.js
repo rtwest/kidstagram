@@ -82,7 +82,6 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.4.0",
     "com.microsoft.azure-mobile-services": "1.2.9",
     "cordova-plugin-dialogs": "1.2.1",
-    "cordova-plugin-wkwebview-engine": "1.0.3",
     "org.rtwest.Canvas2ImagePlugin": "0.7.1",
     "phonegap-plugin-push": "1.8.1",
     "cordova-plugin-device": "1.1.2",

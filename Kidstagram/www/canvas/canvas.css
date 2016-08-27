@@ -63,5 +63,8 @@
     font-weight:bold;
 }
 
+/* Overrides the bottom horizontal bar in header and footer */
+.bar { background-image: none !important; }
+
 
 
