@@ -5,10 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('cordovaNG', [
     'ionic',
-    //'ngRoute',
     'azure-mobile-service.module',//NG wrapper around Azure mobile service
-    //'ui.bootstrap',
-    //'ngAnimate',
     'ngOpenFB', //NG wrapper for OpenFB wrapper around FB api
 ])
 
@@ -17,7 +14,6 @@ angular.module('cordovaNG', [
 
 .run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', function ($ionicPlatform, $state, globalService, Azureservice) {
     $ionicPlatform.ready(function () {
-
         if (cordova.platformId === "ios" && window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -45,12 +41,11 @@ angular.module('cordovaNG', [
 
         function PushNotificationSetup() {
 
+            alert(globalService.userarray[0]);
+
             var tags = [];
             tags[0] = globalService.userarray[0]; //Azure Notification Hub 'Tags' var seems to expect an array.  Get the local user GUID to send to user
 
-            // @@@@ Don't want to instantiate this again if I don't have to
-            // @@@@ var MobileServiceClient = WindowsAzure.MobileServiceClient;
-            // @@@@ var AMSClient = new MobileServiceClient('https://service-poc.azure-mobile.net/', 'IfISqwqStqWVFuRgKbgJtedgtBjwrc24');
             var AMSClient = Azureservice.client;
 
             // Create a new PushNotification and start registration with the PNS.
@@ -86,7 +81,7 @@ angular.module('cordovaNG', [
             });
 
             // Handles the notification received event.
-            pushNotification.on('notification', function (data) { // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ WHAT TO DO AFTER NOTIFIATION @@@@@@@@@@@@@@@@@@@@@
+            pushNotification.on('notification', function (data) {
                 // Display the alert message in an alert.
                 alert(data.message);
                 // Reload the items list.
@@ -130,8 +125,8 @@ angular.module('cordovaNG', [
             else if (globalService.userarray[1] == 'client') { // if user type is 'client', go to client home screen
                 PushNotificationSetup(); // register for push notification after you know the user has an ID
                 $state.go('clientstart');
-                //console.log('user is client');
-                alert('user is client');
+                console.log('user is client');
+                //alert('user is client');
             }
             else { //if neither, go to user type screen and start over
                 $state.go('signin');
@@ -163,7 +158,7 @@ angular.module('cordovaNG', [
     // 2. Force native scrolling (esp. for iOS) 
     // =====================================================
     //if () { /* test if in production */
-    //$compileProvider.debugInfoEnabled(false);
+    $compileProvider.debugInfoEnabled(false);
     //};
     //$ionicConfigProvider.scrolling.jsScrolling(false);
 
@@ -228,10 +223,15 @@ angular.module('cordovaNG', [
         templateUrl: 'gallerypicture/gallerypicture.html',
         controller: 'gallerypictureController'
     })
+    //.state('startup', {
+    //    url: '/startup',
+    //    templateUrl: 'startup/startup.html',
+    //    controller: 'startupController'
+    //})
 
     // If you don't use this, you can programmatically detect and redirect in .run
     // For any unmatched url, redirect to /state1
-    //$urlRouterProvider.otherwise('/oobe');
+    //$urlRouterProvider.otherwise('startup');
 
 
 }])//end config
@@ -311,7 +311,7 @@ angular.module('cordovaNG', [
 
 //    alert('controller');
 //    // Scope is like the partial view datamodel.  'message' is defined in the paritial view
-//    //$scope.message = 'Angular routing is working too';
+//    $scope.message = 'Angular routing is working - STARTUP';
 
 //    // ==================================================
 //    // Things to check for on start up 

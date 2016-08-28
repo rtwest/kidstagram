@@ -5,12 +5,9 @@
 	- SaveCanvas works on iOS
 	- after changing the html structure for Ionic, still doesn't save on android.
 	- doesn't show anything for the Coloring Book.  Is this a clue about accessing file:// ???
-- Failed loaded on iOS. white screens.
-	- Trying out Telerik Wkwebviews for iOS.  Have one with webserver for iOS.  Still hangs on load like the other one.  
-		- Have to target iOS to version 8.3.  Seems to have problems on iOS between os versions and cli versions. 
-	- Root Cause was the structure of HTML around loading the default view and StartupController.
-	- not having any luck getting services injected on .run for iOS.  Plan B - Make a StartUp view.
-	- globalService is injected.  Azureservice is not.
+- PushNotificationSetup on iOS.
+	- PushNotificationSetup not called after OOBE.  It is bypassed when going through OOBE.
+	- still not getting notifi
 
 
 
@@ -68,6 +65,8 @@ P R O B L E M S
 	- also need to remove "Alog" reference
 	- Have to go to iOS and build using XCode.  Worked targeting iOS 9 from XCode
 	- Ignore error in not finding  Sqlite.tbd frame XCode frameworks
+	- Ionic & PushNotifications
+		- Add to go into XCode project Capabilities and make sure PushNotifications was Enabled.
 // SAVING IMAGE FAIL ON ANDROID
 	- In Android 6+ and API level 23+ there is a new in-time permissions model like iOS that Canvas2Image doesn't support.
 	- Fix is to add new permission model or target lower level API (22) in Config.xml.

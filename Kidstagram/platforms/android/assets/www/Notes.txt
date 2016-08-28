@@ -7,9 +7,8 @@
 	- doesn't show anything for the Coloring Book.  Is this a clue about accessing file:// ???
 - Failed loaded on iOS. white screens.
 	- Trying out Telerik Wkwebviews for iOS.  Have one with webserver for iOS.  Still hangs on load like the other one.  
-	- Have to target iOS to version 8.3.  Seems to have problems on iOS between os versions and cli versions. 
-	- Root Cause was the structure of HTML around loading the default view and StartupController.
-	- not having any luck getting services injected on .run.  Plan B?  
+		- Have to target iOS to version 8.3.  Seems to have problems on iOS between os versions and cli versions. 
+	- PushNotificationSetup fails on iOS.
 
 
 

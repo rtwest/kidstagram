@@ -5,10 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('cordovaNG', [
     'ionic',
-    //'ngRoute',
     'azure-mobile-service.module',//NG wrapper around Azure mobile service
-    //'ui.bootstrap',
-    //'ngAnimate',
     'ngOpenFB', //NG wrapper for OpenFB wrapper around FB api
 ])
 
@@ -16,8 +13,9 @@ angular.module('cordovaNG', [
 .constant('AzureMobileServiceClient', { API_URL: "https://service-poc.azure-mobile.net/", API_KEY: 'IfISqwqStqWVFuRgKbgJtedgtBjwrc24' })
 
 .run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', function ($ionicPlatform, $state, globalService, Azureservice) {
-//.run(['$ionicPlatform', '$state', function ($ionicPlatform, $state) {
+
     $ionicPlatform.ready(function () {
+
         if (cordova.platformId === "ios" && window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -32,7 +30,7 @@ angular.module('cordovaNG', [
             StatusBar.styleDefault();
         };
 
-    });// end ready
+    //});// end ready
 
 
     // =========================================================================================
@@ -44,6 +42,8 @@ angular.module('cordovaNG', [
     // - Register for Push Notifications AFTER user is signed in and has a GUID.  That's needed for the Push Notification
 
         function PushNotificationSetup() {
+
+            alert(globalService.userarray[0]);
 
             var tags = [];
             tags[0] = globalService.userarray[0]; //Azure Notification Hub 'Tags' var seems to expect an array.  Get the local user GUID to send to user
@@ -58,7 +58,7 @@ angular.module('cordovaNG', [
 
             // Handle the registration event.
             pushNotification.on('registration', function (data) {
-                //alert(JSON.stringify(data)); console.log(JSON.stringify(data));
+                alert(JSON.stringify(data)); console.log(JSON.stringify(data));
                 // Get the native platform of the device.
                 var platform = device.platform;
                 // Get the handle returned during registration.
@@ -127,8 +127,8 @@ angular.module('cordovaNG', [
             else if (globalService.userarray[1] == 'client') { // if user type is 'client', go to client home screen
                 PushNotificationSetup(); // register for push notification after you know the user has an ID
                 $state.go('clientstart');
-                //console.log('user is client');
-                alert('user is client');
+                console.log('user is client');
+                //alert('user is client');
             }
             else { //if neither, go to user type screen and start over
                 $state.go('signin');
@@ -147,9 +147,11 @@ angular.module('cordovaNG', [
             $state.go('oobe');
         };
     // ==================================================
-
+    });// end ready
 
 }]) // end run
+
+
 
 .config(['$stateProvider','$urlRouterProvider','$compileProvider', '$ionicConfigProvider',function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
 //.config(function ($compileProvider, $ionicConfigProvider, $stateProvider, $urlRouterProvider) {
@@ -225,11 +227,6 @@ angular.module('cordovaNG', [
         templateUrl: 'gallerypicture/gallerypicture.html',
         controller: 'gallerypictureController'
     })
-    //.state('startup', {
-    //    url: '/startup',
-    //    templateUrl: 'startup/startup.html',
-    //    controller: 'startupController'
-    //})
 
     // If you don't use this, you can programmatically detect and redirect in .run
     // For any unmatched url, redirect to /state1
@@ -306,135 +303,3 @@ angular.module('cordovaNG', [
 }])
 // ==================================================
 // ==================================================
-
-
-//.controller('startupController', function ($scope, globalService, Azureservice, $state) {
-
-
-//    alert('controller');
-//    // Scope is like the partial view datamodel.  'message' is defined in the paritial view
-//    $scope.message = 'Angular routing is working - STARTUP';
-
-//    // ==================================================
-//    // Things to check for on start up 
-//    // ==================================================
-
-//    console.log("local stored user data is: " + localStorage.getItem('RYB_userarray'));
-
-//    // Check for User Array - for registration
-//    if (localStorage.getItem('RYB_userarray')) {
-
-//        // add to globalservice var to make available to all views
-//        globalService.userarray = JSON.parse(localStorage.getItem('RYB_userarray')); // get array from localstorage key pair and string
-
-//        if (globalService.userarray[1] == 'admin') { // if user type is 'admin', go to admin home screen
-//            PushNotificationSetup();  // register for push notification after you know the user has an ID
-//            $state.go('admindash');
-//            console.log('user is admin');
-//        }
-//        else if (globalService.userarray[1] == 'client') { // if user type is 'client', go to client home screen
-//            PushNotificationSetup(); // register for push notification after you know the user has an ID
-//            $state.go('clientstart');
-//            console.log('user is client');
-//        }
-//        else { //if neither, go to user type screen and start over
-//            $state.go('signin');
-//            console.log('user is unknown type, go to user role selection');
-//        };
-
-//    }
-//        // If no user but first time start up flag is set, go to user type screen
-//    else if (localStorage.RYB_oobeflag) {
-//        $state.go('signin');
-//        console.log('user is unknown type - but oobe flag set, go to user role selection');
-//    }
-//        // If first time start up flag no set, go to start up screen
-//    else {
-//        console.log('no oobe flag, go to oobe');
-//        $state.go('oobe');
-//    };
-//    // ==================================================
-
-
-//    // =========================================================================================
-//    // =========================================================================================
-//    // Define the PushPlugin.
-//    // Includes Factory NG Azure Wrapper around the Azure Pluging and uses Push Plugin.
-//    // https://github.com/Azure/mobile-services-samples/blob/master/CordovaNotificationsArticle/BackboneToDo/www/services/mobileServices/settings/services.js
-//    // =========================================================================================
-//    // - Register for Push Notifications AFTER user is signed in and has a GUID.  That's needed for the Push Notification
-
-//    function PushNotificationSetup() {
-
-//        var tags = [];
-//        tags[0] = globalService.userarray[0]; //Azure Notification Hub 'Tags' var seems to expect an array.  Get the local user GUID to send to user
-
-//        // @@@@ Don't want to instantiate this again if I don't have to
-//        // @@@@ var MobileServiceClient = WindowsAzure.MobileServiceClient;
-//        // @@@@ var AMSClient = new MobileServiceClient('https://service-poc.azure-mobile.net/', 'IfISqwqStqWVFuRgKbgJtedgtBjwrc24');
-//        var AMSClient = Azureservice.client;
-
-//        // Create a new PushNotification and start registration with the PNS.
-//        var pushNotification = PushNotification.init({
-//            "android": { "senderID": "168753624064" }, // This is my Google Developer Project ID # that has GCM API enabled
-//            "ios": { "alert": "true", "badge": "false", "sound": "false" }
-//        });
-
-//        // Handle the registration event.
-//        pushNotification.on('registration', function (data) {
-//            alert(JSON.stringify(data)); console.log(JSON.stringify(data));
-//            // Get the native platform of the device.
-//            var platform = device.platform;
-//            // Get the handle returned during registration.
-//            var handle = data.registrationId;
-//            // Set the device-specific message template.
-//            if (platform == 'android' || platform == 'Android') {
-//                // Template registration.
-//                var template = '{ "data" : {"message":"$(message)"}}';
-//                // Register for notifications.
-//                if (AMSClient.push) { alert('client push up') };
-//                AMSClient.push.gcm.registerTemplate(handle,
-//                    'myTemplate', template, tags)
-//                    .done(registrationSuccess, registrationFailure);
-//            } else if (device.platform === 'iOS') {
-//                // Template registration.
-//                var template = '{"aps": {"alert": "$(message)"}}';
-//                // Register for notifications.            
-//                AMSClient.push.apns.registerTemplate(handle,
-//                    'myTemplate', template, tags)
-//                    .done(registrationSuccess, registrationFailure);
-//            }
-//        });
-
-//        // Handles the notification received event.
-//        pushNotification.on('notification', function (data) { // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ WHAT TO DO AFTER NOTIFIATION @@@@@@@@@@@@@@@@@@@@@
-//            // Display the alert message in an alert.
-//            alert(data.message);
-//            // Reload the items list.
-//            //app.Storage.getData();
-//        });
-
-//        // Handles an error event.
-//        pushNotification.on('error', function (e) {
-//            // Display the error message in an alert.
-//            alert('error on registration = ' + e.message);
-//        });
-
-//        var registrationSuccess = function () {
-//            alert('Registered with Azure!'); console.log('Registered with Azure');
-//        }
-//        var registrationFailure = function (error) {
-//            alert('Failed registering with Azure: ' + error); console.log('Failed registering with Azure: ' + error);
-//        }
-
-//    };//end Push Notification setup
-
-
-//});
-
-
-
-// ==================================================
-// ==================================================
-
-

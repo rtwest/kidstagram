@@ -94,4 +94,5 @@
   <plugin name="cordova-plugin-inappbrowser" version="1.4.0" />
   <!--<preference name="deployment-target" value="8.3" />-->
   <preference name="Fullscreen" value="True" />
+  <plugin name="cordova-plugin-webserver" version="1.0.3" />
 </widget>

@@ -572,6 +572,7 @@
 					"$(inherited)",
 					"\"Kidstagram/Plugins/cordova-plugin-webserver\"",
 					"\"Kidstagram/Plugins/cordova-plugin-webserver\"",
+					"\"Kidstagram/Plugins/cordova-plugin-webserver\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 			};
@@ -624,6 +625,7 @@
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"Kidstagram/Plugins/cordova-plugin-webserver\"",
 					"\"Kidstagram/Plugins/cordova-plugin-webserver\"",
 					"\"Kidstagram/Plugins/cordova-plugin-webserver\"",
 				);
