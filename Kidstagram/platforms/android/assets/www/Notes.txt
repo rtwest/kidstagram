@@ -2,13 +2,14 @@
 -----------------------------
 - Failed saving image on CanvasController.  
 	- maybe a CORS or security or File vs URL problem to Android?
-	- SaveCanvas works on iOS
 	- after changing the html structure for Ionic, still doesn't save on android.
 	- doesn't show anything for the Coloring Book.  Is this a clue about accessing file:// ???
-- Failed loaded on iOS. white screens.
-	- Trying out Telerik Wkwebviews for iOS.  Have one with webserver for iOS.  Still hangs on load like the other one.  
-		- Have to target iOS to version 8.3.  Seems to have problems on iOS between os versions and cli versions. 
-	- PushNotificationSetup fails on iOS.
+
+- PushNotificationSetup on iOS.
+	- PushNotificationSetup not called after OOBE.  It is bypassed when going through OOBE.
+	- still not getting notifications sent to iOS.
+	- try deleting from device and reinstall
+	- try turn off enable push notification in capabilities
 
 
 
@@ -19,7 +20,6 @@
 - Not clear Azure is working.  Brought over a JS config.  Recently added same/similar info in NG .constant in app.js
 
 
-- ** PROBLEM: Push notification not received on iOS.  iOS sends through Node.js fine.  APN not sending to device.  Problem with Certificates?
 TEST CASES
 - Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
 - On Invitation Accept, Insert into Event Record  /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.  Alternatively, do this from Admin side after invitation accept
@@ -66,6 +66,8 @@ P R O B L E M S
 	- also need to remove "Alog" reference
 	- Have to go to iOS and build using XCode.  Worked targeting iOS 9 from XCode
 	- Ignore error in not finding  Sqlite.tbd frame XCode frameworks
+	- Ionic & PushNotifications
+		- Add to go into XCode project Capabilities and make sure PushNotifications was Enabled.
 // SAVING IMAGE FAIL ON ANDROID
 	- In Android 6+ and API level 23+ there is a new in-time permissions model like iOS that Canvas2Image doesn't support.
 	- Fix is to add new permission model or target lower level API (22) in Config.xml.

@@ -93,6 +93,6 @@
   <plugin name="com.microsoft.azure-mobile-services" version="1.2.9" src="https://github.com/rtwest/azure-mobile-services-cordova.git" />
   <plugin name="cordova-plugin-inappbrowser" version="1.4.0" />
   <!--<preference name="deployment-target" value="8.3" />-->
+  <preference name="deployment-target" value="8.3" />
   <preference name="Fullscreen" value="True" />
-  <plugin name="cordova-plugin-webserver" version="1.0.3" />
 </widget>

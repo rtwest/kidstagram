@@ -2,12 +2,16 @@
 -----------------------------
 - Failed saving image on CanvasController.  
 	- maybe a CORS or security or File vs URL problem to Android?
-	- SaveCanvas works on iOS
 	- after changing the html structure for Ionic, still doesn't save on android.
 	- doesn't show anything for the Coloring Book.  Is this a clue about accessing file:// ???
+
 - PushNotificationSetup on iOS.
 	- PushNotificationSetup not called after OOBE.  It is bypassed when going through OOBE.
-	- still not getting notifi
+	- still not getting notifications sent to iOS.
+	- try turn off enable push notification in capabilities - no difference
+	- Try a new Production Push Cert for iOS from Apple
+	- https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-ios-apple-push-notification-apns-get-started/
+	- Trying a new Azure Notification hub
 
 
 
@@ -18,7 +22,6 @@
 - Not clear Azure is working.  Brought over a JS config.  Recently added same/similar info in NG .constant in app.js
 
 
-- ** PROBLEM: Push notification not received on iOS.  iOS sends through Node.js fine.  APN not sending to device.  Problem with Certificates?
 TEST CASES
 - Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
 - On Invitation Accept, Insert into Event Record  /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.  Alternatively, do this from Admin side after invitation accept
