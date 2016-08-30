@@ -7,11 +7,6 @@
 
 - PushNotificationSetup on iOS.
 	- PushNotificationSetup not called after OOBE.  It is bypassed when going through OOBE.
-	- still not getting notifications sent to iOS.
-	- try turn off enable push notification in capabilities - no difference
-	- Try a new Production Push Cert for iOS from Apple
-	- https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-ios-apple-push-notification-apns-get-started/
-	- Trying a new Azure Notification hub
 
 
 
@@ -73,6 +68,10 @@ P R O B L E M S
 // SAVING IMAGE FAIL ON ANDROID
 	- In Android 6+ and API level 23+ there is a new in-time permissions model like iOS that Canvas2Image doesn't support.
 	- Fix is to add new permission model or target lower level API (22) in Config.xml.
+// PUSH NOTIFICATION SETUP ON iOS.
+	- Problem was wrong development APNS Cert for iOS from Apple.  Maybe too many old certs.  WILL NEED TO REPLACE WITH PRODUCTION CERT
+	- https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-ios-apple-push-notification-apns-get-started/
+	- Note: only "custom" templates messages can be sent from Azure.  Maybe because Kidstagram is a hybrid app?
 
 
 
