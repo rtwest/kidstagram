@@ -12,6 +12,7 @@ angular.module('cordovaNG', [
 // Configuration for AzureMobileServiceClient
 .constant('AzureMobileServiceClient', { API_URL: "https://service-poc.azure-mobile.net/", API_KEY: 'IfISqwqStqWVFuRgKbgJtedgtBjwrc24' })
 
+
 .run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', function ($ionicPlatform, $state, globalService, Azureservice) {
 
     $ionicPlatform.ready(function () {
@@ -30,12 +31,10 @@ angular.module('cordovaNG', [
             StatusBar.styleDefault();
         };
 
-    //});// end ready
-
-
     // =========================================================================================
     // =========================================================================================
     // Define the PushPlugin.
+    // NOTE: PushNotificationSetup code used on SigninController and App.js
     // Includes Factory NG Azure Wrapper around the Azure Pluging and uses Push Plugin.
     // https://github.com/Azure/mobile-services-samples/blob/master/CordovaNotificationsArticle/BackboneToDo/www/services/mobileServices/settings/services.js
     // =========================================================================================
@@ -110,8 +109,28 @@ angular.module('cordovaNG', [
     // ==================================================
     // Things to check for on start up 
     // ==================================================
+
+        // Check for permission on Android for Android 6+
+        // ----------------------
+        var platform = device.platform;
+        if ((platform == 'android' || platform == 'Android')) {
+            var permissions = cordova.plugins.permissions;
+            permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, checkPermissionCallback, null);
+
+            function checkPermissionCallback(status) {
+                if (!status.hasPermission) {
+                    var errorCallback = function () { console.warn('storage permission is not turned on'); }
+                    permissions.requestPermission(
+                      permissions.WRITE_EXTERNAL_STORAGE,
+                      function (status) {
+                          if (!status.hasPermission) errorCallback();
+                      }, errorCallback);
+                }
+            }
+        }
+        // ----------------------
+
     //console.log("local stored user data is: " + localStorage.getItem('RYB_userarray'));
-        alert("local stored user data is: " + localStorage.getItem('RYB_userarray'));
 
     // Check for User Array - for registration
         if (localStorage.getItem('RYB_userarray')) {
@@ -154,7 +173,6 @@ angular.module('cordovaNG', [
 
 
 .config(['$stateProvider','$urlRouterProvider','$compileProvider', '$ionicConfigProvider',function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
-//.config(function ($compileProvider, $ionicConfigProvider, $stateProvider, $urlRouterProvider) {
 
     // PERFORMANCE BOOTS ???
     // Performance Boosts 
@@ -259,11 +277,6 @@ angular.module('cordovaNG', [
 
         // Global functions
         // ----------------
-
-        // NOT USED ANYMORE
-        //changeView: function (view) { // Simple method to change view anywhere
-        //    $location.path(view); // path not hash
-        //},
 
         simpleKeys: function (original) { // Helper Recommedation from AngularJS site. Return a copy of an object with only non-object keys we need this to avoid circular references - though I'm not really sure why
             return Object.keys(original).reduce(function (obj, key) {

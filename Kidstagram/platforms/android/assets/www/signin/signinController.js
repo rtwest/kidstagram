@@ -165,8 +165,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 })
                 .then(function () {
                     //console.log('Insert successful');
-                    //globalService.changeView('admindash'); // @@@ after user is added, go to admin dash
-                    $state.go('admindash');
+                    PushNotificationSetup();
+                    $state.go('admindash');// @@@ after user is added, go to admin dash
                 }, function (err) {
                     alert('Azure Error: ' + err);
                 });
@@ -178,8 +178,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 globalService.userarray[0] = items[0].id;
                 localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
                 alert(JSON.stringify(globalService.userarray));
-                //globalService.changeView('admindash'); // @@@ if user already exists, just go to admin dash
-                $state.go('admindash');
+                PushNotificationSetup();
+                $state.go('admindash'); // @@@ if user already exists, just go to admin dash
             };
 
         }).catch(function (error) {
@@ -229,8 +229,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 })
                 .then(function () {
                     //console.log('Update successful');
-                    //globalService.changeView('clientstart'); // @@@ go to clientstart view
-                    $state.go('clientstart');
+                    PushNotificationSetup();
+                    $state.go('clientstart'); // @@@ go to clientstart view
                 }, function (err) {
                     console.error('Azure Error: ' + err);
                 });
@@ -244,6 +244,77 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
     // ==========================================
 
 
+    // =========================================================================================
+    // Define the PushPlugin.
+    // NOTE: PushNotificationSetup code used on SigninController and App.js
+    // Includes Factory NG Azure Wrapper around the Azure Pluging and uses Push Plugin.
+    // https://github.com/Azure/mobile-services-samples/blob/master/CordovaNotificationsArticle/BackboneToDo/www/services/mobileServices/settings/services.js
+    // =========================================================================================
+    // - Register for Push Notifications AFTER user is signed in and has a GUID.  That's needed for the Push Notification
+
+    function PushNotificationSetup() {
+
+        alert(globalService.userarray[0]);
+
+        var tags = [];
+        tags[0] = globalService.userarray[0]; //Azure Notification Hub 'Tags' var seems to expect an array.  Get the local user GUID to send to user
+
+        var AMSClient = Azureservice.client;
+
+        // Create a new PushNotification and start registration with the PNS.
+        var pushNotification = PushNotification.init({
+            "android": { "senderID": "168753624064" }, // This is my Google Developer Project ID # that has GCM API enabled
+            "ios": { "alert": "true", "badge": "false", "sound": "false" }
+        });
+
+        // Handle the registration event.
+        pushNotification.on('registration', function (data) {
+            alert(JSON.stringify(data)); console.log(JSON.stringify(data));
+            // Get the native platform of the device.
+            var platform = device.platform;
+            // Get the handle returned during registration.
+            var handle = data.registrationId;
+            // Set the device-specific message template.
+            if (platform == 'android' || platform == 'Android') {
+                // Template registration.
+                var template = '{ "data" : {"message":"$(message)"}}';
+                // Register for notifications.
+                if (AMSClient.push) { alert('client push up') };
+                AMSClient.push.gcm.registerTemplate(handle,
+                    'myTemplate', template, tags)
+                    .done(registrationSuccess, registrationFailure);
+            } else if (device.platform === 'iOS') {
+                // Template registration.
+                var template = '{"aps": {"alert": "$(message)"}}';
+                // Register for notifications.            
+                AMSClient.push.apns.registerTemplate(handle,
+                    'myTemplate', template, tags)
+                    .done(registrationSuccess, registrationFailure);
+            }
+        });
+
+        // Handles the notification received event.
+        pushNotification.on('notification', function (data) {
+            // Display the alert message in an alert.
+            alert(data.message);
+            // Reload the items list.
+            //app.Storage.getData();
+        });
+
+        // Handles an error event.
+        pushNotification.on('error', function (e) {
+            // Display the error message in an alert.
+            alert('error on registration = ' + e.message);
+        });
+
+        var registrationSuccess = function () {
+            alert('Registered with Azure!'); console.log('Registered with Azure');
+        }
+        var registrationFailure = function (error) {
+            alert('Failed registering with Azure: ' + error); console.log('Failed registering with Azure: ' + error);
+        }
+
+    };//end Push Notification setup
 
 
 

@@ -32,6 +32,9 @@
         <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Permissions">
+        <param name="android-package" value="com.android.plugins.Permissions" />
+    </feature>
     <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
     <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
@@ -65,6 +68,6 @@
     <preference name="windows-target-version" value="8.1" />
     <preference name="Orientation" value="portrait" />
     <access origin="http://rtwdevstorage.blob.core.windows.net" />
-    <preference name="android-maxSdkVersion" value="22" />
+    <preference name="deployment-target" value="8.3" />
     <preference name="Fullscreen" value="True" />
 </widget>

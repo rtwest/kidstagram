@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('cordovaNG', [
     'ionic',
+    'ngCordova',
     'azure-mobile-service.module',//NG wrapper around Azure mobile service
     'ngOpenFB', //NG wrapper for OpenFB wrapper around FB api
 ])

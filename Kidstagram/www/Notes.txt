@@ -1,21 +1,13 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
-- Failed saving image on CanvasController.  
-	- maybe a CORS or security or File vs URL problem to Android?
-	- after changing the html structure for Ionic, still doesn't save on android.
-	- doesn't show anything for the Coloring Book.  Is this a clue about accessing file:// ???
-
-- PushNotificationSetup on iOS.
-	- PushNotificationSetup not called after OOBE.  It is bypassed when going through OOBE.
-
-
-
+- loader
+- confirmation
 - Header / Footer - ionic UI makes them wrap and I need them to scroll X.  Trying set fixed width and overflow on parent.
 - Have to replace HTML UI with Ionic format
+- On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
+
 
 - Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
-- Not clear Azure is working.  Brought over a JS config.  Recently added same/similar info in NG .constant in app.js
-
 
 TEST CASES
 - Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
@@ -54,7 +46,6 @@ P R O B L E M S
 //  - Security Content Policy with PouchDB.  Added -- <meta http-equiv="Content-Security-Policy" connect-src * blob: data:; ... ...> which seems to work.
 
 
-
 // FAIL BUILD ON IOS
 	- This works on iOS7 and above.
 	- Solution uses https://github.com/wbt11a/Canvas2ImagePlugin.git with this fix:
@@ -67,9 +58,9 @@ P R O B L E M S
 		- Add to go into XCode project Capabilities and make sure PushNotifications was Enabled.
 // SAVING IMAGE FAIL ON ANDROID
 	- In Android 6+ and API level 23+ there is a new in-time permissions model like iOS that Canvas2Image doesn't support.
-	- Fix is to add new permission model or target lower level API (22) in Config.xml.
+	- Fix with Android permission plugin
 // PUSH NOTIFICATION SETUP ON iOS.
-	- Problem was wrong development APNS Cert for iOS from Apple.  Maybe too many old certs.  WILL NEED TO REPLACE WITH PRODUCTION CERT
+	- Problem was wrong development APNS Cert for iOS from Apple.  Maybe too many old certs.  WILL NEED TO UPLOAD PRODUCTION CERT (.P12) TO AZURE SERVICE-POC IOS APNS SETTINGS TO CHANGE FOR DEPLOYMENT.
 	- https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-ios-apple-push-notification-apns-get-started/
 	- Note: only "custom" templates messages can be sent from Azure.  Maybe because Kidstagram is a hybrid app?
 

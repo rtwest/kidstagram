@@ -57,7 +57,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 tempfriendarr.push(element); // add back to array
             };
             $scope.friendArray = tempfriendarr;
-         };
+        };
     };
     // -----------
 
@@ -367,20 +367,8 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     //Callback function when the picture has been successfully taken
     function onPhotoDataSuccess(imageData) {
 
-        // *************************************************
-        // ***** Does MegaPixelImage Detection need to happen here also?????
-
-        //var megaPixelImg = new MegaPixImage(imageData);
-        //var h = window.innerHeight - 90;
-        //var w = window.innerWidth;
-        //megaPixelImg.render(backgroundImage, { maxWidth: w, maxHeight: h, quality: 0.5 });
-
-        // *************************************************
-
         backgroundImage.src = imageData; // use this for saving the canvas to file later
         $('#canvas').css('background-image', 'url(' + imageData + ')');// Set as Canvas background CSS
-
-        //ctx.drawImage(backgroundImage, 0, 0); // draw resampled photo on top of canvas.  Right here, this will cover up any drawing!!!!
 
     }
     //Callback function when the picture has not been successfully taken
@@ -432,14 +420,12 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
         initimage.onload = function () {
             savecanvasctx.drawImage(initimage, 0, 0);
             // Copy coloring book down
-            //drawImageScaled(coloringBookPage, "savecanvas"); // draw coloring book down
             var initimage2 = new Image();
             var initcanvas2 = document.getElementById("canvas0");
             initimage2.src = initcanvas2.toDataURL();
             initimage2.onload = function () {
                 savecanvasctx.drawImage(initimage2, 0, 0);
                 // Save the whole thing
-                alert('calling save');
                 saveImageDataToLibrary('savecanvas');
             };
         };
@@ -448,10 +434,10 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
 
     // Using plugin to save to camera roll / photo gallery and return file path
     function saveImageDataToLibrary(CanvasID) {
-        alert('called - ' + CanvasID);
+
         window.canvas2ImagePlugin.saveImageDataToLibrary(
             function (filepath) {
-                alert(filepath);
+
                 //console.log('image file path is: ' + filepath); //filepath is the filename path (for android and iOS)
                 //var uid = new Date().toJSON(); // make the ID a timestamp because PouchDB returns ordered ID (so now by datetime)
 
@@ -470,7 +456,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
             },
             function (err) {
                 console.log(err);
-                alert(err);
+                //alert(err);
             },
             document.getElementById(CanvasID) // This names the element that is the Canvas.  Other params can follow here with commas...format, quality,etc... ",'.jpg', 80," 
        );
@@ -574,6 +560,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 alert("Picture uploaded");
                 console.log('Insert successful');
                 $scope.shareSelectionArray = []; //empty the array
+
             };
         }, function (err) {
             console.log('Azure Error: ' + err);

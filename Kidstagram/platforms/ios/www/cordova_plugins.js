@@ -108,7 +108,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.2.2",
     "ionic-plugin-keyboard": "2.2.1",
     "org.rtwest.Canvas2ImagePlugin": "0.7.1",
-    "phonegap-plugin-push": "1.8.1"
+    "phonegap-plugin-push": "1.8.1",
+    "cordova-plugin-android-permissions": "0.10.0"
 }
 // BOTTOM OF METADATA
 });

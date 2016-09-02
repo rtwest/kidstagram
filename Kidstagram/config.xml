@@ -84,7 +84,6 @@
   </platform>
   <preference name="Orientation" value="portrait" />
   <access origin="http://rtwdevstorage.blob.core.windows.net" />
-  <preference name="android-maxSdkVersion" value="22" />
   <plugin name="cordova-plugin-dialogs" version="1.2.1" />
   <plugin name="phonegap-plugin-push" version="1.8.1">
     <variable name="SENDER_ID" value="168753624064" />
@@ -92,7 +91,7 @@
   <plugin name="org.rtwest.Canvas2ImagePlugin" version="0.7.1" src="https://github.com/rtwest/Canvas2ImagePlugin.git" />
   <plugin name="com.microsoft.azure-mobile-services" version="1.2.9" src="https://github.com/rtwest/azure-mobile-services-cordova.git" />
   <plugin name="cordova-plugin-inappbrowser" version="1.4.0" />
-  <!--<preference name="deployment-target" value="8.3" />-->
   <preference name="deployment-target" value="8.3" />
   <preference name="Fullscreen" value="True" />
+  <plugin name="cordova-plugin-android-permissions" version="0.10.0" src="https://github.com/NeoLSN/cordova-plugin-android-permission.git" />
 </widget>

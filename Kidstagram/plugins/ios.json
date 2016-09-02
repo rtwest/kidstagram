@@ -37,6 +37,9 @@
         "phonegap-plugin-push": {
             "SENDER_ID": "168753624064",
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-android-permissions": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         }
     },
     "dependent_plugins": {
