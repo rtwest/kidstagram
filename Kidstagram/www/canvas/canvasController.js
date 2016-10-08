@@ -16,7 +16,7 @@
 
 
 
-angular.module('cordovaNG').controller('canvasController', function ($scope, $http, globalService, Azureservice, $state) {
+angular.module('cordovaNG').controller('canvasController', function ($scope, $http, globalService, Azureservice, $state, $timeout) {
 
     // Scope is like the partial view datamodel.  'message' is defined in the partial html view
     //$scope.message = "Let's draw";
@@ -450,7 +450,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 }
                 imagepropertiesarray.push(record);
                 localStorage["RYB_imagepropertiesarray"] = JSON.stringify(imagepropertiesarray); //push back to localStorage
-                // @@@@ NEED BETTER SAVED INDICATOR
+                // @@@@ NEED BETTER SAVED INDICATOR  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2BLEH ELENA
                 alert("Saved");
 
             },
@@ -525,6 +525,9 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     //  @@@ For Loop didn't work so this uses Recursion to go through the share selection array
     //  ----------------------------------
     function shareOutToFriends(picture_url) {
+        
+        $("#ShareButton").attr('class', 'spinnerbuttonprogress');// *** Change button class to Loader
+
         var friend = $scope.shareSelectionArray[sharecount]; // format of item is "id,name".  ShareCount is looping through array
         var friendsplitarray = friend.split(","); // Split the string into an array by ","
         var tokid_id = friendsplitarray[0];
@@ -557,13 +560,20 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 // When all chained functions are done with URL creating, Image updating, and Record creation
                 // --------------------------
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@   NEED BETTER SUCCESS MESSAGE    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
-                alert("Picture uploaded");
                 console.log('Insert successful');
                 $scope.shareSelectionArray = []; //empty the array
 
+                $("#ShareButton").attr('class', 'spinnerbuttonsuccess');// *** Change button class to Success then back to Normal
+                $timeout(function () {
+                    $("#ShareButton").attr('class', 'button');
+                }, 2500);
             };
         }, function (err) {
             console.log('Azure Error: ' + err);
+            $("#ShareButton").attr('class', 'spinnerbuttonfail');// *** Change button class to Fail then back to Normal
+            $timeout(function () {
+                $("#ShareButton").attr('class', 'button');
+            }, 2500);
         });
 
     };

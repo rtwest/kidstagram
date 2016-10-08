@@ -8,23 +8,22 @@
                 <!--Comman Toolbar-->
         <!--<div class="palette-case" style="width:390px">-->
         <div class="bar bar-header bar-light">
-            <!--<button type="button" class="btn btn-default" style="box-shadow:none;" ng-click="newCanvas()">
+            <button type="button" class="button"  ng-click="newCanvas()">
                 <div class="svgicon new"></div>
-            </button>-->
-            <a class="button button-clear icon svgicon new" ng-click="newCanvas()"></a>
+            </button>
 
-            <button type="button" class="btn btn-default" style="box-shadow:none;" ng-click="saveImage()">
+            <button type="button" class="button" ng-click="saveImage()">
                 <div class="svgicon save"></div>
             </button>
-            <button type="button" class="btn btn-default" style="box-shadow:none;" ng-click="goToGallery()">
+            <button type="button" class="btn btn-default" ng-click="goToGallery()">
                 <div class="svgicon gallery"></div>
             </button>
             <!--Sharing options and close out any coloring page selection -->
-            <button type="button" class="btn btn-default" style="box-shadow:none;" ng-click="shareActionSheet=true;coloringbookActionSheet=false;">
+            <button id="ShareButton" type="button" class="button" ng-click="shareActionSheet=true;coloringbookActionSheet=false;">
                 <div class="svgicon share"></div>
             </button>
             <!--Select coloring page and close out any Share options -->
-            <button type="button" class="btn btn-default" style="box-shadow:none;" ng-click="coloringbookActionSheet=true;shareActionSheet=false;shareSelectionArray=[];toggleSelectArray=[]">
+            <button type="button" class="button" ng-click="coloringbookActionSheet=true;shareActionSheet=false;shareSelectionArray=[];toggleSelectArray=[]">
                 <div class="svgicon share"></div>
             </button>
         </div>
@@ -87,8 +86,6 @@
 
         </div>
 
-        <!--This is just for testing storage on Save -- Remove this!!!!-->
-        <!--<img id="imagegoeshere" style="position:absolute;top:600px" />-->
         <!--Friend List Repeater-->
         <div ng-show="shareActionSheet" style="position:absolute; top:60px;z-index:1000">
             <div ng-click="shareActionSheet=false;shareSelectionArray=[];toggleSelectArray=[]">Close</div>
