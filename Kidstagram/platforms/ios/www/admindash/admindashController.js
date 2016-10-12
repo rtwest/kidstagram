@@ -291,7 +291,21 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // This will be a default avatar the kid can change on first logon
     // ==========================================
     $scope.randomAvatarID = function() {
-        $scope.avatarID = Math.floor((Math.random() * 10) + 1); // Random number between 1-10
+        
+        var arrindex = Math.floor((Math.random() * 24) + 1); // Random number between 1-24
+
+        var avatarArray = [
+        "./img/avatars/lion-small.svg",
+        "./img/avatars/unicorn-small.svg",
+        "./img/avatars/catface-small.svg",
+        "./img/avatars/tigerface-small.svg",
+        "./img/avatars/giraffe-small.svg",
+        "./img/avatars/shark-small.svg",
+
+        ];
+
+        $scope.avatarID = avatarArray[arrindex];   // I THINK THIS NEEDS TO BE INT IN AZURE?
+
     };
     // ==========================================
 

@@ -291,7 +291,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // This will be a default avatar the kid can change on first logon
     // ==========================================
     $scope.randomAvatarID = function() {
-        $scope.avatarID = Math.floor((Math.random() * 10) + 1); // Random number between 1-10
+        $scope.avatarID = Math.floor(Math.random() * 24); // Random number between 0-23 // 24 items in array
     };
     // ==========================================
 

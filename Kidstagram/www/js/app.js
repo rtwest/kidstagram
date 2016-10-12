@@ -311,6 +311,41 @@ angular.module('cordovaNG', [
             return uuid;
         },
 
+        //Get Avatar from AvatarID
+        //------------------------
+        getAvatarFromID: function getAvatar(id) {  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+            avatarimagenamearray = [
+                "avatar.bear",
+                "avatar.bee",
+                "avatar.bird",
+                "avatar.catgrey",
+                "avatar.catred",
+                "avatar.dogbrown",
+                                "avatar.bear",
+                "avatar.bee",
+                "avatar.bird",
+                "avatar.catgrey",
+                "avatar.catred",
+                "avatar.dogbrown",
+                                "avatar.bear",
+                "avatar.bee",
+                "avatar.bird",
+                "avatar.catgrey",
+                "avatar.catred",
+                "avatar.dogbrown",
+                                "avatar.bear",
+                "avatar.bee",
+                "avatar.bird",
+                "avatar.catgrey",
+                "avatar.catred",
+                "avatar.dogbrown",
+            ];
+            avatarimage = "./img/avatars/" + avatarimagenamearray[id] + ".svg";
+
+            return avatarimage;
+        },
+
     };//end global function defintion
 
 }])

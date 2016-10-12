@@ -12,7 +12,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
     // ==========================================
 
     var clientGUID = globalService.userarray[0];
-    $scope.avatarID = globalService.userarray[3];
+    $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[3]); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
     $scope.clientName = globalService.userarray[4];
 
     // ==========================================

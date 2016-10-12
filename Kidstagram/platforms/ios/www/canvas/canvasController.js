@@ -16,7 +16,7 @@
 
 
 
-angular.module('cordovaNG').controller('canvasController', function ($scope, $http, globalService, Azureservice, $state) {
+angular.module('cordovaNG').controller('canvasController', function ($scope, $http, globalService, Azureservice, $state, $timeout) {
 
     // Scope is like the partial view datamodel.  'message' is defined in the partial html view
     //$scope.message = "Let's draw";
@@ -57,7 +57,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 tempfriendarr.push(element); // add back to array
             };
             $scope.friendArray = tempfriendarr;
-         };
+        };
     };
     // -----------
 
@@ -367,20 +367,8 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     //Callback function when the picture has been successfully taken
     function onPhotoDataSuccess(imageData) {
 
-        // *************************************************
-        // ***** Does MegaPixelImage Detection need to happen here also?????
-
-        //var megaPixelImg = new MegaPixImage(imageData);
-        //var h = window.innerHeight - 90;
-        //var w = window.innerWidth;
-        //megaPixelImg.render(backgroundImage, { maxWidth: w, maxHeight: h, quality: 0.5 });
-
-        // *************************************************
-
         backgroundImage.src = imageData; // use this for saving the canvas to file later
         $('#canvas').css('background-image', 'url(' + imageData + ')');// Set as Canvas background CSS
-
-        //ctx.drawImage(backgroundImage, 0, 0); // draw resampled photo on top of canvas.  Right here, this will cover up any drawing!!!!
 
     }
     //Callback function when the picture has not been successfully taken
@@ -432,7 +420,6 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
         initimage.onload = function () {
             savecanvasctx.drawImage(initimage, 0, 0);
             // Copy coloring book down
-            //drawImageScaled(coloringBookPage, "savecanvas"); // draw coloring book down
             var initimage2 = new Image();
             var initcanvas2 = document.getElementById("canvas0");
             initimage2.src = initcanvas2.toDataURL();
@@ -447,6 +434,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
 
     // Using plugin to save to camera roll / photo gallery and return file path
     function saveImageDataToLibrary(CanvasID) {
+
         window.canvas2ImagePlugin.saveImageDataToLibrary(
             function (filepath) {
 
@@ -462,8 +450,8 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 }
                 imagepropertiesarray.push(record);
                 localStorage["RYB_imagepropertiesarray"] = JSON.stringify(imagepropertiesarray); //push back to localStorage
-                // @@@@ NEED BETTER SAVED INDICATOR
-                //alert("Saved");
+                // @@@@ NEED BETTER SAVED INDICATOR  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2BLEH ELENA
+                alert("Saved");
 
             },
             function (err) {
@@ -537,6 +525,9 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     //  @@@ For Loop didn't work so this uses Recursion to go through the share selection array
     //  ----------------------------------
     function shareOutToFriends(picture_url) {
+        
+        $("#ShareButton").attr('class', 'spinnerbuttonprogress');// *** Change button class to Loader
+
         var friend = $scope.shareSelectionArray[sharecount]; // format of item is "id,name".  ShareCount is looping through array
         var friendsplitarray = friend.split(","); // Split the string into an array by ","
         var tokid_id = friendsplitarray[0];
@@ -569,12 +560,20 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
                 // When all chained functions are done with URL creating, Image updating, and Record creation
                 // --------------------------
                 // @@@@@@@@@@@@@@@@@@@@@@@@@@   NEED BETTER SUCCESS MESSAGE    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
-                alert("Picture uploaded");
                 console.log('Insert successful');
                 $scope.shareSelectionArray = []; //empty the array
+
+                $("#ShareButton").attr('class', 'spinnerbuttonsuccess');// *** Change button class to Success then back to Normal
+                $timeout(function () {
+                    $("#ShareButton").attr('class', 'button');
+                }, 2500);
             };
         }, function (err) {
             console.log('Azure Error: ' + err);
+            $("#ShareButton").attr('class', 'spinnerbuttonfail');// *** Change button class to Fail then back to Normal
+            $timeout(function () {
+                $("#ShareButton").attr('class', 'button');
+            }, 2500);
         });
 
     };
@@ -752,12 +751,12 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     // -----------------------------------------------------------------------
 
     $scope.coloringbookArray = [
-        "./img/lion-small.svg",
-        "./img/unicorn-small.svg",
-        "./img/catface-small.svg",
-        "./img/tigerface-small.svg",
-        "./img/giraffe-small.svg",
-        "./img/shark-small.svg",
+        "./img/coloringbook1/lion-small.svg",
+        "./img/coloringbook1/unicorn-small.svg",
+        "./img/coloringbook1/catface-small.svg",
+        "./img/coloringbook1/tigerface-small.svg",
+        "./img/coloringbook1/giraffe-small.svg",
+        "./img/coloringbook1/shark-small.svg",
         //"./img/unicorn.svg",
         //"./img/unicorn.svg",
     ];

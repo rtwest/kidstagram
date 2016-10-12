@@ -751,12 +751,12 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     // -----------------------------------------------------------------------
 
     $scope.coloringbookArray = [
-        "./img/lion-small.svg",
-        "./img/unicorn-small.svg",
-        "./img/catface-small.svg",
-        "./img/tigerface-small.svg",
-        "./img/giraffe-small.svg",
-        "./img/shark-small.svg",
+        "./img/coloringbook1/lion-small.svg",
+        "./img/coloringbook1/unicorn-small.svg",
+        "./img/coloringbook1/catface-small.svg",
+        "./img/coloringbook1/tigerface-small.svg",
+        "./img/coloringbook1/giraffe-small.svg",
+        "./img/coloringbook1/shark-small.svg",
         //"./img/unicorn.svg",
         //"./img/unicorn.svg",
     ];
