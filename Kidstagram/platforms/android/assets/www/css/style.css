@@ -34,8 +34,8 @@ body{
     animation: slideOutLeft 0.5s both ease-in; z-index: 9999; 
 }*/
 
-/* ========================================================= */
 
+/* FONT ========================================================= */
 @font-face {
     font-family: 'Kingthings Clarity';
     src: url('../fonts/Kingthings Clarity1.1.ttf');
@@ -51,7 +51,7 @@ body{
 }
 
 
-/* ========================================================= */
+/* ICONS ========================================================= */
 
 .svgicon {
     background-image: url('../img/kidstagramicons.svg');
@@ -168,6 +168,10 @@ body{
     width: 28px; 
     height: 32px;
 }
+
+
+/* SPINNER ========================================================= */
+
 .spinnerbuttonprogress {
   height: 30px;
   width: 30px;
@@ -206,7 +210,7 @@ body{
     background-color:#e65c5c;
 }
 
-/*========================================*/
+/* picture thumbnail in event log ========================================*/
 
 .smallimage {
     max-width: 33.33%;
@@ -218,11 +222,29 @@ body{
     padding-left:0;
 }*/
 
-/*========================================*/
+/* for testing only ========================================*/
 .selecteddiv {
     background-color: #00bfff;
     color: #fff;
 }
 
+/* EVENT LOGS ========================================*/
+
+.eventlogdate {
+    color:#bbbdbf;
+    font-size:28px;
+    padding: 2px 16px;
+}
+.eventlogcard {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px; 
+}
+.eventlogcardcontainer {
+    padding: 2px 16px;
+}
+.eventlogtime {
+    color: #d0d2d3;
+    font-size:24px;
+}
 
 

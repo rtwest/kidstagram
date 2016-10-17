@@ -313,8 +313,7 @@ angular.module('cordovaNG', [
 
         //Get Avatar from AvatarID
         //------------------------
-        getAvatarFromID: function getAvatar(id) {  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+        getAvatarFromID: function getAvatar(id) {
             avatarimagenamearray = [
                 "avatar.bear",
                 "avatar.bee",
@@ -322,29 +321,29 @@ angular.module('cordovaNG', [
                 "avatar.catgrey",
                 "avatar.catred",
                 "avatar.dogbrown",
-                                "avatar.bear",
-                "avatar.bee",
-                "avatar.bird",
-                "avatar.catgrey",
-                "avatar.catred",
-                "avatar.dogbrown",
-                                "avatar.bear",
-                "avatar.bee",
-                "avatar.bird",
-                "avatar.catgrey",
-                "avatar.catred",
-                "avatar.dogbrown",
-                                "avatar.bear",
-                "avatar.bee",
-                "avatar.bird",
-                "avatar.catgrey",
-                "avatar.catred",
-                "avatar.dogbrown",
+                "avatar.dogears",
+                "avatar.doggrey",
+                "avatar.dogred",
+                "avatar.elephant",
+                "avatar.fox",
+                "avatar.horse",
+                "avatar.horsegrey",
+                "avatar.koala",
+                "avatar.leopard",
+                "avatar.lion",
+                "avatar.monkey",
+                "avatar.moose",
+                "avatar.panda",
+                "avatar.rabbitbrown",
+                "avatar.rabbitred",
+                "avatar.racoon",
+                "avatar.robot",
+                "avatar.zebra",
             ];
             avatarimage = "./img/avatars/" + avatarimagenamearray[id] + ".svg";
-
             return avatarimage;
         },
+
 
     };//end global function defintion
 

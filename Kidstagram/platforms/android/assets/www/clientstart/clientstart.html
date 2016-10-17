@@ -10,7 +10,7 @@
 
         <div>client name, registration code, avatar</div>
         <div>{{clientName}}</div>
-        <div><img src={{avatarID}} height="100" width="100"></div>
+        <div><img src={{avatarID}} height="100" width="100"></div> <!--EACH IMAGE IS A DIFFERENT SIZE. DOH!-->
 
 
         <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
@@ -25,27 +25,38 @@
             Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
             Have to have the element ID on everything because the obj id is passed where ever you click-->
         <script type="text/ng-template" id="repeaterTemplate.html">
-            <div class="card">
-                <!--If row.day is not Null, then show it-->
-                <div ng-show="row.day"><strong> day is {{row.day}}</strong></div>
-                <div>
-                    <!--{{row.datetime | date:"EEEE, MMM d"}}-->
-                    {{row.time}}
-                </div>
-                <div>{{row.fromkid}}</div>
-                <div>{{row.fromkidavatar}}</div>
-                <div>{{row.event_type}}</div>
+            
+            <!--If row.day is not Null, then show it-->
+            <div class="eventlogdate" ng-show="row.day">day is {{row.day}}</div>
+            
+            <div class="eventlogcard">            
+                
+                <div class="eventlogcardcontainer">
+                    <div>{{row.fromkid}}</div>
+                    <img src={{row.fromkidavatar}} height="100" width="100">
+                    <div>{{row.event_type}}</div>
 
-                <!--Nested repeater within the first JSON array-->
-                <div ng-repeat="subarrayitem in row.tokid">
-                    <div style="color:red">{{subarrayitem.tokidname}}</div>
-                    <div>{{subarrayitem.tokidavatar}}</div>
-                    <div>{{subarrayitem.tokidreply}}</div>
+                    <!--Nested repeater within the first JSON array-->
+                    <div ng-repeat="subarrayitem in row.tokid">
+                        <div>{{subarrayitem.tokidname}}</div>
+                        <img src={{subarrayitem.tokidavatar}} height="100" width="100">
+                        <div>{{subarrayitem.tokidreply}}</div>
+                    </div>
+
+                    <!--THE TEXT EVENT DESCRIPTION GOES HERE-->
+
+                    <span class="eventlogtime">
+                        <!--{{row.datetime | date:"EEEE, MMM d"}}-->
+                        {{row.time}}
+                    </span>
                 </div>
 
                 <div ng-show="row.picture_url">
-                    <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" class="smallimage" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
-                </div>
+                    <!--<img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />-->
+                    <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+
+                 </div>
+
 
             </div>
         </script>

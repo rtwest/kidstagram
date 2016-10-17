@@ -58,7 +58,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                 record_id: items[i].id,
                                 friend_id: items[i].kid2_id,
                                 friend_name: items[i].kid2_name,
-                                friend_avatar: items[i].kid2_avatar,  
+                                friend_avatar: items[i].kid2_avatar,
                                 //friend_parentname: ' ',
                                 //friend_parentemail: ' ',
                             };
@@ -202,12 +202,12 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               //picture_url: items[i].picture_url,  // not relevant in this case
                               //fromkid: from_check,  // who shared it
                               fromkid: items[i].fromkid_name,
-                              fromkidavatar: items[i].fromkid_avatar,
+                              fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                               fromkid_id: items[i].fromkid_id,
                               tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                   tokidname: items[i].tokid_name,  // each kids shared with
                                   tokid_id: items[i].tokid_id,
-                                  tokidavatar: items[i].tokid_avatar,
+                                  tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                   tokidreply: '',  // null in this case
                               }],
                               event_type: event_type, // 
@@ -242,7 +242,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                   // ------------
                                   var kidobject = {
                                       tokidname: items[i].tokid_name,
-                                      tokidavatar: items[i].tokid_avatar,
+                                      tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                       tokidreply: '', //null in this case
                                   };
                                   tempArray[x].tokid.push(kidobject);
@@ -301,13 +301,13 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                               picture_url: items[i].picture_url, // this object is all about what happens around this image url
                               fromkid: from_check,  // who shared it
-                              fromkidavatar: items[i].fromkid_avatar,
+                              fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                               fromkid_id: items[i].fromkid_id,
                               tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                   tokidname: items[i].tokid_name,  // each kids shared with
                                   //tokidname: from_check,  // each kids shared with
                                   tokid_id: items[i].tokid_id,
-                                  tokidavatar: items[i].tokid_avatar,
+                                  tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                   tokidreply: "",  // null right now
                               }],
                               event_type: event_type, // 

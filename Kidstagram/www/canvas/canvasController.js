@@ -63,6 +63,33 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
 
 
 
+    //FOR TESTING ONLY
+    //=================================
+    //=================================
+    //Azureservice.insert('events', {
+    //                //id: guid, // I'll let Azure handle this GUID since I don't need to track it locally        
+    //                fromkid_id: 'c8d9c5e4-1402-4b36-829c-d1bb751372fb',
+    //                tokid_id: 'test',
+    //                fromkid_avatar: '3',
+    //                tokid_avatar: '23',
+    //                fromkid_name: 'Hermione',
+    //                tokid_name: 'test',
+    //                datetime: Date.now(),
+    //                event_type: "friends",
+    //            })
+    //            .then(function () {
+    //                console.log('new event insert successful');
+    //            },
+    //            function (err) {
+    //                console.error('Azure Error: ' + err);
+    //            });
+    //=================================
+    //=================================
+
+
+
+
+
     //// Test for touch device - NOT USED
     //// ---------------------
     //function isTouchDevice() {
