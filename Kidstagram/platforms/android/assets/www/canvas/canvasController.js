@@ -680,7 +680,8 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
             response.success(function (data, status, headers, config) { // response will send json in the parts
 
                 sasUrl = data.sasUrl;
-                picture_url = "https://rtwdevstorage.blob.core.windows.net/imagecontainer/" + data.photoId;  //  // photoID is image created on the Node side script
+                //picture_url = "https://rtwdevstorage.blob.core.windows.net/imagecontainer/" + data.photoId; // photoID is image created on the Node side script
+                picture_url = "http://rtwdevstorage.blob.core.windows.net/imagecontainer/" + data.photoId;  // HTTPS wasn't loading but HTTP would
 
                 // Image URL is https://rtwdevstorage.blob.core.windows.net/imagecontainer/6364260670030.png  or http://rtwdevstorage.blob.core.windows.net:80/imagecontainer/6364260670030.png            
 
@@ -691,7 +692,7 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
             });
             response.error(function (data, status, headers, config) {
                 console.log("error - " + status);
-                //alert(status);
+                alert(status);
             });
         };
 

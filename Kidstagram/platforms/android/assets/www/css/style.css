@@ -232,19 +232,25 @@ body{
 
 .eventlogdate {
     color:#bbbdbf;
-    font-size:28px;
-    padding: 2px 16px;
+    font-size:14px;
+    text-align:center;
+    padding-top:30px;
+    padding-bottom:17px;
 }
 .eventlogcard {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 10px; 
+    margin-left:10px;
+    margin-right:10px;
+    background-color:#fff;
+    padding-bottom:5px;    /*space for curve of card*/
 }
 .eventlogcardcontainer {
-    padding: 2px 16px;
+    padding: 17px;
 }
 .eventlogtime {
     color: #d0d2d3;
-    font-size:24px;
+    font-size:14px;
 }
 
 

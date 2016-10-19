@@ -1,5 +1,5 @@
 ﻿<!-- Client start and home page -->
-<ion-view>
+<ion-view style="background-color:#f7f7f7">
     <ion-content>
         <p>Client start and home page</p>
 
@@ -27,7 +27,7 @@
         <script type="text/ng-template" id="repeaterTemplate.html">
             
             <!--If row.day is not Null, then show it-->
-            <div class="eventlogdate" ng-show="row.day">day is {{row.day}}</div>
+            <div class="eventlogdate" ng-show="row.day">{{row.day}}</div>
             
             <div class="eventlogcard">            
                 
@@ -52,9 +52,7 @@
                 </div>
 
                 <div ng-show="row.picture_url">
-                    <!--<img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />-->
-                    <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
-
+                    <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
                  </div>
 
 
