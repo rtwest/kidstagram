@@ -132,7 +132,8 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                   var day, time, fromkid, tokid, lastimageurl, lasteventtype;
                   thiseventday = new Date();
                   nexteventday = new Date();
-                  montharray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  montharray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                  dayarray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 
                   for (i = 0; i < len; i++) {
 
@@ -153,7 +154,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               // If Day is Today-1, Then its Yesterday
                           else if ((thiseventday.getDate() == (today.getDate() - 1)) && (thiseventday.getMonth() == today.getMonth())) {
                               day = 'Yesterday';}
-                          else { day = montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
+                          else { day = dayarray[thiseventday.getDay()] + ", " + montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
                       }
                       else { // If this IS last in array, then it has to have the date header
                           if ((thiseventday.getDate() == today.getDate()) && (thiseventday.getMonth() == today.getMonth())) {
@@ -161,7 +162,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               // If Day is Today-1, Then its Yesterday
                           else if ((thiseventday.getDate() == (today.getDate() - 1)) && (thiseventday.getMonth() == today.getMonth())) {
                               day = 'Yesterday';}
-                          else { day = montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
+                          else { day = dayarray[thiseventday.getDay()] + ", " + montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
                       }
 
                       // @@@ Get time 
@@ -172,10 +173,10 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                           minutes = "0" + minutes;
                       };
                       if (t > 12) {
-                          time = Math.abs(12 - t) + ":" + minutes + "pm";  // break down the 24h and use Am/pm
+                          time = Math.abs(12 - t) + ":" + minutes + " pm";  // break down the 24h and use Am/pm
                       }
                       else {
-                          time = t + ":" + minutes + "am";  // break down the 24h and use Am/pm
+                          time = t + ":" + minutes + " am";  // break down the 24h and use Am/pm
                       }
 
                       // @@@ Small check to personalize the event details if it is YOU

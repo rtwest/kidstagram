@@ -32,24 +32,26 @@
             <div class="eventlogcard">            
                 
                 <div class="eventlogcardcontainer">
-                    <div>{{row.fromkid}}</div>
-                    <img src={{row.fromkidavatar}} height="100" width="100">
-                    <div>{{row.event_type}}</div>
+                    
+                    <img src={{row.fromkidavatar}} class="avatar-medium">
+                    
 
                     <!--Nested repeater within the first JSON array-->
                     <div ng-repeat="subarrayitem in row.tokid">
                         <div>{{subarrayitem.tokidname}}</div>
-                        <img src={{subarrayitem.tokidavatar}} height="100" width="100">
+                        <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
                         <div>{{subarrayitem.tokidreply}}</div>
                     </div>
 
                     <!--THE TEXT EVENT DESCRIPTION GOES HERE-->
+                    <span>{{row.fromkid}}</span>
+                    <span>{{row.event_type}}</span>
 
                     <span class="eventlogtime">
                         <!--{{row.datetime | date:"EEEE, MMM d"}}-->
                         {{row.time}}
                     </span>
-                </div>
+                </div>  <!--end event container-->
 
                 <div ng-show="row.picture_url">
                     <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />

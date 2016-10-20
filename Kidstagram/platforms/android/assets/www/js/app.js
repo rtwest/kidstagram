@@ -57,7 +57,7 @@ angular.module('cordovaNG', [
 
             // Handle the registration event.
             pushNotification.on('registration', function (data) {
-                alert(JSON.stringify(data)); console.log(JSON.stringify(data));
+                //alert(JSON.stringify(data)); console.log(JSON.stringify(data));
                 // Get the native platform of the device.
                 var platform = device.platform;
                 // Get the handle returned during registration.
@@ -85,6 +85,7 @@ angular.module('cordovaNG', [
             pushNotification.on('notification', function (data) {
                 // Display the alert message in an alert.
                 alert(data.message);
+                console.log(data.message);
                 // Reload the items list.
                 //app.Storage.getData();
             });
@@ -93,13 +94,16 @@ angular.module('cordovaNG', [
             pushNotification.on('error', function (e) {
                 // Display the error message in an alert.
                 alert('error on registration = ' + e.message);
+                console.log('error on registration = ' + e.message);
             });
 
             var registrationSuccess = function () {
-                alert('Registered with Azure!'); console.log('Registered with Azure');
+                //alert('Registered with Azure!');
+                console.log('Registered with Azure');
             }
             var registrationFailure = function (error) {
-                alert('Failed registering with Azure: ' + error); console.log('Failed registering with Azure: ' + error);
+                alert('Failed registering with Azure: ' + error);
+                console.log('Failed registering with Azure: ' + error);
             }
 
         };//end Push Notification setup

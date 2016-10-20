@@ -252,5 +252,9 @@ body{
     color: #d0d2d3;
     font-size:14px;
 }
+.avatar-medium {
+    height:55px;
+    width:55px;
+}
 
 
