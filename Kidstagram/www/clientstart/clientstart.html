@@ -33,9 +33,26 @@
                 
                 <div class="eventlogcardcontainer">
                     
+                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
+                    <div ng-show="row.event_type=='friends'"> 
+                        <img src={{row.fromkidavatar}} class="avatar-medium">
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
+                        </div>
+                        <span>{{row.event_desc}}</span>
+                    </div> <!--end conditional format-->
+
+                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
+                    <div ng-show="row.event_type=='friends'">
+                    </div> <!--end conditional format--> 
+
+                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
+                    <div ng-show="row.event_type=='friends'">
+                    </div> <!--end conditional format--> 
+
+
                     <img src={{row.fromkidavatar}} class="avatar-medium">
                     
-
                     <!--Nested repeater within the first JSON array-->
                     <div ng-repeat="subarrayitem in row.tokid">
                         <div>{{subarrayitem.tokidname}}</div>
@@ -44,8 +61,7 @@
                     </div>
 
                     <!--THE TEXT EVENT DESCRIPTION GOES HERE-->
-                    <span>{{row.fromkid}}</span>
-                    <span>{{row.event_type}}</span>
+                    <span>{{row.event_desc}}</span>
 
                     <span class="eventlogtime">
                         <!--{{row.datetime | date:"EEEE, MMM d"}}-->
@@ -58,7 +74,7 @@
                  </div>
 
 
-            </div>
+            </div>  <!--end eventlog card-->
         </script>
 
 </ion-content>

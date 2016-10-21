@@ -199,6 +199,14 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       // @@@ If a 'friend' event, it does not have a URL
                       // ---------------------------------
                       if (event_type == 'friends') {
+                          var event_desc = ''
+                          if (items[i].fromkid_id == clientGUID) {
+                              event_desc = "You and " + items[i].tokid_name + " are friends";
+                          }
+                          else {
+                              event_desc = "You and " + items[i].fromkid_name + " are friends";
+                          };
+
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                               //picture_url: items[i].picture_url,  // not relevant in this case
                               //fromkid: from_check,  // who shared it
@@ -215,6 +223,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               comment_content: items[i].comment_content,
                               day: day,
                               time: time,
+                              event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
                       }
