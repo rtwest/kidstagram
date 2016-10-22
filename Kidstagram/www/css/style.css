@@ -239,22 +239,27 @@ body{
 }
 .eventlogcard {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 10px; 
+    border-radius: 6px; 
     margin-left:10px;
     margin-right:10px;
     background-color:#fff;
-    padding-bottom:5px;    /*space for curve of card*/
+    padding-bottom:4px;    /*space for curve of card*/
 }
 .eventlogcardcontainer {
     padding: 17px;
 }
-.eventlogtime {
+.eventlogdesc {
+    font-size:16px;
+}.eventlogtime {
     color: #d0d2d3;
-    font-size:14px;
+    font-size:12px;
 }
 .avatar-medium {
     height:55px;
     width:55px;
 }
-
+.avatar-small {
+    height:30px;
+    width:30px;
+}
 

@@ -199,12 +199,12 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       // @@@ If a 'friend' event, it does not have a URL
                       // ---------------------------------
                       if (event_type == 'friends') {
-                          var event_desc = ''
+                          var event_desc;
                           if (items[i].fromkid_id == clientGUID) {
-                              event_desc = "You and " + items[i].tokid_name + " are friends";
+                              event_desc = "You and " + items[i].tokid_name + " are now friends";
                           }
                           else {
-                              event_desc = "You and " + items[i].fromkid_name + " are friends";
+                              event_desc = "You and " + items[i].fromkid_name + " are now friends";
                           };
 
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
@@ -305,7 +305,13 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       }; //end for
 
                       if ((imageurlfound == false) && (event_type == 'sharepicture')) {  // New SharedUrl found 
-
+                          var event_desc;
+                          if (items[i].fromkid_id == clientGUID) {
+                              event_desc = "You shared a drawing with " + items[i].tokid_name;
+                          }
+                          else {
+                              event_desc = items[i].fromkid_name + "shared a drawing with you";
+                          };
                           // @@@@ Make new array object for UI 
                           // ==============================
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
@@ -324,6 +330,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               comment_content: items[i].comment_content,
                               day: day,
                               time: time,
+                              event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
                       };

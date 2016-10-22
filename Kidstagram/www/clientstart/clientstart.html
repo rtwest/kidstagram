@@ -1,17 +1,14 @@
 ﻿<!-- Client start and home page -->
 <ion-view style="background-color:#f7f7f7">
     <ion-content>
-        <p>Client start and home page</p>
 
-        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoCanvasView()">Draw</button>
-        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoGalleryView()">Gallery</button>
-        <button type="button" class="btn btn-primary" style="box-shadow:none;">Friends</button>
-
-
-        <div>client name, registration code, avatar</div>
         <div>{{clientName}}</div>
         <div><img src={{avatarID}} height="100" width="100"></div> <!--EACH IMAGE IS A DIFFERENT SIZE. DOH!-->
 
+
+        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoCanvasView()">Draw</button>
+        <div> STAR COUNT GOES HERE</div>
+        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoGalleryView()">Gallery</button>
 
         <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
         <div>
@@ -35,44 +32,54 @@
                     
                     <!--TEMPLATE EVENT TYPE IS 'friends'-->
                     <div ng-show="row.event_type=='friends'"> 
-                        <img src={{row.fromkidavatar}} class="avatar-medium">
-                        <div ng-repeat="subarrayitem in row.tokid">
-                            <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
+                        <div>
+                            <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                            <div ng-repeat="subarrayitem in row.tokid">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-medium" style="float:left">
+                            </div>
                         </div>
-                        <span>{{row.event_desc}}</span>
+                        <div>
+                            <span class="eventlogdesc">{{row.event_desc}}</span>
+                            <span class="eventlogtime"><!--{{row.datetime | date:"EEEE, MMM d"}}-->{{row.time}}</span>
+                        </div>
+
                     </div> <!--end conditional format-->
 
-                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
-                    <div ng-show="row.event_type=='friends'">
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to 1 person.  ToKid array does NOT have n>1 -->
+                    <div ng-show="row.event_type=='sharepicture' && !row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium">
+                        <!--Nested repeater within the first JSON array-->
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
+                            <div>{{subarrayitem.tokidreply}}</div>
+                        </div>
+                        <span class="eventlogdesc">{{row.event_desc}}</span>
+                        <span class="eventlogtime">{{row.time}}</span>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />            
                     </div> <!--end conditional format--> 
 
-                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
-                    <div ng-show="row.event_type=='friends'">
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to MORE THAN 1 person.  ToKid array does have n>1 -->
+                    <div ng-show="row.event_type=='sharepicture' && row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium">
+                        <span class="eventlogdesc">{{row.event_desc}}</span>
+                        <span class="eventlogtime">{{row.time}}</span>
+                        <!--Nested repeater within the first JSON array-->
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                        <!--Nested repeater within the first JSON array-->
+                        <div class="eventlogdesc">These friends sent you stars!</div>
+                        <div ng-repeat="subarrayitem in row.tokid">  <!--Show if there are Likes-->
+                            <div ng-show="subarrayitem.tokidreply">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <span>{{subarrayitem.tokid_name}}</span>
+                                <div>STAR IMAGE GOES HERE</div>
+                            </div>
+                        </div>
                     </div> <!--end conditional format--> 
 
-
-                    <img src={{row.fromkidavatar}} class="avatar-medium">
-                    
-                    <!--Nested repeater within the first JSON array-->
-                    <div ng-repeat="subarrayitem in row.tokid">
-                        <div>{{subarrayitem.tokidname}}</div>
-                        <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
-                        <div>{{subarrayitem.tokidreply}}</div>
-                    </div>
-
-                    <!--THE TEXT EVENT DESCRIPTION GOES HERE-->
-                    <span>{{row.event_desc}}</span>
-
-                    <span class="eventlogtime">
-                        <!--{{row.datetime | date:"EEEE, MMM d"}}-->
-                        {{row.time}}
-                    </span>
                 </div>  <!--end event container-->
-
-                <div ng-show="row.picture_url">
-                    <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
-                 </div>
-
 
             </div>  <!--end eventlog card-->
         </script>
