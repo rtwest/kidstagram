@@ -288,7 +288,7 @@ body{
     height:94px;
     background-image: url('../img/header/headerbackground.svg');
     background-repeat: no-repeat;
-    background-size:120%;
+    background-size:100%;
 }
 .avatarbackground {
     padding-top:15px;
