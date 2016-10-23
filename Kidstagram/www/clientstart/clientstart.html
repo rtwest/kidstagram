@@ -8,9 +8,20 @@
             <!--{{clientName}}-->    
         </div>
 
-        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoCanvasView()">Draw</button>
-        <div> STAR COUNT GOES HERE</div>
-        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoGalleryView()">Gallery</button>
+        <div id="eventlogheaderbuttons">
+            <div class="imagebuttonwrapper" style="float:left">
+                <img src="../img/draw_button_large.svg" ng-click="gotoCanvasView()">
+                <div>DRAW</div>
+            </div>
+            <div style="float:left; width:120px; text-align:center">
+                <img src="../img/draw_button_large.svg" style="height:56px">
+                <div style="font-size:24px;">34</div>
+            </div>
+            <div class="imagebuttonwrapper" style="float:left">
+                <img src="../img/gallery_button_large.svg" ng-click="gotoGalleryView()">
+                <div>MY ART</div>
+            </div>
+        </div>
 
         <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
         <div>

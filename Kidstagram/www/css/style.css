@@ -285,13 +285,13 @@ body{
 }
 #eventlogheader {
     background-color:#262261;
-    height:94px;
+    height:90px;
     background-image: url('../img/header/headerbackground.svg');
     background-repeat: no-repeat;
-    background-size:100%;
+    background-size:120%;
 }
 .avatarbackground {
-    padding-top:15px;
+    padding-top:10px;
     margin-left: auto;
     margin-right: auto;
     display: block;  
@@ -303,5 +303,19 @@ body{
     margin-right: auto;
     display: block; 
     margin-top:-74px; 
+}
+#eventlogheaderbuttons {
+    margin-top:20px;
+    margin-bottom:24px;
+    height:82px;
+    width:235px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.imagebuttonwrapper {
+    width:56px;
+    height:56px;
+    text-align:center;
+    color:#26a9e0;
 }
 
