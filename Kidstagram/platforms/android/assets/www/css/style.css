@@ -210,23 +210,37 @@ body{
     background-color:#e65c5c;
 }
 
-/* picture thumbnail in event log ========================================*/
 
+
+
+
+
+
+
+/* picture thumbnail in event log ========================================*/
 .smallimage {
     max-width: 33.33%;
     height: auto;
 }
-
 /*.no-gutter > [class*='col-'] {
     padding-right:0;
     padding-left:0;
 }*/
-
 /* for testing only ========================================*/
 .selecteddiv {
     background-color: #00bfff;
     color: #fff;
 }
+
+
+
+
+
+
+
+
+
+
 
 /* EVENT LOGS ========================================*/
 
@@ -234,12 +248,12 @@ body{
     color:#bbbdbf;
     font-size:14px;
     text-align:center;
-    padding-top:30px;
+    padding-top:42px; /*was 30 then added 12 to compensate for the neg margin on card to make single days (no date inbetween) overlap and look like 1 card*/
     padding-bottom:17px;
 }
 .eventlogcard {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 6px; 
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.15);
+    border-radius: 8px; 
     margin-left:10px;
     margin-right:10px;
     background-color:#fff;
@@ -248,18 +262,46 @@ body{
 .eventlogcardcontainer {
     padding: 17px;
 }
+.eventdescblock {
+    margin-left:67px;
+    padding-top:6px;
+}
 .eventlogdesc {
     font-size:16px;
+    display:inline;
+    margin-right:5px;
 }.eventlogtime {
     color: #d0d2d3;
     font-size:12px;
+    display:inline;
 }
 .avatar-medium {
     height:55px;
     width:55px;
 }
 .avatar-small {
-    height:30px;
+    height:25px;
     width:30px;
+}
+#eventlogheader {
+    background-color:#262261;
+    height:94px;
+    background-image: url('../img/header/headerbackground.svg');
+    background-repeat: no-repeat;
+    background-size:120%;
+}
+.avatarbackground {
+    padding-top:15px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;  
+}
+.headeravatar {
+    height:60px;
+    width:60px; 
+    margin-left: auto;
+    margin-right: auto;
+    display: block; 
+    margin-top:-74px; 
 }
 

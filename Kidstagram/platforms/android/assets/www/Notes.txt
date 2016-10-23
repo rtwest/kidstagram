@@ -1,9 +1,9 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
-- !!!! Build the event string and display
-- !!!! Need some NG css class toggel for avatar size to show little avatar when you share to multiple people
-- !!!! Starts to look custom template depending on the case on the Client side
-
+- !!!! TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
+- !!!! Have to send LIKE on friends PIC
+- !!!! Have to get the multiple cards on A DAY to join.  Works if I take the drop shadow blur down to 6px and drop the card radius.
+- !!!! Add StarCount to localstorage array
 
 - loader
 - confirmation

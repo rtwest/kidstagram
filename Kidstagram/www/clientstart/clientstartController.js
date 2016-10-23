@@ -239,13 +239,17 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       var tempArrayLength = tempArray.length;
                       for (x = 0; x < tempArrayLength; x++) { // Loop through to array for ImageID
 
+                          // If known image found - Inspect to know how to add to Object
                           if (tempArray[x].picture_url == items[i].picture_url) {
 
-                              ///alert('found imageurl')
-                              // Inspect to know how to add to Object
-                              // ------------
-                              // cases: SharePicture - track this url.  Like Picture - append to tracked url.  
-                              
+                              //var event_desc;
+                              //if (items[i].fromkid_id == clientGUID) {
+                              //    event_desc = "You shared a drawing with " + items[i].tokid_name;
+                              //}
+                              //else {
+                              //    event_desc = items[i].fromkid_name + "shared a drawing with you"; //this probably can never be a case.
+                              //};
+
                               // url, shared, to any kid
                               if (event_type == 'sharepicture') {
                                   // Update object to add ToKid element
@@ -255,10 +259,13 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                       tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                       tokidreply: '', //null in this case
                                   };
-                                  tempArray[x].tokid.push(kidobject);
-                              }
+                                  tempArray[x].tokid.push(kidobject);                                 
+                                  tempArray[x].event_desc = tempArray[x].event_desc + ", " + items[i].tokid_name;
 
-                                  // @@@@@@@@@@@@@@@@@@@@
+                                  // ***********8888build the event description string better by looping through 'ToKid' so you know first and last
+                                  
+
+                              }
                               // url, liked, from any kid
                               else if (event_type == 'like') {
                                   // Update your reply in the ToKid element
