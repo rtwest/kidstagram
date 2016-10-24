@@ -318,9 +318,11 @@ body{
     text-align:center;
     color:#26a9e0;
 }
-.starprogress {
+#starprogress {
     width:56px;
     height:10px;  /*this is the height of the progress indicator*/
     background-color:#fff100;
+    margin-left:auto;
+    margin-right:auto;
 }
 
