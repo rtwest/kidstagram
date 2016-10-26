@@ -2,7 +2,6 @@
 -----------------------------
 - !!!! TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
 - !!!! Have to send LIKE on friends PIC
-- !!!! Have to get the multiple cards on A DAY to join.  Works if I take the drop shadow blur down to 6px and drop the card radius.
 - !!!! Add StarCount to localstorage array
 
 - loader

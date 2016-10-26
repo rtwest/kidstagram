@@ -3,23 +3,24 @@
     <ion-content>
 
         <div id="eventlogheader">
-            <img src="../img/header/headeravatarbackground.svg" class="avatarbackground">
+            <img src="./img/header/headeravatarbackground.svg" class="avatarbackground">
             <img src={{avatarID}} class="headeravatar">
             <!--{{clientName}}-->    
         </div>
 
         <div id="eventlogheaderbuttons">
             <div class="imagebuttonwrapper" style="float:left">
-                <img src="../img/draw_button_large.svg" ng-click="gotoCanvasView()">
+                <img src="./img/draw_button_large.svg" ng-click="gotoCanvasView()">
                 <div>DRAW</div>
             </div>
-            <div style="float:left; width:120px; text-align:center">
+            <div style="float:left; width:120px;text-align:center;margin-top:-3px">
+                <div class="starprogressbackground"></div>
                 <div id="starprogress"></div>
-                <img src="../img/star_chart_overlay2.svg">
-                <div style="font-size:24px;">24</div>
+                <img src="./img/star_chart_overlay2.svg" style="height:60px;position:absolute;margin-left:-32px;" >
+                <div style="margin-top:67px;font-size:24px">24</div>
             </div>
             <div class="imagebuttonwrapper" style="float:left">
-                <img src="../img/gallery_button_large.svg" ng-click="gotoGalleryView()">
+                <img src="./img/gallery_button_large.svg" width="61" ng-click="gotoGalleryView()">
                 <div>MY ART</div>
             </div>
         </div>
@@ -39,7 +40,7 @@
             
             <!--If row.day is not Null, then show it-->
             <div class="eventlogdate" ng-show="row.day">{{row.day}}</div>
-            
+
             <div class="eventlogcard">            
                 
                 <div class="eventlogcardcontainer">
@@ -99,7 +100,12 @@
             </div>  <!--end eventlog card-->
         </script>
 
-        <div class="eventlogdate" style="color:black">What are you waiting for!</div>
-        <div>PEN ICON GOES HERE</div>
+        <div class="eventlogdate" style="color:black;margin-bottom:20px">
+            <p>
+                What are you waiting for!
+            </p>
+            <img src="./img/draw_button_large.svg" ng-click="gotoCanvasView()" width="56">
+        </div>
+
 </ion-content>
 </ion-view>

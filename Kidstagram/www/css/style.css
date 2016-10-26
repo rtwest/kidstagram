@@ -283,18 +283,20 @@ body{
     height:25px;
     width:30px;
 }
+/*----------- HEADER AND AVATAR ----------------*/
 #eventlogheader {
     background-color:#262261;
     height:90px;
     background-image: url('../img/header/headerbackground.svg');
-    background-repeat: no-repeat;
-    background-size:120%;
+    background-repeat: repeat-x;
+    /*background-size:120%;*/
 }
 .avatarbackground {
     padding-top:10px;
     margin-left: auto;
     margin-right: auto;
-    display: block;  
+    display: block; 
+    height:98px; 
 }
 .headeravatar {
     height:60px;
@@ -304,13 +306,33 @@ body{
     display: block; 
     margin-top:-74px; 
 }
+/*@media screen and (min-width: 760px) {*/  /*Tablet size*/
+@media screen and (min-width: 600px) {  /*Tablet size*/
+    .avatarbackground {
+        padding-top:10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block; 
+        height:108px; 
+    }
+    .headeravatar {
+        height:80px;
+        width:80px; 
+        margin-left: auto;
+        margin-right: auto;
+        display: block; 
+        margin-top:-89px; 
+    }
+}
+/*------------------------------------------*/
+
 #eventlogheaderbuttons {
     margin-top:20px;
-    margin-bottom:24px;
     height:82px;
     width:235px;
     margin-left:auto;
     margin-right:auto;
+    margin-bottom:-12px; /*to compensate for space pulled tighter between cards to make them look like one for different events on a day*/
 }
 .imagebuttonwrapper {
     width:56px;
@@ -320,9 +342,18 @@ body{
 }
 #starprogress {
     width:56px;
-    height:10px;  /*this is the height of the progress indicator*/
+    height:20px;  /*this is the height of the progress indicator*/
     background-color:#fff100;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left:34px;
+    position: absolute;
+    margin-top:36px; /*this also has to change to keep it anchored bottom = height + margin-top = star height = 56px */
+}
+.starprogressbackground {
+    width:56px;
+    height:56px;  
+    background-color:#fff;
+    position: absolute;
+    margin-left: 34px;
+    margin-top: 0px;
 }
 

@@ -239,16 +239,9 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       var tempArrayLength = tempArray.length;
                       for (x = 0; x < tempArrayLength; x++) { // Loop through to array for ImageID
 
-                          // If known image found - Inspect to know how to add to Object
+                          // ********* If known image found - Inspect to know how to add to Object *********
+                          // *******************************************************************************
                           if (tempArray[x].picture_url == items[i].picture_url) {
-
-                              //var event_desc;
-                              //if (items[i].fromkid_id == clientGUID) {
-                              //    event_desc = "You shared a drawing with " + items[i].tokid_name;
-                              //}
-                              //else {
-                              //    event_desc = items[i].fromkid_name + "shared a drawing with you"; //this probably can never be a case.
-                              //};
 
                               // url, shared, to any kid
                               if (event_type == 'sharepicture') {
@@ -259,12 +252,11 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                       tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                       tokidreply: '', //null in this case
                                   };
-                                  tempArray[x].tokid.push(kidobject);                                 
+                                  tempArray[x].tokid.push(kidobject);
+
+                                  // *********** Build the event description string better by looping through 'ToKid' so you know first and last
                                   tempArray[x].event_desc = tempArray[x].event_desc + ", " + items[i].tokid_name;
-
-                                  // ***********8888build the event description string better by looping through 'ToKid' so you know first and last
                                   
-
                               }
                               // url, liked, from any kid
                               else if (event_type == 'like') {
@@ -305,6 +297,9 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               }
                               else { alert('unknown case') };
 
+                              // Since you updated the event log objects for Likes and Share based on new event, update the Day also
+                              tempArray[x].day = day;
+
                               imageurlfound = true;
                               break;
                           } // end if URL found
@@ -335,7 +330,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               }],
                               event_type: event_type, // 
                               comment_content: items[i].comment_content,
-                              day: day,
+                              day: day,  // ************************** day is getting passed NULL from the first check that its a repeat day. New share found.
                               time: time,
                               event_desc: event_desc,
                           };
@@ -349,6 +344,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
 
                   // @@@ Push the cleaned up array of objects into the $scope
                   globalService.eventArray = tempArray.reverse();// Reverse order of array so most recent is first
+                  //alert(JSON.stringify(tempArray));
                   $scope.eventarray = globalService.eventArray;
 
               }; // end if
