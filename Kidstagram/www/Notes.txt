@@ -2,7 +2,8 @@
 -----------------------------
 - !!!! TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
 - !!!! Have to send LIKE on friends PIC
-- !!!! Add StarCount to localstorage array
+- !!!! Add Stars.   EventLog for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
+- fixed admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
 
 - loader
 - confirmation
@@ -95,10 +96,10 @@ Other local client side needs
 - Flag for first time launch: Look for "localStorage.getItem('RYB_oobeflag')"
 - FaceBook Access Token: Calling the NbFB module automatically stores the user's FaceBook token:  Look for "localStorage.getItem('fbAccessToken')"
 - What user mode is this in? Look for "localStorage.getItem('RYB_userarray')"
-	- 'RYB_userarray' (id, usertype, name, email, first name, avatar ..other_as_needed..)
+	- 'RYB_userarray' (id, usertype, name, email, first name, avatar, stars, colorbookstatus ..other_as_needed..)
 		- globalService.userarray[]
-		- admin details (id, usertype, name, email, first name, avatar)
-		- client details (id, usertype, '', avatar, first name) - if not, show client code input
+		- admin details (id, usertype, name, email, first name, avatar, stars, colorbookstatus)
+		- client details (id, usertype, '', avatar, first name, stars, colorbookstatus) - if not, show client code input
 - In CLIENT mode
 	- FRIENDS ARRAY - list of friends (name, kid_id, avatar_id,) 
 	- 'RYB_imagepropertiesarray' - replacement of PouchDB, this is a list of images (id, filepath, datetime,commentarray)  // This is an array of objects - [{...,...}{...,...}{...,...}]

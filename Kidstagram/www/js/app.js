@@ -42,7 +42,7 @@ angular.module('cordovaNG', [
 
         function PushNotificationSetup() {
 
-            alert(globalService.userarray[0]);
+            //alert(globalService.userarray[0]);
 
             var tags = [];
             tags[0] = globalService.userarray[0]; //Azure Notification Hub 'Tags' var seems to expect an array.  Get the local user GUID to send to user
@@ -139,7 +139,7 @@ angular.module('cordovaNG', [
     // Check for User Array - for registration
         if (localStorage.getItem('RYB_userarray')) {
 
-            // add to globalservice var to make available to all views
+            // @@@@@@@@@@@@ Add to globalservice var to make available to all views @@@@@@@@@@@@
             globalService.userarray = JSON.parse(localStorage.getItem('RYB_userarray')); // get array from localstorage key pair and string
 
             if (globalService.userarray[1] == 'admin') { // if user type is 'admin', go to admin home screen

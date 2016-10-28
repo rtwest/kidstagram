@@ -12,9 +12,12 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
     // ==========================================
 
     var clientGUID = globalService.userarray[0];
-    $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[3]); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+    $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[3]); 
     $scope.clientName = globalService.userarray[4];
 
+    $scope.starCount = globalService.userarray[5]; //because it's the client view, admin order of var is different
+    $("#starprogress").css("height", 50 / $scope.starCount); // adjust the star progress indicator CSS
+    $("#starprogress").css("margin-top", 56-(50 / $scope.starCount)); // 56 is image height
     // ==========================================
 
     // Set the local data model here to the data in the global service between views

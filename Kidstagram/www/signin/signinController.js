@@ -70,6 +70,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                     globalService.userarray[3] = result.email;
                     globalService.userarray[4] = result.first_name;
                     globalService.userarray[5] = admin_avatar;
+                    globalService.userarray[6] = 0; // inital start count
+                    globalService.userarray[7] = 0; // inital coloring book status
                     localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
 
                     azureCheckUserandInsert(result.email, result.name, admin_avatar); //@@@ Function to query azure 'parent' table to look for email and insert record
@@ -220,6 +222,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 globalService.userarray[2] = ""; //full name
                 globalService.userarray[3] = items[0].avatar_id; //email for admin / avatar id for client.  default was created when Admin created the kid.
                 globalService.userarray[4] = items[0].name; //first name
+                globalService.userarray[5] = 0; // intial star count
+                globalService.userarray[6] = 0; // inital coloring book status
                 localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray);
 
                 // Update client 

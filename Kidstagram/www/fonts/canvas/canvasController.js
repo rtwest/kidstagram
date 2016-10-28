@@ -40,8 +40,10 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
     // if User if Clients, friends are friend. 
     if (globalService.userarray[1] == 'client') {
         $scope.friendArray = globalService.friendArray; // this was set up on ClientStartController
+        $scope.colorbookStatus = globalService.userarray[6]; // this is var 6 for client
     }
     else { //Else, User is Admin and friends are clients
+        $scope.colorbookStatus = globalService.userarray[7]; // this is var 6 for Admin
         if (localStorage.getItem('RYB_clientarray')) {
             // need to reformat this data because client friends and admin clients are JSON and Array formats.  HTML side need consistency.
             //var tempclientarr = [];
@@ -545,6 +547,11 @@ angular.module('cordovaNG').controller('canvasController', function ($scope, $ht
         // 2. Then go through shareArray to make the Event per friend
         sharecount = 0;
         sharearraylength = $scope.shareSelectionArray.length;
+        // update your StarCount for Sharing.  Client and Admin localstorage arrays are different for no good reason
+        if (globalService.userarray[1] == 'client') {globalService.userarray[5] += sharearraylength;}
+        else { globalService.userarray[6] += sharearraylength;};
+        localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray);// Save back to localstorage
+        //--
         SaveandUploadImage(); // @@@ When this is done, it will call shareOutToFriends to Insert Event records in Azure to Friends
     };
 

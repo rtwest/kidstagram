@@ -11,7 +11,15 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.showClientAddedUI = false; // boolean for ng-show for ClientAdded message
     $scope.noClientFlag = false; // boolean for ng-show for 'no client' message
     $scope.showInvitationForm = false; // boolean for ng-show for add invitation modal
+
+    // ==========================================
+    //  Get local user name, guid, and avatar
+    // ==========================================
     var adminGuid = globalService.userarray[0];
+    $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[5]);
+    $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
+
+    // ==========================================
 
     // Grab event log and see if it should be updated
     $scope.eventarray = globalService.eventArray;
