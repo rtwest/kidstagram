@@ -18,7 +18,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     var adminGuid = globalService.userarray[0];
     $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[5]);
     $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
-
+    $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+    $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
     // ==========================================
 
     // Grab event log and see if it should be updated

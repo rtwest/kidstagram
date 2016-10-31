@@ -15,8 +15,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
     $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[3]); 
     $scope.clientName = globalService.userarray[4];
 
-    //$scope.starCount = globalService.userarray[5]; //because it's the client view, admin order of var is different
-    $scope.starCount = 25; // @@@@@@@@@@@@@@@@ FOR TESTING
+    $scope.starCount = globalService.userarray[5]; //because it's the client view, admin order of var is different
     $("#starprogress").css("height", 56*($scope.starCount/50)); // adjust the star progress indicator CSS - (what % of goal) of height?
     $("#starprogress").css("margin-top", 59-56*($scope.starCount/50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
     // ==========================================

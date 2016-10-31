@@ -1,14 +1,15 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
-- !!!! TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
-- !!!! Have to send LIKE on friends PIC
-- !!!! Add Stars.   EventLog for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
-- fixed admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
+- TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
+- Have to send LIKE on friends PIC
+- Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
+- fix admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
+- !!!! parent hung after facebook login
 
 - loader
 - confirmation
 - Header / Footer - ionic UI makes them wrap and I need them to scroll X.  Trying set fixed width and overflow on parent.
-- Have to replace HTML UI with Ionic format
+- modal action sheets
 - On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
 
 
@@ -17,6 +18,13 @@
 TEST CASES
 - Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
 - On Invitation Accept, Insert into Event Record  /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.  Alternatively, do this from Admin side after invitation accept
+
+
+
+NOTES
+-----------------------------
+- Any changes to EventLog.js or EventLog.html is replicated in ClientStart, ClientProperties, and AdminDash
+- Changes to random Avatar setup happen in AdminDash and SigninController 
 
 
 
@@ -109,23 +117,6 @@ Other local client side needs
 	- 'RYB_clientarray'
 
 =======================================================================================
-
-
-
-View
-------------
-- Add splash screen
-- Start with Gallery as Home screen.  Seed it with one picture.
--	easy button for New Picture.  easy button for Add Friends.
--	show shares and likes on the gallery - remember kids are learning counting - be visual.
--	order by most recent activity - new picture, new likes, new stickers
--	show your pictures, and pictures shared with you.  
--		Clearly divide these. split screen.
--		Color code friends. Stack pictures by friend. Profile image has colored circle background. Image shared has colored background.
--		Easy button to like friends picture
-- gallery detailed image view
--	where you delete image if yours
--	if shared image, you can like it here also
 
 
 
