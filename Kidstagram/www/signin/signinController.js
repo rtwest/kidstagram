@@ -61,6 +61,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                     params: { fields: 'id,name,email,first_name' }
                 }).then(
                 function (result) {
+
+                    alert('place2 - ' + result) // TESTING ONLY
                     $scope.user = result;
                     // put JSON result into User Array
                     globalService.userarray[0] = guid;

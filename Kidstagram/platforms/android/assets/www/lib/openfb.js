@@ -141,7 +141,12 @@ var openFB = (function () {
             console.log('exit and remove listeners');
             // Handle the situation where the user closes the login window manually before completing the login process
             if (loginCallback && !loginProcessed) loginCallback({ status: 'user_cancelled' });
-            loginWindow.removeEventListener('loadstop', loginWindow_loadStopHandler);
+            // --- THIS LINE CAUSED ERRORS IN LATER VERSIONS IOS, ANDROID. GITHUB ON OPENFB.JS SUGGESTS THIS CHANGE
+            loginWindow.removeEventListener('loadstart', loginWindow_loadStartHandler);
+            http://stackoverflow.com/questions/18629961/inappbrowser-callback
+
+            //loginWindow.removeEventListener('loadstop', loginWindow_loadStopHandler);
+            // ----
             loginWindow.removeEventListener('exit', loginWindow_exitHandler);
             loginWindow = null;
             console.log('done removing listeners');
@@ -242,7 +247,9 @@ var openFB = (function () {
         url = 'https://graph.facebook.com' + obj.path + '?' + toQueryString(params);
 
         xhr.onreadystatechange = function () {
+
             if (xhr.readyState === 4) {
+
                 if (xhr.status === 200) {
                     if (obj.success) obj.success(JSON.parse(xhr.responseText));
                 } else {
@@ -254,6 +261,7 @@ var openFB = (function () {
 
         xhr.open(method, url, true);
         xhr.send();
+
     }
 
     /**
