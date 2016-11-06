@@ -1,7 +1,7 @@
 ﻿// signinController
 
 
-angular.module('cordovaNG').controller('signinController', function ($scope, globalService, ngFB, Azureservice,$state) {
+angular.module('cordovaNG').controller('signinController', function ($scope, globalService, ngFB, Azureservice, $state, $ionicLoading) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -55,6 +55,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 console.log('Facebook login succeeded, got access token: ' + response.authResponse.accessToken);
 
                 //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ START SPINNER PROGRESS INDICATOR
+                $scope.showLoader();
+
 
                 // Get profile data to make User Array
                 // -----------------------------------
@@ -172,6 +174,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                     PushNotificationSetup();
 
                     //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ END PROGRESS INDICATOR
+                    $scope.hideLoader();
+
                     $state.go('admindash');// @@@ after user is added, go to admin dash
                 }, function (err) {
                     alert('Azure Error: ' + err);
@@ -187,6 +191,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 PushNotificationSetup();
 
                 //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ END PROGRESS INDICATOR
+                $scope.hideLoader();
+
                 $state.go('admindash'); // @@@ if user already exists, just go to admin dash
             };
 
@@ -326,6 +332,24 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
 
     };//end Push Notification setup
 
+
+    // ====================================================================================
+    // LOADER - Configuration for start and end -- don't forget to inject $ionicLoading into controller
+    // ====================================================================================
+    $scope.showLoader = function () {
+        $ionicLoading.show({
+            template: '<ion-spinner class="spinner-energized" icon="android"></ion-spinner><br /><span>Loading</span>',
+            delay: 0,
+        }).then(function () {
+            console.log("The loading indicator is now displayed");
+        });
+    };
+    $scope.hideLoader = function () {
+        $ionicLoading.hide().then(function () {
+            console.log("The loading indicator is now hidden");
+        });
+    };
+    // ====================================================================================
 
 
 
