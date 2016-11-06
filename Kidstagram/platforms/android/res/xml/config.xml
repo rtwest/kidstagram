@@ -68,6 +68,8 @@
     <preference name="windows-target-version" value="8.1" />
     <preference name="Orientation" value="portrait" />
     <access origin="http://rtwdevstorage.blob.core.windows.net" />
+    <allow-navigation href="*://*.facebook.com/*" />
+    <allow-intent href="*://*.facebook.com/*" />
     <preference name="deployment-target" value="8.3" />
     <preference name="Fullscreen" value="True" />
 </widget>

@@ -84,6 +84,10 @@
   </platform>
   <preference name="Orientation" value="portrait" />
   <access origin="http://rtwdevstorage.blob.core.windows.net" />
+  
+  <allow-navigation href="*://*.facebook.com/*" />
+  <allow-intent href="*://*.facebook.com/*" />
+  
   <plugin name="cordova-plugin-dialogs" version="1.2.1" />
   <plugin name="phonegap-plugin-push" version="1.8.1">
     <variable name="SENDER_ID" value="168753624064" />

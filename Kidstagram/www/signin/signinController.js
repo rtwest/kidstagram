@@ -53,6 +53,9 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
         ngFB.login({ scope: 'email' }).then( // request other Facebook permissions in with scope with ", 'publish_action' "
             function (response) {
                 console.log('Facebook login succeeded, got access token: ' + response.authResponse.accessToken);
+
+                //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ START SPINNER PROGRESS INDICATOR
+
                 // Get profile data to make User Array
                 // -----------------------------------
                 ngFB.api({
@@ -61,8 +64,6 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                     params: { fields: 'id,name,email,first_name' }
                 }).then(
                 function (result) {
-
-                    alert('place2 - ' + result) // TESTING ONLY
                     $scope.user = result;
                     // put JSON result into User Array
                     globalService.userarray[0] = guid;
@@ -75,11 +76,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                     globalService.userarray[7] = 0; // inital coloring book status
                     localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
 
-                    alert(globalService.userarray[5]);
-
                     azureCheckUserandInsert(result.email, result.name, admin_avatar); //@@@ Function to query azure 'parent' table to look for email and insert record
-
-                    //globalService.changeView('admindash'); // @@@ this was moved to the end of azureCheckandInsert to ensure a serial order of successful tasks
+                    //$state.go(('admindash'); // @@@ this was moved to the end of azureCheckUserandInsert to ensure a serial order of successful tasks
                 },
                 errorHandler);
                 // -----------------------------------
@@ -89,6 +87,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 alert('Facebook login failed: ' + error);
             });
     }
+
+
     // -- KEPT FOR REFERENCE
     //$scope.getInfo = function () {
     //    ngFB.api({ path: '/me' }).then(
@@ -106,7 +106,6 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
     //        params: { fields: 'id,name,email,first_name' }
     //    }).then(
     //        function (result) {
-    //            alert(JSON.stringify(result));
     //            $scope.user = result;
     //        },
     //        errorHandler);
@@ -171,6 +170,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 .then(function () {
                     //console.log('Insert successful');
                     PushNotificationSetup();
+
+                    //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ END PROGRESS INDICATOR
                     $state.go('admindash');// @@@ after user is added, go to admin dash
                 }, function (err) {
                     alert('Azure Error: ' + err);
@@ -184,6 +185,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                 localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
                 alert(JSON.stringify(globalService.userarray));
                 PushNotificationSetup();
+
+                //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ END PROGRESS INDICATOR
                 $state.go('admindash'); // @@@ if user already exists, just go to admin dash
             };
 

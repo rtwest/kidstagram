@@ -5,9 +5,7 @@
 - Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
 - fix admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
 
-- !!!! parent hung after facebook login !!!!  
-Getting this error in iOS and Andriod - Error in Success callbackId: InAppBrowser1627659883 : ReferenceError: Can't find variable: loginWindow_loadStopHandler
-On Andriod, it hangs.  On iOS, it continues.  In both is shows the success page.
+- Parent hung after facebook login.  Got past this error, "loginWindow_loadStopHandler".  API seems to failed.  Fix was to add Facebook.com access in Config.xml to whitelist
 
 
 - loader
@@ -62,6 +60,7 @@ P R O B L E M S
 - The iteration on friends to go get details of each friend is still going over the count and errors.  Mitigated with an IF,THEN check
 //  - Security Content Policy with PouchDB.  Added -- <meta http-equiv="Content-Security-Policy" connect-src * blob: data:; ... ...> which seems to work.
 - Image Upload not working after migration to Azure App Service.  Table insert works.  Just not Blob Storage. Tried a fix from Blog about changing Expiry around SAS.  Now it works but the problem can be random.  https://blogs.msdn.microsoft.com/kwill/2013/08/27/http-403-server-failed-to-authenticate-the-request-when-using-shared-access-signatures/
+- Parent hung after facebook login.  Got past this error, "loginWindow_loadStopHandler".  API seems to failed.  Fix was to add Facebook.com access in Config.xml to whitelist
 
 
 // FAIL BUILD ON IOS
