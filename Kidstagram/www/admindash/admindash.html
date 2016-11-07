@@ -25,18 +25,19 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showaddclientui=true;randomAvatarID();">Add</button>
-        <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoInvitationView()">Invitations</button>
-
-
         <!--Client List Repeater-->
         <div class="eventlogcard">
             <div class="eventlogcardcontainer">
+                <span>registration code</span>
                 <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
                 <!--'row' is a new local var created here then used in controllerJS-->
                 <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
                 <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'"></div>
-                <div ng-show="noClientFlag">No clients</div>
+                <div ng-show="noClientFlag" class="eventlogdate">Hey, it's lonely in here! ~ image goes here</div>
+
+                <button type="button" ng-click="showaddclientui=true;">Add New Kid</button>
+                <button type="button" ng-click="gotoInvitationView()">You Have 0 Invitations</button>
+
             </div>
         </div> 
             <!-- This is one way to specify the repeater item template used above
@@ -45,16 +46,15 @@
             Data is ID, name, avatar, reg code
             -->
             <script type="text/ng-template" id="repeaterTemplate2.html">
-                <div id="{{row[0]}}" ng-click="clientclick($event)">
-                    <div id="{{row[0]}}">
-                        {{row[1]}}
-                    </div>
-                    <div id="{{row[0]}}">
-                        {{row[2]}}
-                    </div>
-                    <div id="{{row[0]}}">
-                        {{row[3]}}
-                    </div>
+                
+                <div id="{{row[0]}}" ng-click="clientclick($event)" style="float:left">
+
+                    <img ng-src="{{convertavatartoimage({{row[2]}})}}" class="avatar-medium" style="float:left">
+
+                    <span>{{row[1]}}</span>
+
+                    <span>{{row[3]}}</span>
+
                 </div>
                 <div id="{{row[0]}}" ng-click="deleteClientClick($event)">Delete</div>
             </script>
@@ -100,7 +100,7 @@
                                 <div class="eventlogtime">{{row.time}}</div>
                                 <!--Nested repeater within the first JSON array.  This is a hack because there's only 1 in here-->
                                 <div ng-repeat="subarrayitem in row.tokid" style="margin-top:5px">
-                                    <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                    <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
                                     <div>{{subarrayitem.tokidreply}}</div>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                 <div>Add new kid</div>
                 <div>Avatar Image Goes Here {{avatarID}}</div>
                 <input id="kidnameinput" type="text" ng-model='kidname' placeholder="Name" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="addNewClient(kidname);kidname=''">Add</button>
+                <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="addNewClient(kidname);showaddclientui=false;kidname=''">Add</button>
                 <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showaddclientui=false;kidname=''">Cancel</button>
 
             </div>

@@ -145,12 +145,12 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                               //picture_url: items[i].picture_url,  // not relevant in this case
                               //fromkid: from_check,  // who shared it
                               fromkid: items[i].fromkid_name,
-                              fromkidavatar: items[i].fromkid_avatar,
+                              fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                               fromkid_id: items[i].fromkid_id,
                               tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                   tokidname: items[i].tokid_name,  // each kids shared with
                                   tokid_id: items[i].tokid_id,
-                                  tokidavatar: items[i].tokid_avatar,
+                                  tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                   tokidreply: '',  // null in this case
                               }],
                               event_type: event_type, // 
@@ -184,7 +184,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                       // ------------
                                       var kidobject = {
                                           tokidname: items[i].tokid_name,
-                                          tokidavatar: items[i].tokid_avatar,
+                                          tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                           tokidreply: '', //null in this case
                                       };
                                       tempArray[x].tokid.push(kidobject);
@@ -209,7 +209,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                                   // Make new JSON element with the Like event details
                                                   var event = items[i].event_type;
                                                   var name = items[i].fromkid_name;
-                                                  var avatar = items[i].fromkid_avatar;
+                                                  var avatar = globalService.getAvatarFromID(items[i].fromkid_avatar);
                                                   var kid_id = items[i].fromkid_id;
                                                   var comment_element = { event_type: event, name: name, avatar: avatar, kid_id: kid_id }; // New object
                                                   // Update 'RYB_imagepropertiesarray' in LocalStorage
@@ -242,13 +242,13 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                               var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                                   picture_url: items[i].picture_url, // this object is all about what happens around this image url
                                   fromkid: from_check,  // who shared it
-                                  fromkidavatar: items[i].fromkid_avatar,
+                                  fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                                   fromkid_id: items[i].fromkid_id,
                                   tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                       tokidname: items[i].tokid_name,  // each kids shared with
                                       //tokidname: from_check,  // each kids shared with
                                       tokid_id: items[i].tokid_id,
-                                      tokidavatar: items[i].tokid_avatar,
+                                      tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                       tokidreply: "",  // null right now
                                   }],
                                   event_type: event_type, // 
@@ -298,21 +298,26 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
     // ==========================================
 
+    // simpler helper to expose global service to UI view
+    $scope.convertavatartoimage = function (avatarid) {
+        var img = globalService.getAvatarFromID(avatarid);
+        return img;
+    };
+
     // This will be a default avatar the kid can change on first logon
     // ==========================================
-    $scope.randomAvatarID = function() {
+    function randomAvatarID() {
         $scope.avatarID = Math.floor(Math.random() * 24); // Random number between 0-23 // 24 items in array
     };
     // ==========================================
-
 
 
     // ==========================================
     //  Create new client.  Store locally and create on Azure
     // ==========================================
     $scope.addNewClient = function (name) {
+        randomAvatarID();
         addKid(name);
-        $scope.showaddclientui = false;
     };
 
     function makeRegistrationCode() {
@@ -339,19 +344,10 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
         $scope.clientarray.push(clientitemarray); //add first item to localstorage arraystring
         localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-        //if ($scope.clientarray.length > 0) { // if it exists already (not the first one)
-        //    var arraylength = $scope.clientarray.length; // 'length' is actually array+1 because of zero index
-        //    $scope.clientarray[arraylength] = clientitemarray; //add new item to client array
-        //    localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-        //}
-        //else{ // it doesn't already exist and this is the first one
-        //    $scope.clientarray[0] = clientitemarray; //add first item to localstorage arraystring
-        //    localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-        //};
         $scope.clientarray = JSON.parse(localStorage.getItem('RYB_clientarray')); // get updated array from localstorage key pair and string
         //alert("array length = "+ $scope.clientarray.length + " - " + $scope.clientarray)
 
-        // Confirmation message
+        // Confirmation message @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
         $scope.showClientAddedUI = true; // toggle this boolean for ng-show in the UI
         $scope.noClientFlag = false;
 
@@ -586,7 +582,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     //4. create new invitation record with the 4 corresponding IDs
     // INVITATION RECORD: fromparent_id, toparent_id, fromkid, tokid, datetime
 
-    // #########################################################################################################################################################
+    // ######################################################################
     //var ToParentID, ToParentName, ToKidName, FromKidName, FromKidID, ToKidID;
     //var clientarray2 = [];
 
@@ -715,10 +711,10 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.gotoCanvasView = function () {
         //globalService.changeView('/canvas');
         $state.go('canvas');
-        globalService.lastView = '/admindash';
+        globalService.lastView = 'admindash';
     };
     $scope.gotoGalleryView = function () {
-        globalService.lastView = '/admindash';  // for knowing where to go with the back button
+        globalService.lastView = 'admindash';  // for knowing where to go with the back button
         //globalService.changeView('/gallery');
         $state.go('gallery');
     };
@@ -766,7 +762,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         };
 
         //globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
-        globalService.lastView = '/admindash';  // for knowing where to go with the back button
+        globalService.lastView = 'admindash';  // for knowing where to go with the back button
     }; //end func
 
 

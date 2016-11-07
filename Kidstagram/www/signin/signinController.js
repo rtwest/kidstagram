@@ -54,7 +54,7 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
             function (response) {
                 console.log('Facebook login succeeded, got access token: ' + response.authResponse.accessToken);
 
-                //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ START SPINNER PROGRESS INDICATOR
+                // ---- START SPINNER PROGRESS INDICATOR
                 $scope.showLoader();
 
 
@@ -170,10 +170,9 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
                     avatar:avatar
                 })
                 .then(function () {
-                    //console.log('Insert successful');
                     PushNotificationSetup();
 
-                    //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ END PROGRESS INDICATOR
+                    //---- END PROGRESS INDICATOR
                     $scope.hideLoader();
 
                     $state.go('admindash');// @@@ after user is added, go to admin dash
@@ -184,13 +183,14 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
             else {
                 //alert('email exists already'),
                 console.log('email exists already');
-                // use the found user's GUID and store locally in user properties array
-                globalService.userarray[0] = items[0].id;
+                // use the found user's GUID and Avatar and store locally in user properties array
+                globalService.userarray[0] = items[0].id; // guid
+                globalService.userarray[5] = items[0].avatar; // avatar
                 localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
                 alert(JSON.stringify(globalService.userarray));
                 PushNotificationSetup();
 
-                //  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ END PROGRESS INDICATOR
+                //----END PROGRESS INDICATOR
                 $scope.hideLoader();
 
                 $state.go('admindash'); // @@@ if user already exists, just go to admin dash

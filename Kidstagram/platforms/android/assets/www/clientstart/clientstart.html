@@ -63,7 +63,7 @@
                             <div class="eventlogtime">{{row.time}}</div>
                             <!--Nested repeater within the first JSON array.  This is a hack because there's only 1 in here-->
                             <div ng-repeat="subarrayitem in row.tokid" style="margin-top:5px">
-                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
                                 <div>{{subarrayitem.tokidreply}}</div>
                             </div>
                         </div>

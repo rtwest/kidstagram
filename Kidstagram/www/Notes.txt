@@ -5,8 +5,9 @@
 - Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
 - fix admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
 - ADMIN
+	- work on Client table actions and UI
 	- avatar constantly changes on login
-	- repeaters all jacked
+	- repeaters all jacked.  id='data' is screwed up on images when shared?
 	- add Kids keeps the same avatar instead of rerunning
 
 
@@ -16,7 +17,6 @@
 - Header / Footer - ionic UI makes them wrap and I need them to scroll X.  Trying set fixed width and overflow on parent.
 - modal action sheets
 - On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
-- ADMIN APP UI IS ALL SCREWED UP.  UI VIEWS ARE ALL BUSTED because of half ui design.
 
 - Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
 
@@ -93,7 +93,7 @@ S T O R A G E
 =======================================================================================
 Azure Tables
 ------------
-PARENT RECORD: id, name, email
+PARENT RECORD: id, name, email, avatar
 KID RECORD: id, name, parent_id, registration_code, reg_status, avatar_id, parent_name, parent_email
 FRIEND RECORD: id, kid1_id, kid2_id, kid1_name, kid2_name
 INVITATION RECORD: id, fromparent_id, toparent_id, fromkid (name), tokid (name), fromparent_name, toparent_name, fromkid_id, tokid_id.  - Status is implied as pending because its in the table.  Remove when accepted.
