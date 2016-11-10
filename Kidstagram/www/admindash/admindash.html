@@ -1,5 +1,5 @@
 ﻿<!-- Admin Dashboard and Home Screen -->
-<ion-view>
+<ion-view style="background-color:#f7f7f7">
     <ion-content>
 
         <div id="eventlogheader">
@@ -49,7 +49,7 @@
                 
                 <div id="{{row[0]}}" ng-click="clientclick($event)" style="float:left">
 
-                    <img ng-src="{{convertavatartoimage({{row[2]}})}}" class="avatar-medium" style="float:left">
+                    <img ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" style="float:left">
 
                     <span>{{row[1]}}</span>
 

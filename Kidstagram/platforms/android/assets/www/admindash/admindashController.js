@@ -298,12 +298,17 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
     // ==========================================
 
-    // simpler helper to expose global service to UI view
+    // simple helper to expose global service to UI view
     $scope.convertavatartoimage = function (avatarid) {
         var img = globalService.getAvatarFromID(avatarid);
         return img;
     };
-
+    // simple helper to get avatar image from ClientArray
+    $scope.getavatarimagefromclientarray = function (index) {
+        var avatarid = $scope.clientarray[index][2];
+        var img = globalService.getAvatarFromID(avatarid);
+        return img;
+    };
     // This will be a default avatar the kid can change on first logon
     // ==========================================
     function randomAvatarID() {

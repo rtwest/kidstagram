@@ -6,10 +6,9 @@
 - fix admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
 - ADMIN
 	- work on Client table actions and UI
-	- avatar constantly changes on login
+	- admin avatar lost on page refresh. uses Number not the lookup function
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
-	- add Kids keeps the same avatar instead of rerunning
-
+	- RABBIT IS TOO SMALL
 
 
 - loader
