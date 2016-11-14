@@ -35,7 +35,9 @@
                 <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'"></div>
                 <div ng-show="noClientFlag" class="eventlogdate">Hey, it's lonely in here! ~ image goes here</div>
 
-                <button type="button" ng-click="showaddclientui=true;">Add New Kid</button>
+                <img src="./img/avatar/avatar.addnew.svg" class="avatar-medium" ng-click="showaddclientui=true;">
+                <span>Add New Kid</span>
+
                 <button type="button" ng-click="gotoInvitationView()">You Have 0 Invitations</button>
 
             </div>

@@ -3,11 +3,11 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 140.7 125.4" style="enable-background:new 0 0 140.7 125.4;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFFFFF;}
+	.st0{fill:#F7F7F7;}
 	.st1{fill:none;stroke:#FFDD15;stroke-width:4;stroke-miterlimit:10;}
 </style>
 <title>star_chart_overlay2</title>
-<path class="st0" d="M140.7,125.4H0V0h140.7V125.4z M76.2,8.1c-1.2-2.8-4.4-4.2-7.2-3C67.7,5.7,66.6,6.7,66,8L51,41.6l-36.7,2.9
+<path class="st0" d="M140.7,125.4H0V0h140.7V125.4z M76.2,8.1c-1.2-2.8-4.4-4.2-7.2-3c-1.3,0.6-2.4,1.6-3,2.9L51,41.6l-36.7,2.9
 	c-3,0.2-5.3,2.9-5.1,6c0.1,1.4,0.8,2.7,1.8,3.7l27.3,24.7l-8.6,35.8c-0.7,3,1.1,6,4.1,6.7c1.4,0.3,2.8,0.1,4-0.6l31.9-18.4
 	l31.4,19.2c2.6,1.6,6,0.8,7.6-1.8c0.7-1.2,1-2.6,0.7-4l-7.6-36l28-23.9c2.3-2,2.6-5.5,0.6-7.8c-0.9-1.1-2.2-1.8-3.6-1.9l-36.6-3.9
 	L76.2,8.1z"/>
