@@ -18,23 +18,6 @@ body{
 }
 
 
-/*for NG Animate */ 
-/* slide in from the right */
-/*@keyframes slideInRight {
-    from    { transform:translateX(100%); }
-    to      { transform: translateX(0); }
-}
-@keyframes slideOutLeft {
-	to 		{ transform: translateX(-100%); }
-}
-.pageview.ng-enter{ 
-    animation: slideInRight 0.5s both ease-in; z-index: 8888; 
-}
-.pageview.ng-leave{ 
-    animation: slideOutLeft 0.5s both ease-in; z-index: 9999; 
-}*/
-
-
 /* FONT ========================================================= */
 @font-face {
     font-family: 'Kingthings Clarity';
@@ -257,7 +240,10 @@ body{
     margin-left:10px;
     margin-right:10px;
     background-color:#fff;
-    padding-bottom:4px;    /*space for curve of card*/
+    padding-bottom:10px;    /*space for curve of card*/
+}
+td {
+    vertical-align:middle;
 }
 .eventlogcardcontainer {
     padding: 17px;
@@ -338,6 +324,9 @@ body{
     width:56px;
     height:56px;
     text-align:center;
+    color:#26a9e0;
+}
+.buttonlink {
     color:#26a9e0;
 }
 #starprogress {

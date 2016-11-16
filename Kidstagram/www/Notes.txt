@@ -8,7 +8,8 @@
 	- work on Client table actions and UI
 	- admin avatar lost on page refresh. uses Number not the lookup function
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
-	- RABBIT IS TOO SMALL
+	- Move Delete to ClientProperties Page - Add delete confirmation for Kid.  ClientProperties Page needs ClientArrary for recursive!!!!!!!!!!
+	- Redo event log for ClientProperties Controller
 
 
 - loader

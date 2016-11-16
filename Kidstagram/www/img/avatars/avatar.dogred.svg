@@ -1,1 +1,40 @@
-<svg id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 80.57 127.78"><defs><style>.cls-1{fill:none;}.cls-2{fill:#825d42;}.cls-3{fill:#ea692b;}.cls-4{clip-path:url(#clip-path);}.cls-5{fill:#f3dbbd;}.cls-6{fill:#3d342f;}.cls-7{fill:#fff;}</style><clipPath id="clip-path" transform="translate(-1684.16 -635.34)"><path class="cls-1" d="M1764.59,705c2.47,26-16.19,40-41.3,40s-42.64-14.93-38.33-48.89c3.07-24.16,15-37.72,42-37.72C1760.3,658.38,1762.43,682.19,1764.59,705Z"/></clipPath></defs><title>avatar.dogred</title><path class="cls-2" d="M1710.42,662.87c0.66,8.3-25.37,37.26-25.37,37.26s0.39-.61.39-34.68c0.43-13.91,11.5-28.67,12.94-29.08S1709.76,654.57,1710.42,662.87Z" transform="translate(-1684.16 -635.34)"/><path class="cls-2" d="M1739,661.85c-0.66,8.3,25.36,37.26,25.36,37.26s-0.39-.61-0.39-34.68c-0.43-13.91-11.5-28.67-12.94-29.08S1739.65,653.55,1739,661.85Z" transform="translate(-1684.16 -635.34)"/><path class="cls-3" d="M1764.59,705c1.85,26.94-16.19,40-41.3,40S1680,730.06,1685,696.1c3.5-24.1,14.42-39.57,41.42-39.57C1759.68,656.53,1763,682.15,1764.59,705Z" transform="translate(-1684.16 -635.34)"/><g class="cls-4"><path class="cls-5" d="M1725.4,705.62c-10,0-27,15.32-30.7,41.26-3.37,23.69,62,20.33,59.25-2.66C1751.78,726.17,1735.39,705.62,1725.4,705.62Z" transform="translate(-1684.16 -635.34)"/></g><circle class="cls-5" cx="63.27" cy="56" r="10.53"/><circle class="cls-6" cx="62.84" cy="56.08" r="6.27"/><circle class="cls-7" cx="64.93" cy="50.91" r="2.98"/><circle class="cls-5" cx="19.05" cy="56.92" r="10.53"/><circle class="cls-6" cx="17.94" cy="57.62" r="6.27"/><circle class="cls-7" cx="15.85" cy="52.45" r="2.98"/><path class="cls-6" d="M1737,715.71c0,2.37-9.14,6.18-12.33,6.18S1712,718.2,1712,715.83s5.34-4.29,11.93-4.29S1737,713.34,1737,715.71Z" transform="translate(-1684.16 -635.34)"/><path class="cls-6" d="M1724.89,739a20.53,20.53,0,0,1-12.06-4.29,0.92,0.92,0,0,1,1.2-1.4h0c0.41,0.35,10.17,8.42,20.77.26a0.92,0.92,0,1,1,1.13,1.46A17.78,17.78,0,0,1,1724.89,739Z" transform="translate(-1684.16 -635.34)"/><rect class="cls-6" x="39.46" y="84.06" width="2.31" height="19.37"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="background" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 80.6 109.7" style="enable-background:new 0 0 80.6 109.7;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#825D42;}
+	.st1{fill:#EA692B;}
+	.st2{clip-path:url(#SVGID_2_);}
+	.st3{fill:#F3DBBD;}
+	.st4{fill:#3D342F;}
+	.st5{fill:#FFFFFF;}
+</style>
+<title>avatar.dogred</title>
+<path class="st0" d="M26.3,27.5c0.7,8.3-25.4,37.3-25.4,37.3s0.4-0.6,0.4-34.7C1.7,16.2,12.8,1.4,14.2,1S25.6,19.2,26.3,27.5z"/>
+<path class="st0" d="M54.8,26.5c-0.7,8.3,25.4,37.3,25.4,37.3s-0.4-0.6-0.4-34.7C79.4,15.2,68.3,0.4,66.9,0S55.5,18.2,54.8,26.5z"/>
+<path class="st1" d="M80.4,69.7c1.8,26.9-16.2,40-41.3,40S-4.2,94.7,0.8,60.8c3.5-24.1,14.4-39.6,41.4-39.6
+	C75.5,21.2,78.8,46.8,80.4,69.7z"/>
+<g>
+	<defs>
+		<path id="SVGID_1_" d="M80.4,69.7c2.5,26-16.2,40-41.3,40S-3.5,94.7,0.8,60.8c3.1-24.2,15-37.7,42-37.7
+			C76.1,23,78.3,46.8,80.4,69.7z"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st2">
+		<path class="st3" d="M41.2,70.3c-10,0-27,15.3-30.7,41.3c-3.4,23.7,62,20.3,59.3-2.7C67.6,90.8,51.2,70.3,41.2,70.3z"/>
+	</g>
+</g>
+<circle class="st3" cx="63.3" cy="56" r="10.5"/>
+<circle class="st4" cx="62.8" cy="56.1" r="6.3"/>
+<circle class="st5" cx="64.9" cy="50.9" r="3"/>
+<circle class="st3" cx="19" cy="56.9" r="10.5"/>
+<circle class="st4" cx="17.9" cy="57.6" r="6.3"/>
+<circle class="st5" cx="15.9" cy="52.5" r="3"/>
+<path class="st4" d="M52.8,80.4c0,2.4-9.1,6.2-12.3,6.2s-12.7-3.7-12.7-6.1s5.3-4.3,11.9-4.3S52.8,78,52.8,80.4z"/>
+<path class="st4" d="M40.7,103.7c-4.4-0.1-8.6-1.6-12.1-4.3c-0.4-0.3-0.4-0.9-0.1-1.3c0.3-0.4,0.9-0.4,1.3-0.1l0,0l0,0
+	c0.4,0.3,10.2,8.4,20.8,0.3c0.4-0.3,1-0.2,1.3,0.2c0.3,0.4,0.2,1-0.2,1.3C48.6,102.2,44.8,103.6,40.7,103.7z"/>
+<rect x="39.5" y="84.1" class="st4" width="2.3" height="19.4"/>
+</svg>

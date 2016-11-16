@@ -47,7 +47,7 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
     //};
 
     var guid = globalService.makeUniqueID(); // made GUID for Azure table
-    var admin_avatar = Math.floor(Math.random() * 24); // Random number between 0-23 // 24 items in array
+    var admin_avatar = Math.floor(Math.random() * 27); // Random number between 0-23 // 24 items in array
 
     $scope.adminLogin = function () {
         ngFB.login({ scope: 'email' }).then( // request other Facebook permissions in with scope with ", 'publish_action' "

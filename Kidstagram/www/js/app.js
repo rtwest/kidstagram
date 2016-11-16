@@ -326,6 +326,7 @@ angular.module('cordovaNG', [
                 "avatar.catred",
                 "avatar.dogbrown",
                 "avatar.dogears",
+                "avatar.dogearsblack",
                 "avatar.doggrey",
                 "avatar.dogred",
                 "avatar.elephant",
@@ -335,6 +336,7 @@ angular.module('cordovaNG', [
                 "avatar.koala",
                 "avatar.leopard",
                 "avatar.lion",
+                "avatar.lizardblue",
                 "avatar.monkey",
                 "avatar.moose",
                 "avatar.panda",
@@ -342,6 +344,7 @@ angular.module('cordovaNG', [
                 "avatar.rabbitred",
                 "avatar.racoon",
                 "avatar.robot",
+                "avatar.wolf",
                 "avatar.zebra",
             ];
             avatarimage = "./img/avatars/" + avatarimagenamearray[id] + ".svg";
