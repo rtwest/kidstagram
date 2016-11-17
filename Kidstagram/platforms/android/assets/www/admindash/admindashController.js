@@ -714,13 +714,11 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $state.go('invitationlist');
     };
     $scope.gotoCanvasView = function () {
-        //globalService.changeView('/canvas');
         $state.go('canvas');
         globalService.lastView = 'admindash';
     };
     $scope.gotoGalleryView = function () {
         globalService.lastView = 'admindash';  // for knowing where to go with the back button
-        //globalService.changeView('/gallery');
         $state.go('gallery');
     };
 

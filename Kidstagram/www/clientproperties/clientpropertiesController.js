@@ -557,6 +557,13 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
 
 
 
+    // ==========================================
+    //  Get local client array.   
+    // ==========================================
+    $scope.clientarray = []; //create as an array
+    $scope.clientarray = JSON.parse(localStorage.getItem('RYB_clientarray')); // get array from localstorage key pair and string
+    alert("array length: " + $scope.clientarray.length + " - " + $scope.clientarray)
+    // ==========================================
 
     // ==========================================
     // Delete Client
@@ -650,7 +657,8 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
             j++;
             if (j < len) {
                 DeleteFriendRecords(items);
-            };
+            }
+            else { $scope.gotoAdminView() }; // You're done and go back to Dash view
         }, function (err) {
             //console.error('Azure Error: ' + err);
             alert('Azure Error: ' + err);
@@ -670,10 +678,6 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
 
     // View changer.  Have to use $scope. to make available to the view
     // --------------
-    $scope.gotoView = function () {
-        //globalService.changeView('/');
-        //$state.go('/');
-    };
     $scope.gotoAdminView = function () {
         //globalService.changeView('/admindash');
         $state.go('admindash');
@@ -683,7 +687,7 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
         $scope.idParameters = clickEvent.target.id;  // div ID has 3 values shoved in it
 
         globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
-        globalService.lastView = '/clientproperties';  // for knowing where to go with the back button
+        globalService.lastView = 'clientproperties';  // for knowing where to go with the back button
         //globalService.changeView('/picture');
         $state.go('picture');
     }

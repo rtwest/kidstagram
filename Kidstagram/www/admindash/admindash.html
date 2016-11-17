@@ -25,7 +25,8 @@
             </div>
         </div>
         <!--Client List Repeater-->
-        <div style="margin-left:10px;margin-right:10px;border:1px solid #cccccc;padding-bottom:17px;font-size:18px;padding-top:30px;">
+        <div style="margin-left:10px;margin-right:10px;border-bottom:1px solid #efefef;padding-top:30px;"></div>
+        <div style="margin-left:10px;margin-right:10px;padding-bottom:17px;font-size:18px;padding-top:24px;">
             <div style="padding-left:17px">Kids</div>
         </div>
         <div class="eventlogcard">
@@ -33,18 +34,14 @@
 
                 <div ng-show="noClientFlag" class="eventlogdate">Hey, it's lonely in here! ~ image goes here</div>
 
-                <table>
-                    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
-                    <!--'row' is a new local var created here then used in controllerJS-->
-                    <!-- Can use 'arr[x]' for array and 'ParamName.Colname' if JSON -->
-                    <tr ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="vertical-align:middle"></tr>
-                    <tr ng-click="showaddclientui=true;" style="vertical-align:middle">
-                        <td style="vertical-align:middle">
-                            <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium">
-                            <span class="buttonlink">Add</span>
-                        </td>
-                    </tr>
-                </table>
+                <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+                <!--'row' is a new local var created here then used in controllerJS-->
+                <!-- Can use 'arr[x]' for array and 'ParamName.Colname' if JSON -->
+                <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="width:100px;vertical-align:middle;float:left"></div>
+                <div ng-click="showaddclientui=true;">
+                    <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium">
+                    <span class="buttonlink">Add</span>
+                </div>
 
                 <div class="buttonlink" ng-click="gotoInvitationView()">You Have X Invitations</div>
 
@@ -57,13 +54,8 @@
             -->
             <script type="text/ng-template" id="repeaterTemplate2.html">
                 
-                <td>
-                    <img id="{{row[0]}}" ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" ng-click="clientclick($event)">
-                </td>
-                <td id="{{row[0]}}" ng-click="clientclick($event)">
-                    <div>{{row[1]}}</div>
-                </td>
-                <td><div id="{{row[0]}}" ng-click="deleteClientClick($event)">Delete - remove to details</div></td>
+                <img id="{{row[0]}}" ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" ng-click="clientclick($event)">
+                <div id="{{row[0]}}" ng-click="clientclick($event)">{{row[1]}}</div>
 
             </script>
 

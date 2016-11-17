@@ -242,9 +242,6 @@ body{
     background-color:#fff;
     padding-bottom:10px;    /*space for curve of card*/
 }
-td {
-    vertical-align:middle;
-}
 .eventlogcardcontainer {
     padding: 17px;
 }
