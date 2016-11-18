@@ -12,10 +12,8 @@
 		- Add delete confirmation for Kid.  Send back to AdminDash.  Reload ClientArray.
 	- Redo event log for ClientProperties Controller
 
-
 - loader
 - confirmation
-- Header / Footer - ionic UI makes them wrap and I need them to scroll X.  Trying set fixed width and overflow on parent.
 - modal action sheets
 - On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
 

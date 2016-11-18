@@ -25,9 +25,10 @@
             </div>
         </div>
         <!--Client List Repeater-->
-        <div style="margin-left:10px;margin-right:10px;border-bottom:1px solid #efefef;padding-top:30px;"></div>
+        <div style="margin-left:12px;margin-right:12px;border-bottom:1px solid #e4e4e4;padding-top:30px;"></div>
         <div style="margin-left:10px;margin-right:10px;padding-bottom:17px;font-size:18px;padding-top:24px;">
-            <div style="padding-left:17px">Kids</div>
+            <div style="padding-left:17px;float:left">Kids</div>
+            <div class="buttonlink" ng-click="gotoInvitationView()" style="text-align:right;display:block;font-size:14px">You Have <strong>X</strong> Invitations</div>
         </div>
         <div class="eventlogcard">
             <div class="eventlogcardcontainer">
@@ -37,40 +38,39 @@
                 <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
                 <!--'row' is a new local var created here then used in controllerJS-->
                 <!-- Can use 'arr[x]' for array and 'ParamName.Colname' if JSON -->
-                <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="width:100px;vertical-align:middle;float:left"></div>
-                <div ng-click="showaddclientui=true;">
-                    <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium">
-                    <span class="buttonlink">Add</span>
-                </div>
+                <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="width:180px;float:left"></div>
 
-                <div class="buttonlink" ng-click="gotoInvitationView()">You Have X Invitations</div>
+                <div ng-click="showaddclientui=true;" style="display:inline">
+                    <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium" style="float:left;margin-right:15px">
+                    <div class="buttonlink" style="margin-top:15px">ADD A KID</div>
+                </div>
 
             </div>
         </div> 
-            <!-- This is one way to specify the repeater item template used above
-            Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
-            Have to have the element ID on everything because the obj id is passed where ever you click.
-            Data is ID, name, avatar, reg code
-            -->
-            <script type="text/ng-template" id="repeaterTemplate2.html">
-                
-                <img id="{{row[0]}}" ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" ng-click="clientclick($event)">
-                <div id="{{row[0]}}" ng-click="clientclick($event)">{{row[1]}}</div>
-
-            </script>
+        <!-- This is one way to specify the repeater item template used above
+        Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+        Have to have the element ID on everything because the obj id is passed where ever you click.
+        Data is ID, name, avatar, reg code
+        -->
+        <script type="text/ng-template" id="repeaterTemplate2.html">           
+            <img id="{{row[0]}}" ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" ng-click="clientclick($event)" style="float:left;margin-right:15px">
+            <div id="{{row[0]}}" ng-click="clientclick($event)" style="margin-top:15px">{{row[1]}}</div>
+        </script>
 
 
 
 
 
             <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
-            <div>
-                <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
-                <!--'row' is a new local var created here then used in controllerJS-->
-                <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
-                <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'" style="margin-bottom:-12px"></div>
-                <div ng-show="noEventsFlag">No events</div>
-            </div>
+        <div style="margin-left:27px;font-size:18px;padding-top:30px;margin-bottom:-32px">My Timeline</div>
+
+        <div>
+            <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+            <!--'row' is a new local var created here then used in controllerJS-->
+            <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+            <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'"></div>
+            <div ng-show="noEventsFlag">No events</div>
+        </div>
             <!-- This is one way to specify the repeater item template used above
             Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
             Have to have the element ID on everything because the obj id is passed where ever you click-->
@@ -85,7 +85,7 @@
 
                         <!--TEMPLATE EVENT TYPE IS 'friends'-->
                         <div ng-show="row.event_type=='friends'">
-                            <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                            <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
                             <div ng-repeat="subarrayitem in row.tokid">
                                 <img src={{subarrayitem.tokidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
                             </div>
