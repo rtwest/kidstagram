@@ -339,6 +339,8 @@ angular.module('cordovaNG').controller('signinController', function ($scope, glo
     $scope.showLoader = function () {
         $ionicLoading.show({
             template: '<ion-spinner class="spinner-energized" icon="android"></ion-spinner><br /><span>Loading</span>',
+            animation: 'fade-in',
+            noBackdrop: true,
             delay: 0,
         }).then(function () {
             console.log("The loading indicator is now displayed");

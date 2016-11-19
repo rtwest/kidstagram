@@ -220,6 +220,16 @@ body{
 
 
 
+/* TRYING TO OVERWRITE DEFAULT IONIC STYLES ========================================*/
+/* ---whitebackground for loader------*/
+.loading-container .loading {
+    background-color: white;
+    color: #333;
+    border-width: 1px !important;
+    border-color: #fff !important;
+    border-style: solid !important;
+}
+
 
 
 
