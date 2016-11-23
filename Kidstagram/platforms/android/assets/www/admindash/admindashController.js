@@ -298,11 +298,12 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
     // ==========================================
 
-    // simple helper to expose global service to UI view
-    $scope.convertavatartoimage = function (avatarid) {
-        var img = globalService.getAvatarFromID(avatarid);
-        return img;
-    };
+    // NOT SURE THIS IS USED ANYWHERE
+    //// simple helper to expose global service to UI view
+    //$scope.convertavatartoimage = function (avatarid) {
+    //    var img = globalService.getAvatarFromID(avatarid);
+    //    return img;
+    //};
     // simple helper to get avatar image from ClientArray
     $scope.getavatarimagefromclientarray = function (index) {
         var avatarid = $scope.clientarray[index][2];
@@ -312,7 +313,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // This will be a default avatar the kid can change on first logon
     // ==========================================
     function randomAvatarID() {
-        $scope.avatarID = Math.floor(Math.random() * 27); // Random number between 0-23 // 24 items in array. Also used on SigninController.js
+        $scope.newKidAvatarID = Math.floor(Math.random() * 27); // Random number between 0-23 // 24 items in array. Also used on SigninController.js
+        $scope.newKidAvatarURL = globalService.getAvatarFromID($scope.newKidAvatarID)
     };
     // ==========================================
 
@@ -344,7 +346,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         var clientitemarray = [];
         clientitemarray[0] = guid;
         clientitemarray[1] = name;
-        clientitemarray[2] = $scope.avatarID;
+        clientitemarray[2] = $scope.newKidAvatarID;
         clientitemarray[3] = registrationCode
 
         $scope.clientarray.push(clientitemarray); //add first item to localstorage arraystring
@@ -364,7 +366,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             parent_id: globalService.userarray[0],
             registration_code: registrationCode,
             reg_status: '0',
-            avatar_id: $scope.avatarID,
+            avatar_id: $scope.newKidAvatarID,
             parent_name:globalService.userarray[4],
             parent_email: globalService.userarray[3],
         })
@@ -372,7 +374,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             console.log('new client insert successful');
 
             // Make array of parent and friends to iterate through recursively to add as friends
-            var kid_array = [guid, name, $scope.avatarID];// new kid
+            var kid_array = [guid, name, $scope.newKidAvatarID];// new kid
             var client_item_array = [];
             client_item_array = $scope.clientarray.slice(0); // add all the clients.  ".slice(0)" make sure you copy the array, not link to it.
             var admin_array = [globalService.userarray[0], globalService.userarray[4], globalService.userarray[5]];  // id, firstname, avatar

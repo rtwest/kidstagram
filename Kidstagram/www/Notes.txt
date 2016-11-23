@@ -6,10 +6,12 @@
 - fix admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
 - ADMIN
 	- work on Client table actions and UI.  Add client UI.
-	- admin avatar lost on page refresh. uses Number not the lookup function
+	- NewKid Avatar isn't made when the UI is
+	- MAKE SURE NEWKID HAS A NAME
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
 	- Move Delete to ClientProperties Page 
 		- Add delete confirmation for Kid.  Reload ClientArray.
+	- Add Event Description to the Admin event logs
 	- Redo event log on ClientProperties Controller
 
 - loader
