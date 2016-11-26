@@ -34,7 +34,7 @@
             <div class="eventlogcardcontainer">
 
                 <div ng-show="noClientFlag" style="font-size:16px;color:#bbbdbf">
-                    <div ng-click="showaddclientui=true;">
+                    <div ng-click="showaddclientuibutton();">
                         <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium" style="float:left;margin-right:15px;">
                         <div class="buttonlink" style="padding-top:15px">ADD A KID</div>
                     </div>
@@ -49,7 +49,7 @@
                 <!-- Can use 'arr[x]' for array and 'ParamName.Colname' if JSON -->
                 <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="width:180px;float:left"></div>
 
-                <div ng-hide="noClientFlag" ng-click="showaddclientui=true;" style="display:inline">
+                <div ng-hide="noClientFlag" ng-click="showaddclientuibutton();" style="display:inline">
                     <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium" style="float:left;margin-right:15px">
                     <div class="buttonlink" style="margin-top:15px">ADD A KID</div>
                 </div>
@@ -154,14 +154,14 @@
             <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
                 <!--ng-show is logic to toggle show/hide for this UI-->
 
-                <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:55px">
+                <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
 
-                <div>Hi, my name is</div>
+                <div style="font-size:18px">Hi, my name is:</div>
 
-                <input style="margin:5px 0px 20px 0px;border-bottom:1px solid #26a9e0" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
+                <input style="width:200px;margin-bottom:40px;margin-left:auto;margin-right:auto;border-bottom:1px solid #26a9e0;font-size:18px;margin-top:5px;text-align:center;font-family:'Kingthings Clarity'" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
                 
-                <div style="float:left;margin-right:20px" ng-click="showaddclientui=false;kidname=''">Cancel</div>
-                <div class="buttonlink" ng-click="addNewClient(kidname);showaddclientui=false;kidname=''">Add</div>
+                <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                <div class="buttonlink" ng-click="addNewClient(kidname);kidname=''">ADD</div>
 
 
             </div>

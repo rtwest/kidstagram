@@ -3,7 +3,7 @@
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state) {
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state,$ionicBackdrop) {
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
 
@@ -320,11 +320,29 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
 
     // ==========================================
+    //  Toggle Add Client Modal and Ionic Background
+    // ==========================================
+    $scope.showaddclientuibutton = function () {
+        if ($scope.showaddclientui == false) {
+            //$ionicBackdrop.retain();
+            $scope.showaddclientui = true;
+            //alert('modal show');
+        }
+        else {
+            //$ionicBackdrop.release();
+            $scope.showaddclientui = false;
+            //alert('modal close')
+        };
+    };
+
+    // ==========================================
     //  Create new client.  Store locally and create on Azure
     // ==========================================
     $scope.addNewClient = function (name) {
         randomAvatarID();
         addKid(name);
+        showaddclientui = false;
+        $ionicBackdrop.release();
     };
 
     function makeRegistrationCode() {

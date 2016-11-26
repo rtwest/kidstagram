@@ -6,7 +6,9 @@
 - fix admin controller for 1) event desc client event log 2) date for multiple shares 3) star count 4) html - same fix as on clientstartcontroller
 - ADMIN
 	- work on Client table actions and UI.  Add client UI.
-	- NewKid Avatar isn't made when the UI is
+	- NewKid Avatar isn't made when the UI is.  right now, new Kid avatar is hardcode in as placeholder.
+	- Add modal Backdrop.
+	- Might use custom flipping modal - OR - regular slide in modal.
 	- MAKE SURE NEWKID HAS A NAME
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
 	- Move Delete to ClientProperties Page 
