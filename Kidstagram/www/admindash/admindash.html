@@ -158,13 +158,14 @@
 
                 <div style="font-size:18px">Hi, my name is:</div>
 
-                <input style="width:200px;margin-bottom:40px;margin-left:auto;margin-right:auto;border-bottom:1px solid #26a9e0;font-size:18px;margin-top:5px;text-align:center;font-family:'Kingthings Clarity'" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                
-                <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
-                <div class="buttonlink" ng-click="addNewClient(kidname);kidname=''">ADD</div>
+                <!--Validation requiring this input to enable the Add-->
+                <form name="newclientform">
+                    <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
+                    <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                    <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
+                 </form>
 
-
-            </div>
+</div>
 
             <!--Modal for client added message-->
             <div id="clientAddedUI" ng-show="showClientAddedUI">

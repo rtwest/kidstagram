@@ -336,6 +336,11 @@ body{
 .buttonlink {
     color:#26a9e0;
 }
+.borderlessbuttonlink {
+    color:#26a9e0;
+    border:none;
+    background-color:#fff;
+}
 #starprogress {
     width:56px;
     height:20px;  /*this is the height of the progress indicator*/
@@ -368,7 +373,20 @@ body{
     text-align:center;
     position:absolute;
     top:273px;
-
+}
+.textinput {
+    width:200px;
+    margin-bottom:40px;
+    margin-left:auto;
+    margin-right:auto;
+    border-bottom:1px solid #26a9e0 !important;
+    font-size:24px !important;
+    margin-top:5px;
+    text-align:center;
+    font-family:'Kingthings Clarity' !important;
+}
+.disable {
+    color:#cccccc;
 }
 
 
