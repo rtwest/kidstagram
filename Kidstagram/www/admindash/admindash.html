@@ -24,12 +24,17 @@
                 <div>MY ART</div>
             </div>
         </div>
+
+
+
         <!--Client List Repeater-->
         <div style="margin-left:12px;margin-right:12px;border-bottom:1px solid #e4e4e4;padding-top:30px;"></div>
         <div style="margin-left:10px;margin-right:10px;padding-bottom:17px;font-size:18px;padding-top:24px;">
             <div style="padding-left:17px;float:left">Kids</div>
             <div class="buttonlink" ng-click="gotoInvitationView()" style="text-align:right;display:block;font-size:14px">You Have <strong>X</strong> Invitations</div>
         </div>
+
+
         <div class="eventlogcard">
             <div class="eventlogcardcontainer">
 
@@ -54,8 +59,12 @@
                     <div class="buttonlink" style="margin-top:15px">ADD A KID</div>
                 </div>
 
-            </div>
-        </div> 
+            </div> <!--end container-->
+        </div>  <!--end card-->
+
+
+
+
         <!-- This is one way to specify the repeater item template used above
         Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
         Have to have the element ID on everything because the obj id is passed where ever you click.
@@ -151,21 +160,22 @@
 
 
             <!--Modal for add new client-->
-            <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
+            <div id="addclientUI" ng-show="showaddclientui" style="position:absolute;top:0px;z-index:10;background-color:rgba(0, 0, 0, 0.2);width:100%;bottom:0px"> <!--custom backdrop. Heigh set in JS-->
                 <!--ng-show is logic to toggle show/hide for this UI-->
+                <div class="newkidmodal">
+                    <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
 
-                <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
+                    <div style="font-size:18px">Hi, my name is:</div>
 
-                <div style="font-size:18px">Hi, my name is:</div>
+                    <!--Validation requiring this input to enable the Add-->
+                    <form name="newclientform">
+                        <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
+                        <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                        <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
+                    </form>
+                </div>
+            </div>
 
-                <!--Validation requiring this input to enable the Add-->
-                <form name="newclientform">
-                    <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                    <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
-                    <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
-                 </form>
-
-</div>
 
             <!--Modal for client added message-->
             <div id="clientAddedUI" ng-show="showClientAddedUI">

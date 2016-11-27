@@ -3,7 +3,7 @@
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state,$ionicBackdrop) {
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state) {
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
 
@@ -324,14 +324,10 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // ==========================================
     $scope.showaddclientuibutton = function () {
         if ($scope.showaddclientui == false) {
-            //$ionicBackdrop.retain();
             $scope.showaddclientui = true;
-            //alert('modal show');
         }
         else {
-            //$ionicBackdrop.release();
             $scope.showaddclientui = false;
-            //alert('modal close')
         };
     };
 
@@ -341,8 +337,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.addNewClient = function (name) {
         randomAvatarID();
         addKid(name);
-        showaddclientui = false;
-        $ionicBackdrop.release();
+        $scope.showaddclientui = false;
     };
 
     function makeRegistrationCode() {
@@ -471,108 +466,108 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
 
 
-    // ==========================================
-    // Delete Client
-    // ==========================================
-    $scope.deleteClientClick = function (clickEvent) {
-        $scope.clickEvent = globalService.simpleKeys(clickEvent);
-        $scope.clientId = clickEvent.target.id;
-        alert('delete item = ' + $scope.clientId);
+    //// ==========================================
+    //// Delete Client
+    //// ==========================================
+    //$scope.deleteClientClick = function (clickEvent) {
+    //    $scope.clickEvent = globalService.simpleKeys(clickEvent);
+    //    $scope.clientId = clickEvent.target.id;
+    //    alert('delete item = ' + $scope.clientId);
 
-        deleteClient($scope.clientId);
-    }
+    //    deleteClient($scope.clientId);
+    //}
 
-    function deleteClient(id) {
-        // Delete from localStorage
-        // ---------------
-        var foundIndex;
-        var len = $scope.clientarray.length;
-        for (i = 0; i < len; i++) {
-            if ($scope.clientarray[i].indexOf(id) > -1) { // If found in this subarray 
-                foundIndex = i;
-                //alert('found at: ' + foundIndex);
-                $scope.clientarray.splice(foundIndex, 1) // remove from this element at index number from 'clientarray'
-                //alert($scope.clientarray);
-                localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
+    //function deleteClient(id) {
+    //    // Delete from localStorage
+    //    // ---------------
+    //    var foundIndex;
+    //    var len = $scope.clientarray.length;
+    //    for (i = 0; i < len; i++) {
+    //        if ($scope.clientarray[i].indexOf(id) > -1) { // If found in this subarray 
+    //            foundIndex = i;
+    //            //alert('found at: ' + foundIndex);
+    //            $scope.clientarray.splice(foundIndex, 1) // remove from this element at index number from 'clientarray'
+    //            //alert($scope.clientarray);
+    //            localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
 
-                // Delete on Azure
-                // ---------------
-                Azureservice.del('kid', {
-                    id: id // ID for the row to delete    
-                })
-                .then(function () {
-                    console.log('Delete successful');
+    //            // Delete on Azure
+    //            // ---------------
+    //            Azureservice.del('kid', {
+    //                id: id // ID for the row to delete    
+    //            })
+    //            .then(function () {
+    //                console.log('Delete successful');
 
-                    // @@@ Once the Client is deleted, have to delecte other records this client is in
-                    GetFriendRecordsAndDelete(id);
+    //                // @@@ Once the Client is deleted, have to delecte other records this client is in
+    //                GetFriendRecordsAndDelete(id);
 
-                }, function (err) {
-                    //console.error('Azure Error: ' + err);
-                    alert('Azure Error: ' + err);
-                });
+    //            }, function (err) {
+    //                //console.error('Azure Error: ' + err);
+    //                alert('Azure Error: ' + err);
+    //            });
 
-                break;
-            };
-        };
-        if (len == 1) { $scope.noClientFlag = true }; // If only one item in client array and you remove it, then show no clients UI
+    //            break;
+    //        };
+    //    };
+    //    if (len == 1) { $scope.noClientFlag = true }; // If only one item in client array and you remove it, then show no clients UI
 
-    };
-    // ==========================================
+    //};
+    //// ==========================================
 
-    // ==========================================
-    //  Delete friends records from Azure based on Client GUID
-    // ==========================================
-    var len, j;
+    //// ==========================================
+    ////  Delete friends records from Azure based on Client GUID
+    //// ==========================================
+    //var len, j;
 
-    function GetFriendRecordsAndDelete(id) {
+    //function GetFriendRecordsAndDelete(id) {
 
-     Azureservice.read('friends', "$filter=kid1_id eq '" + id + "' or kid2_id eq '" + id + "'")
-        .then(function (items) {
-            if (items.length == 0) { // if no Friend record found, then
-                console.log('no connections yet')
-            }
-            else { // if friend records found, Go through Items and Delete them  
-                alert(JSON.stringify(items));
+    // Azureservice.read('friends', "$filter=kid1_id eq '" + id + "' or kid2_id eq '" + id + "'")
+    //    .then(function (items) {
+    //        if (items.length == 0) { // if no Friend record found, then
+    //            console.log('no connections yet')
+    //        }
+    //        else { // if friend records found, Go through Items and Delete them  
+    //            alert(JSON.stringify(items));
 
-                // Different way of setting up the loop 
-                // ---
-                j = 0;
-                len = items.length;
-                DeleteFriendRecords(items); // @@@ Call recursive Azure call
+    //            // Different way of setting up the loop 
+    //            // ---
+    //            j = 0;
+    //            len = items.length;
+    //            DeleteFriendRecords(items); // @@@ Call recursive Azure call
 
-            };
-        }).catch(function (error) {
-            console.log(error); alert(error);
-        });
-    };
+    //        };
+    //    }).catch(function (error) {
+    //        console.log(error); alert(error);
+    //    });
+    //};
 
-    // RECURSIVELY Go through Friend array and delete each from Friends table in Azure 
-    // !!!!! LOTS OF CALL TO AZURE NOW  // !!!!! BETTER TO HAVE A CUSTOM API IN NODE TO DO THIS JOINING
-    // --------------------------------------
-    function DeleteFriendRecords(items) {
-        alert(j);
-        // Delete on Azure
-        // ---------------
-        Azureservice.del('friends', {
-            id: items[j].id // ID for the row to delete    
-        })
-        .then(function () {
-            console.log('Delete successful');
-            // @@@ RECUSIVE PART.  Regular FOR loop didn't work.
-            // ------
-            j++;
-            if (j < len) {
-                DeleteFriendRecords(items);
-            };
-        }, function (err) {
-            //console.error('Azure Error: ' + err);
-            alert('Azure Error: ' + err);
-        });
-        // ---------------
+    //// RECURSIVELY Go through Friend array and delete each from Friends table in Azure 
+    //// !!!!! LOTS OF CALL TO AZURE NOW  // !!!!! BETTER TO HAVE A CUSTOM API IN NODE TO DO THIS JOINING
+    //// --------------------------------------
+    //function DeleteFriendRecords(items) {
+    //    alert(j);
+    //    // Delete on Azure
+    //    // ---------------
+    //    Azureservice.del('friends', {
+    //        id: items[j].id // ID for the row to delete    
+    //    })
+    //    .then(function () {
+    //        console.log('Delete successful');
+    //        // @@@ RECUSIVE PART.  Regular FOR loop didn't work.
+    //        // ------
+    //        j++;
+    //        if (j < len) {
+    //            DeleteFriendRecords(items);
+    //        };
+    //    }, function (err) {
+    //        //console.error('Azure Error: ' + err);
+    //        alert('Azure Error: ' + err);
+    //    });
+    //    // ---------------
 
-    };
+    //};
 
-    // ==========================================
+    //// ==========================================
 
 
 
