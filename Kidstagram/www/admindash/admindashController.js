@@ -3,7 +3,7 @@
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state) {
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop) {
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
 
@@ -325,9 +325,13 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.showaddclientuibutton = function () {
         if ($scope.showaddclientui == false) {
             $scope.showaddclientui = true;
+            $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
+            $ionicBackdrop.retain();
         }
         else {
             $scope.showaddclientui = false;
+            $ionicBackdrop.release();
+            //$("#addclientUI").remove();
         };
     };
 

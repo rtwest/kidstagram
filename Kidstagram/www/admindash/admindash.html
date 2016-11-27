@@ -1,5 +1,5 @@
 ﻿<!-- Admin Dashboard and Home Screen -->
-<ion-view style="background-color:#f7f7f7">
+<ion-view style="background-color:#f7f7f7;">
     <ion-content>
 
         <div id="eventlogheader">
@@ -160,20 +160,18 @@
 
 
             <!--Modal for add new client-->
-            <div id="addclientUI" ng-show="showaddclientui" style="position:absolute;top:0px;z-index:10;background-color:rgba(0, 0, 0, 0.2);width:100%;bottom:0px"> <!--custom backdrop. Heigh set in JS-->
-                <!--ng-show is logic to toggle show/hide for this UI-->
-                <div class="newkidmodal">
-                    <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
+            <!--ng-show is logic to toggle show/hide for this UI-->
+            <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
+                <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
 
-                    <div style="font-size:18px">Hi, my name is:</div>
+                <div style="font-size:18px">Hi, my name is:</div>
 
-                    <!--Validation requiring this input to enable the Add-->
-                    <form name="newclientform">
-                        <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                        <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
-                        <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
-                    </form>
-                </div>
+                <!--Validation requiring this input to enable the Add-->
+                <form name="newclientform">
+                    <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
+                    <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                    <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
+                </form>
             </div>
 
 
