@@ -61,16 +61,12 @@
 
             </div> <!--end container-->
         </div>  <!--end card-->
-
-
-
-
         <!-- This is one way to specify the repeater item template used above
         Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
         Have to have the element ID on everything because the obj id is passed where ever you click.
         Data is ID, name, avatar, reg code
         -->
-        <script type="text/ng-template" id="repeaterTemplate2.html">           
+        <script type="text/ng-template" id="repeaterTemplate2.html">
             <img id="{{row[0]}}" ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" ng-click="clientclick($event)" style="float:left;margin-right:15px">
             <div id="{{row[0]}}" ng-click="clientclick($event)" style="margin-top:15px">{{row[1]}}</div>
         </script>
@@ -79,7 +75,7 @@
 
 
 
-            <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
+        <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
         <div style="margin-left:27px;font-size:18px;padding-top:30px;margin-bottom:-32px">My Timeline</div>
 
         <div>
@@ -89,99 +85,97 @@
             <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'"></div>
             <div ng-show="noEventsFlag">No events</div>
         </div>
-            <!-- This is one way to specify the repeater item template used above
-            Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
-            Have to have the element ID on everything because the obj id is passed where ever you click-->
-            <script type="text/ng-template" id="repeaterTemplate.html">
+        <!-- This is one way to specify the repeater item template used above
+        Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+        Have to have the element ID on everything because the obj id is passed where ever you click-->
+        <script type="text/ng-template" id="repeaterTemplate.html">
 
-                <!--If row.day is not Null, then show it-->
-                <div class="eventlogdate" ng-show="row.day">{{row.day}}</div>
+            <!--If row.day is not Null, then show it-->
+            <div class="eventlogdate" ng-show="row.day">{{row.day}}</div>
 
-                <div class="eventlogcard">
+            <div class="eventlogcard">
 
-                    <div class="eventlogcardcontainer">
+                <div class="eventlogcardcontainer">
 
-                        <!--TEMPLATE EVENT TYPE IS 'friends'-->
-                        <div ng-show="row.event_type=='friends'">
-                            <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
-                            <div ng-repeat="subarrayitem in row.tokid">
-                                <img src={{subarrayitem.tokidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
+                    <div ng-show="row.event_type=='friends'">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <img src={{subarrayitem.tokidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                        </div>
+                        <div class="eventlogdesc" style="padding-top:5px;display:block">{{row.event_desc}}</div>
+                        <div class="eventlogtime"><!--{{row.datetime | date:"EEEE, MMM d"}}-->{{row.time}}</div>
+                    </div> <!--end conditional format-->
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to 1 person.  ToKid array does NOT have n>1.  Could be TO or FROM you -->
+                    <div ng-show="row.event_type=='sharepicture' && !row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                        <div class="eventdescblock">
+                            <div class="eventlogdesc">{{row.event_desc}}</div>
+                            <div class="eventlogtime">{{row.time}}</div>
+                            <!--Nested repeater within the first JSON array.  This is a hack because there's only 1 in here-->
+                            <div ng-repeat="subarrayitem in row.tokid" style="margin-top:5px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
+                                <div>{{subarrayitem.tokidreply}}</div>
                             </div>
-                            <div class="eventlogdesc" style="padding-top:5px;display:block">{{row.event_desc}}</div>
-                            <div class="eventlogtime"><!--{{row.datetime | date:"EEEE, MMM d"}}-->{{row.time}}</div>
-                        </div> <!--end conditional format-->
-
-                        <!--TEMPLATE EVENT TYPE IS 'sharepicture' to 1 person.  ToKid array does NOT have n>1.  Could be TO or FROM you -->
-                        <div ng-show="row.event_type=='sharepicture' && !row.tokid[1]">
-                            <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
-                            <div class="eventdescblock">
-                                <div class="eventlogdesc">{{row.event_desc}}</div>
-                                <div class="eventlogtime">{{row.time}}</div>
-                                <!--Nested repeater within the first JSON array.  This is a hack because there's only 1 in here-->
-                                <div ng-repeat="subarrayitem in row.tokid" style="margin-top:5px">
-                                    <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
-                                    <div>{{subarrayitem.tokidreply}}</div>
-                                </div>
-                            </div>
-                            <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
-                        </div> <!--end conditional format-->
-
-                        <!--TEMPLATE EVENT TYPE IS 'sharepicture' to MORE THAN 1 person.  Only case can be that you sent it.  ToKid array does have n>1 -->
-                        <div ng-show="row.event_type=='sharepicture' && row.tokid[1]">
-                            <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
-                            <div class="eventdescblock">
-                                <div class="eventlogdesc">{{row.event_desc}}</div>
-                                <div class="eventlogtime">{{row.time}}</div>
-                                <br />
-                                <!--Nested repeater within the first JSON array-->
-                                <div ng-repeat="subarrayitem in row.tokid" style="float:left;margin-right:6px;margin-top:5px">
-                                    <img src={{subarrayitem.tokidavatar}} class="avatar-small">
-                                    <!--{{subarrayitem.tokidname}}-->
-                                </div>
-                            </div>
-                            <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                    </div> <!--end conditional format-->
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to MORE THAN 1 person.  Only case can be that you sent it.  ToKid array does have n>1 -->
+                    <div ng-show="row.event_type=='sharepicture' && row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                        <div class="eventdescblock">
+                            <div class="eventlogdesc">{{row.event_desc}}</div>
+                            <div class="eventlogtime">{{row.time}}</div>
+                            <br />
                             <!--Nested repeater within the first JSON array-->
-                            <div class="eventlogdesc">These friends sent you stars!</div>
-                            <div ng-repeat="subarrayitem in row.tokid">
-                                <!--Show if there are Likes-->
-                                <div ng-show="subarrayitem.tokidreply" style="float:left;margin-right:6px">
-                                    <img src={{subarrayitem.tokidavatar}} class="avatar-small">
-                                    <div>{{subarrayitem.tokid_name}}</div>
-                                    <div>STAR IMAGE GOES HERE</div>
-                                </div>
+                            <div ng-repeat="subarrayitem in row.tokid" style="float:left;margin-right:6px;margin-top:5px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <!--{{subarrayitem.tokidname}}-->
                             </div>
-                        </div> <!--end conditional format-->
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                        <!--Nested repeater within the first JSON array-->
+                        <div class="eventlogdesc">These friends sent you stars!</div>
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <!--Show if there are Likes-->
+                            <div ng-show="subarrayitem.tokidreply" style="float:left;margin-right:6px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <div>{{subarrayitem.tokid_name}}</div>
+                                <div>STAR IMAGE GOES HERE</div>
+                            </div>
+                        </div>
+                    </div> <!--end conditional format-->
 
-                    </div>  <!--end event container-->
+                </div>  <!--end event container-->
 
-                </div>  <!--end eventlog card-->
-            </script>
+            </div>  <!--end eventlog card-->
+        </script>
 
 
 
-            <!--Modal for add new client-->
+        <!--ng-show is logic to toggle show/hide for this UI-->
+        <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
+            <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
+
+            <div style="font-size:18px">Hi, my name is:</div>
+
+            <!--Validation requiring this input to enable the Add-->
+            <form name="newclientform">
+                <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
+                <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
+            </form>
+        </div>
+
+
+
+        <!--Modal for client added message-->
+        <div id="clientAddedUI" ng-show="showClientAddedUI">
             <!--ng-show is logic to toggle show/hide for this UI-->
-            <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
-                <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
-
-                <div style="font-size:18px">Hi, my name is:</div>
-
-                <!--Validation requiring this input to enable the Add-->
-                <form name="newclientform">
-                    <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                    <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
-                    <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
-                </form>
-            </div>
-
-
-            <!--Modal for client added message-->
-            <div id="clientAddedUI" ng-show="showClientAddedUI">
-                <!--ng-show is logic to toggle show/hide for this UI-->
-                <div>Next steps</div>
-                <div>Install on another device. Choose Kid mode and enter this registration code.</div>
-                <div type="button" ng-click="showClientAddedUI=false;">close</div>
-            </div>
+            <div>Next steps</div>
+            <div>Install on another device. Choose Kid mode and enter this registration code.</div>
+            <div type="button" ng-click="showClientAddedUI=false;">close</div>
+        </div>
 
 
 

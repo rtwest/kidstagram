@@ -2,8 +2,8 @@
 
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
-
 angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop) {
+//angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop) {
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
 
@@ -322,7 +322,16 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // ==========================================
     //  Toggle Add Client Modal and Ionic Background
     // ==========================================
+
+    // Load the Ionic modal from the given template URL
+    //$ionicModal.fromTemplateUrl('modal.html', {
+    //    scope: $scope, // modal's scope is same as controller scope
+    //    animation: 'slide-in-up'
+    //}).then(function (modal) { $scope.modal = modal; });
+
+
     $scope.showaddclientuibutton = function () {
+
         if ($scope.showaddclientui == false) {
             $scope.showaddclientui = true;
             $("#addclientUI").appendTo('body') // stick the UI at end of 'body'

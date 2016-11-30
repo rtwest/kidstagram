@@ -1,6 +1,6 @@
 ﻿// clientpropertiesController
 
-angular.module('cordovaNG').controller('clientpropertiesController', function ($scope, globalService, Azureservice, $state) {
+angular.module('cordovaNG').controller('clientpropertiesController', function ($scope, globalService, Azureservice, $state, $ionicPopup) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     //$scope.message = "Nothing here yet";  //- TEST ONLY
@@ -569,10 +569,32 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
     // Delete Client
     // ==========================================
 
+    // Confirm popup code
+    $scope.showdeleteConfirm = function () {
+        
+        var deleteConfirmPopup = $ionicPopup.show({
+            title:'Delete Kid',
+            templateUrl: 'deleteConfirmPopup.html',
+            scope: $scope,
+            //cssClass: 'ConfirmPopup',
+            buttons: [{
+                text: 'Cancel',
+              },
+              {
+                  text: '<b>Ok</b>',
+                  type: 'button icon-left ion-chevron-left button-clear button-dark',
+                  onTap: function (e) {
+                      alert('click');
+                  }
+              },
+            ]
+        });
+        //deleteConfirmPopup.then(function (res) {
+        //});
+    };
+
     $scope.deleteClientClick = function () {
-
         alert('delete item = ' + selectedclientguid);
-
         deleteClient(selectedclientguid);
     }
 
