@@ -570,21 +570,22 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
     // ==========================================
 
     // Confirm popup code
-    $scope.showdeleteConfirm = function () {
-        
+    $scope.showdeleteConfirm = function () {     
         var deleteConfirmPopup = $ionicPopup.show({
-            title:'Delete Kid',
+            title:'',
             templateUrl: 'deleteConfirmPopup.html',
             scope: $scope,
             //cssClass: 'ConfirmPopup',
             buttons: [{
-                text: 'Cancel',
+                text: 'CANCEL',
+                type: 'button button-clear button-dark'
               },
               {
-                  text: '<b>Ok</b>',
-                  type: 'button icon-left ion-chevron-left button-clear button-dark',
+                  text: 'REMOVE',
+                  type: 'button button-clear button-assertive',
                   onTap: function (e) {
-                      alert('click');
+                      alert('delete item = ' + selectedclientguid);
+                      //deleteClient(selectedclientguid);
                   }
               },
             ]
@@ -592,11 +593,6 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
         //deleteConfirmPopup.then(function (res) {
         //});
     };
-
-    $scope.deleteClientClick = function () {
-        alert('delete item = ' + selectedclientguid);
-        deleteClient(selectedclientguid);
-    }
 
     function deleteClient(id) {
         // Delete from localStorage
