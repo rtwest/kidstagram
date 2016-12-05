@@ -157,12 +157,12 @@
         <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
             <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
 
-            <div style="font-size:18px">Hi, my name is:</div>
+            <div style="font-size:20px">Hi, my name is:</div>
 
             <!--Validation requiring this input to enable the Add-->
             <form name="newclientform">
                 <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                <div style="float:left;margin-left:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                <div style="float:left;margin-left:40px;margin-right:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
                 <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
             </form>
         </div>

@@ -366,9 +366,9 @@ body{
     margin-left:-150px;  /*trick for center absolutely positioned el*/
     left:50%;   /*trick for center absolutely positioned el*/
     width:300px;
-    height:285px;
+    height:auto;
     background-color:#fff;
-    padding:17px 17px 27px 17px;  /*space for curve of card*/
+    padding:17px 17px 35px 17px;  /*space for curve of card*/
     background-image: url('../img/newkid_background.svg');
     background-repeat:no-repeat;
     text-align:center;
@@ -378,7 +378,7 @@ body{
 }
 .textinput {
     width:200px;
-    margin-bottom:40px;
+    margin-bottom:30px;
     margin-left:auto;
     margin-right:auto;
     border-bottom:2px solid #26a9e0 !important;
@@ -420,13 +420,11 @@ body{
     line-height: normal; 
     font-family:'Kingthings Clarity' !important;
 }
-
 .popup-buttons .button
 {
     font-family:'Kingthings Clarity' !important;
     font-size: 14px;
 }
-
 .popup-buttons .button.activated
 {}
 
