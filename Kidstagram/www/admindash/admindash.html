@@ -54,9 +54,9 @@
                 <!-- Can use 'arr[x]' for array and 'ParamName.Colname' if JSON -->
                 <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="width:180px;float:left"></div>
 
-                <div ng-hide="noClientFlag" ng-click="showaddclientuibutton();" style="display:inline">
+                <div ng-hide="noClientFlag" ng-click="showaddclientuibutton();" style="display:table">
                     <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium" style="float:left;margin-right:15px">
-                    <div class="buttonlink" style="margin-top:15px">ADD A KID</div>
+                    <div class="buttonlink" style="display:table-cell;vertical-align:middle">ADD A KID</div>
                 </div>
 
             </div> <!--end container-->
@@ -155,7 +155,11 @@
 
         <!--ng-show is logic to toggle show/hide for this UI-->
         <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
-            <img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">
+
+            <!--NEED THIS TO BE DYNAMICALLY LOADED-->
+            <!--<img src="./img/avatars/avatar.dogears.svg" style="height:50px;margin-top:15px;margin-bottom:60px">-->
+            <img id="newclientavatar" src="" style="height:50px;margin-top:15px;margin-bottom:60px">
+
 
             <div style="font-size:20px">Hi, my name is:</div>
 

@@ -315,6 +315,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     function randomAvatarID() {
         $scope.newKidAvatarID = Math.floor(Math.random() * 27); // Random number between 0-23 // 24 items in array. Also used on SigninController.js
         $scope.newKidAvatarURL = globalService.getAvatarFromID($scope.newKidAvatarID)
+        alert($scope.newKidAvatarURL)
+        $('#newclientavatar').attr("src", $scope.newKidAvatarURL);
     };
     // ==========================================
 
@@ -380,7 +382,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $scope.clientarray = JSON.parse(localStorage.getItem('RYB_clientarray')); // get updated array from localstorage key pair and string
         //alert("array length = "+ $scope.clientarray.length + " - " + $scope.clientarray)
 
-        // Confirmation message @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
         $scope.showClientAddedUI = true; // toggle this boolean for ng-show in the UI
         $scope.noClientFlag = false;
 
