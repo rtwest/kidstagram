@@ -290,10 +290,10 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
     if (localStorage.getItem('RYB_clientarray')) { 
         $scope.clientarray = JSON.parse(localStorage.getItem('RYB_clientarray')); // get array from localstorage key pair and string
-        alert("array length: " + $scope.clientarray.length + " - " + $scope.clientarray)
+        //alert("array length: " + $scope.clientarray.length + " - " + $scope.clientarray)
     }
     else { // if no clients, show special message for this case 
-        alert('no clients found')
+        //alert('no clients found')
         $scope.noClientFlag = true;
     };
     // ==========================================
@@ -315,7 +315,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     function randomAvatarID() {
         $scope.newKidAvatarID = Math.floor(Math.random() * 27); // Random number between 0-23 // 24 items in array. Also used on SigninController.js
         $scope.newKidAvatarURL = globalService.getAvatarFromID($scope.newKidAvatarID)
-        alert($scope.newKidAvatarURL)
         $('#newclientavatar').attr("src", $scope.newKidAvatarURL);
     };
     // ==========================================
@@ -333,8 +332,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
 
     $scope.showaddclientuibutton = function () {
-
         if ($scope.showaddclientui == false) {
+            randomAvatarID(); // select kid avatar when making the modal.
             $scope.showaddclientui = true;
             $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
             $ionicBackdrop.retain();
@@ -342,7 +341,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         else {
             $scope.showaddclientui = false;
             $ionicBackdrop.release();
-            //$("#addclientUI").remove();
         };
     };
 
@@ -350,9 +348,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     //  Create new client.  Store locally and create on Azure
     // ==========================================
     $scope.addNewClient = function (name) {
-        randomAvatarID();
         addKid(name);
         $scope.showaddclientui = false;
+        $ionicBackdrop.release();
     };
 
     function makeRegistrationCode() {

@@ -30,6 +30,7 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
     $scope.clientName = client[1];
     $scope.avatarID = client[2];
     $scope.registrationCode = client[3];
+    $scope.AvatarURL = globalService.getAvatarFromID(client[2]);
     // =======================================================
 
 
@@ -584,8 +585,8 @@ angular.module('cordovaNG').controller('clientpropertiesController', function ($
                   text: 'REMOVE',
                   type: 'button button-clear button-assertive',
                   onTap: function (e) {
-                      alert('delete item = ' + selectedclientguid);
-                      //deleteClient(selectedclientguid);
+                      //alert('delete item = ' + selectedclientguid);
+                      deleteClient(selectedclientguid);
                   }
               },
             ]
