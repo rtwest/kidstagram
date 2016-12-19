@@ -7,11 +7,13 @@
 - ADMIN
 	- Message after Client Add
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
-	- Add Event Description to the Admin event logs
+	- Pull up the cards in a day
+
+- CLIENTPROPERTIES VIEW
 	- Redo event log on ClientProperties Controller
 
 - loader
-- modal action sheets
+- modal action sheets / Sharing
 - On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
 
 - Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>

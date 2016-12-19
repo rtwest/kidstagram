@@ -141,6 +141,14 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                       // @@@ If a 'friend' event, it does not have a URL
                       // ---------------------------------
                       if (event_type == 'friends') {
+                          var event_desc;
+                          if (items[i].fromkid_id == adminGuid) {
+                              event_desc = "You and " + items[i].tokid_name + " are now friends";
+                          }
+                          else {
+                              event_desc = "You and " + items[i].fromkid_name + " are now friends";
+                          };
+
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                               //picture_url: items[i].picture_url,  // not relevant in this case
                               //fromkid: from_check,  // who shared it
@@ -157,6 +165,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                               comment_content: items[i].comment_content,
                               day: day,
                               time: time,
+                              event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
                       }
@@ -172,11 +181,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           var tempArrayLength = tempArray.length;
                           for (x = 0; x < tempArrayLength; x++) { // Loop through to array for ImageID
 
+                              // ********* If known image found - Inspect to know how to add to Object *********
+                              // *******************************************************************************
                               if (tempArray[x].picture_url == items[i].picture_url) {
-
-                                  // Inspect to know how to add to Object
-                                  // ------------
-                                  // cases: SharePicture - track this url.  Like Picture - append to tracked url.  
 
                                   // url, shared, to any kid
                                   if (event_type == 'sharepicture') {
@@ -188,10 +195,12 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                           tokidreply: '', //null in this case
                                       };
                                       tempArray[x].tokid.push(kidobject);
+
+                                      // *********** Build the event description string better by looping through 'ToKid' so you know first and last
+                                      tempArray[x].event_desc = tempArray[x].event_desc + ", " + items[i].tokid_name;
                                   }
 
-                                      // @@@@@@@@@@@@@@@@@@@@
-                                      // url, liked, from any kid
+                                  // url, liked, from any kid
                                   else if (event_type == 'like') {
                                       // Update your reply in the ToKid element
                                       // ------------
@@ -229,6 +238,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                   }
                                   else { alert('unknown case') };
 
+                                  // Since you updated the event log objects for Likes and Share based on new event, update the Day also
+                                  tempArray[x].day = day;
+
                                   imageurlfound = true;
                                   break;
                               } // end if URL found
@@ -236,6 +248,13 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           }; //end for
 
                           if ((imageurlfound == false) && (event_type == 'sharepicture')) {  // New SharedUrl found 
+                              var event_desc;
+                              if (items[i].fromkid_id == adminGUID) {
+                                  event_desc = "You shared a drawing with " + items[i].tokid_name;
+                              }
+                              else {
+                                  event_desc = items[i].fromkid_name + "shared a drawing with you";
+                              };
 
                               // @@@@ Make new array object for UI 
                               // ==============================
@@ -255,6 +274,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                   comment_content: items[i].comment_content,
                                   day: day,
                                   time: time,
+                                  event_desc: event_desc,
                               };
                               tempArray.push(element); // add into array for UI & $scope
                           };
@@ -298,12 +318,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
     // ==========================================
 
-    // NOT SURE THIS IS USED ANYWHERE
-    //// simple helper to expose global service to UI view
-    //$scope.convertavatartoimage = function (avatarid) {
-    //    var img = globalService.getAvatarFromID(avatarid);
-    //    return img;
-    //};
+
     // simple helper to get avatar image from ClientArray
     $scope.getavatarimagefromclientarray = function (index) {
         var avatarid = $scope.clientarray[index][2];
@@ -476,112 +491,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
         }; // end if
     };
-
-
-    //// ==========================================
-    //// Delete Client
-    //// ==========================================
-    //$scope.deleteClientClick = function (clickEvent) {
-    //    $scope.clickEvent = globalService.simpleKeys(clickEvent);
-    //    $scope.clientId = clickEvent.target.id;
-    //    alert('delete item = ' + $scope.clientId);
-
-    //    deleteClient($scope.clientId);
-    //}
-
-    //function deleteClient(id) {
-    //    // Delete from localStorage
-    //    // ---------------
-    //    var foundIndex;
-    //    var len = $scope.clientarray.length;
-    //    for (i = 0; i < len; i++) {
-    //        if ($scope.clientarray[i].indexOf(id) > -1) { // If found in this subarray 
-    //            foundIndex = i;
-    //            //alert('found at: ' + foundIndex);
-    //            $scope.clientarray.splice(foundIndex, 1) // remove from this element at index number from 'clientarray'
-    //            //alert($scope.clientarray);
-    //            localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-
-    //            // Delete on Azure
-    //            // ---------------
-    //            Azureservice.del('kid', {
-    //                id: id // ID for the row to delete    
-    //            })
-    //            .then(function () {
-    //                console.log('Delete successful');
-
-    //                // @@@ Once the Client is deleted, have to delecte other records this client is in
-    //                GetFriendRecordsAndDelete(id);
-
-    //            }, function (err) {
-    //                //console.error('Azure Error: ' + err);
-    //                alert('Azure Error: ' + err);
-    //            });
-
-    //            break;
-    //        };
-    //    };
-    //    if (len == 1) { $scope.noClientFlag = true }; // If only one item in client array and you remove it, then show no clients UI
-
-    //};
-    //// ==========================================
-
-    //// ==========================================
-    ////  Delete friends records from Azure based on Client GUID
-    //// ==========================================
-    //var len, j;
-
-    //function GetFriendRecordsAndDelete(id) {
-
-    // Azureservice.read('friends', "$filter=kid1_id eq '" + id + "' or kid2_id eq '" + id + "'")
-    //    .then(function (items) {
-    //        if (items.length == 0) { // if no Friend record found, then
-    //            console.log('no connections yet')
-    //        }
-    //        else { // if friend records found, Go through Items and Delete them  
-    //            alert(JSON.stringify(items));
-
-    //            // Different way of setting up the loop 
-    //            // ---
-    //            j = 0;
-    //            len = items.length;
-    //            DeleteFriendRecords(items); // @@@ Call recursive Azure call
-
-    //        };
-    //    }).catch(function (error) {
-    //        console.log(error); alert(error);
-    //    });
-    //};
-
-    //// RECURSIVELY Go through Friend array and delete each from Friends table in Azure 
-    //// !!!!! LOTS OF CALL TO AZURE NOW  // !!!!! BETTER TO HAVE A CUSTOM API IN NODE TO DO THIS JOINING
-    //// --------------------------------------
-    //function DeleteFriendRecords(items) {
-    //    alert(j);
-    //    // Delete on Azure
-    //    // ---------------
-    //    Azureservice.del('friends', {
-    //        id: items[j].id // ID for the row to delete    
-    //    })
-    //    .then(function () {
-    //        console.log('Delete successful');
-    //        // @@@ RECUSIVE PART.  Regular FOR loop didn't work.
-    //        // ------
-    //        j++;
-    //        if (j < len) {
-    //            DeleteFriendRecords(items);
-    //        };
-    //    }, function (err) {
-    //        //console.error('Azure Error: ' + err);
-    //        alert('Azure Error: ' + err);
-    //    });
-    //    // ---------------
-
-    //};
-
-    //// ==========================================
-
-
 
 
 

@@ -291,7 +291,6 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                                   };
                                               }; //end for
                                               localStorage["RYB_imagepropertiesarray"] = JSON.stringify(imagepropertiesarray); //push back to localStorage
-                                              //alert("update image array with like comment" + JSON.stringify(imagepropertiesarray))
                                           };
 
                                           break;
@@ -317,6 +316,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                           else {
                               event_desc = items[i].fromkid_name + "shared a drawing with you";
                           };
+
                           // @@@@ Make new array object for UI 
                           // ==============================
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
