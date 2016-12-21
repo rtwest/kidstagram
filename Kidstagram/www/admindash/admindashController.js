@@ -35,6 +35,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
     function getEventLog() {
 
+        $scope.listloadspinner = true;
+
         // Before getting the event log from Azure, take Imagepropertiesarray and make a new local array of ['ImageIDUserID',] so its easy to check against
         // ---------------
         var likesArrayFlattened = [];
@@ -287,6 +289,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                   // @@@ Push the cleaned up array of objects into the $scope
                   globalService.eventArray = tempArray.reverse();// Reverse order of array so most recent is first
                   $scope.eventarray = globalService.eventArray;
+                  $scope.listloadspinner = false;
 
               }; // end if
 

@@ -76,13 +76,14 @@
 
 
         <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML and ADMINDASH.HTML -->
-        <div style="margin-left:27px;font-size:18px;padding-top:30px;margin-bottom:-32px">My Timeline</div>
+        <div style="margin-left:27px;font-size:18px;padding-top:42px;margin-bottom:-32px">My Timeline</div>
 
         <div>
             <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
             <!--'row' is a new local var created here then used in controllerJS-->
             <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
             <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'"></div>
+            <div ng-show="listloadspinner">loader goes here 2</div>
             <div ng-show="noEventsFlag">No events</div>
         </div>
         <!-- This is one way to specify the repeater item template used above
