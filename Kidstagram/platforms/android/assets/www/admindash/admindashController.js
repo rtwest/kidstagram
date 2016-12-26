@@ -36,6 +36,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     function getEventLog() {
 
         $scope.listloadspinner = true;
+        //$('#loader').addClass('spinner-calm');
 
         // Before getting the event log from Azure, take Imagepropertiesarray and make a new local array of ['ImageIDUserID',] so its easy to check against
         // ---------------
@@ -60,7 +61,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
               if (items.length == 0) { // if no Event record found, then
                   $scope.noEventsFlag = true;   // '...Flag' is a flag the UI uses to check for 'show/hide' msg div
-                  console.log('no events in last 2 weeks')
+                  console.log('no events in last 2 weeks');
+                  $scope.listloadspinner = false;
               }
               else {
 

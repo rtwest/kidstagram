@@ -36,6 +36,16 @@ body{
 
 /* ICONS ========================================================= */
 
+.spinner svg {
+  /*stroke: #ff00a4;
+  fill: #ff00a4;*/
+  transition: all 1s ease;
+}
+#listloader {
+    text-align:center;
+    margin-top:50px;
+}
+
 .svgicon {
     background-image: url('../img/kidstagramicons.svg');
     background-repeat: no-repeat;

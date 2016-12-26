@@ -15,6 +15,7 @@
 - loader
 - modal action sheets / Sharing
 - On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
+- Need better NO EVENTS message (like No Kids message)
 
 - Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
 
