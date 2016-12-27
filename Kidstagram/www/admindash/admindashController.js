@@ -363,14 +363,22 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             $ionicBackdrop.release();
         };
     };
+    $scope.addanotherclientbutton = function () {
+        randomAvatarID(); // select kid avatar when making the modal.
+        $scope.showClientAddedUI = false; //hide added message and show form
+    };
+    $scope.hideaddclientuibutton = function () {
+        $scope.showaddclientui = false; // hide modal
+        $scope.showClientAddedUI = false; // hide added message
+        $ionicBackdrop.release();
+    };
 
     // ==========================================
     //  Create new client.  Store locally and create on Azure
     // ==========================================
     $scope.addNewClient = function (name) {
         addKid(name);
-        $scope.showaddclientui = false;
-        $ionicBackdrop.release();
+        $scope.newkidname = name;
     };
 
     function makeRegistrationCode() {
@@ -379,6 +387,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         var possible = "abcdefghijklmnopqrstuvwxyz";
         for (var i = 0; i < 6; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
+        $scope.regCode = text;
         return text;
     };
 
