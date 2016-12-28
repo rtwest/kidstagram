@@ -178,17 +178,25 @@
             <!--Content for client added message-->
             <div id="clientAddedUI" ng-show="showClientAddedUI">
                 <!--ng-show is logic to toggle show/hide for this UI-->
-                <div style="font-size:20px">{{newkidname}}</div>
-                <div>Let's get {{newkidname}} set up!  Here's how.
-                    <p>Download Kidstagram on another device.</p>
-                    <p>During setup, choose "Kid". </p> 
-                    <p>Enter {{newkidname}}'s registration code.</p>
-                </div>
-                <div style="font-size:20px">{{regCode}}</div>
-                <p>You can always find {{newkidname}}'s registration code on her details page.</p> 
 
-                <div style="float:left;margin-left:25px;margin-right:60px" ng-click="hideaddclientuibutton()">CLOSE</div>
-                <div ng-click="addanotherclientbutton()">ADD ANOTHER</div>
+                <div style="font-size:20px;margin-bottom:15px">Let's Set Up {{newkidname}}!</div>
+
+                <div style="text-align:left">
+                   To complete set up, do the following:
+                    <div>
+                        <ol type="1">
+                            <li>Download Kidstagram on another device</li>
+                            <li>During setup, choose "Kid" </li>
+                            <li>Enter {{newkidname}}'s registration code</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div style="font-size:30px;margin-top:10px">{{regCode}}</div>
+                <div style="font-size:12px;color:#999;line-height:16px;margin-top:15px;margin-bottom:25px;">You can always find {{newkidname}}'s registration code on their details page</div>
+
+                <div style="float:left;margin-left:25px;margin-right:30px" ng-click="hideaddclientuibutton()">CLOSE</div>
+                <div ng-click="addanotherclientbutton()">ADD ANOTHER KID</div>
             </div>
 
         </div><!--newkidmodal-->
