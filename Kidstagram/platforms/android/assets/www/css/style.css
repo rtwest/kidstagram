@@ -374,9 +374,9 @@ body{
 .newkidmodal {
     box-shadow: 0 6px 8px 0 rgba(0,0,0,0.15);
     border-radius: 8px; 
-    margin-left:-150px;  /*trick for center absolutely positioned el*/
+    margin-left:-175px;  /*trick for center absolutely positioned el*/
     left:50%;   /*trick for center absolutely positioned el*/
-    width:300px;
+    width:350px;
     height:auto;
     background-color:#fff;
     padding:17px 17px 35px 17px;  /*space for curve of card*/
@@ -438,6 +438,11 @@ body{
 }
 .popup-buttons .button.activated
 {}
+
+.orderedlist {
+  list-style-type: decimal;
+  list-style-position:inside;
+}
 
 
 

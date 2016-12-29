@@ -160,7 +160,7 @@
         <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
 
             <!--NEED THIS TO BE DYNAMICALLY LOADED-->
-            <img id="newclientavatar" src="" style="height:50px;margin-top:15px;margin-bottom:60px">
+            <img id="newclientavatar" src="" style="height:70px;margin-top:15px;margin-bottom:60px">
 
             <!--Content for client added message-->
             <div ng-hide="showClientAddedUI">
@@ -170,7 +170,7 @@
                 <!--Validation requiring this input to enable the Add-->
                 <form name="newclientform">
                     <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-                    <div style="float:left;margin-left:40px;margin-right:60px" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                    <div style="float:left;width:50%" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
                     <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
                 </form>
             </div>
@@ -179,24 +179,22 @@
             <div id="clientAddedUI" ng-show="showClientAddedUI">
                 <!--ng-show is logic to toggle show/hide for this UI-->
 
-                <div style="font-size:20px;margin-bottom:15px">Let's Set Up {{newkidname}}!</div>
+                <div style="font-size:25px;margin-bottom:25px">{{newkidname}}'s Set Up</div>
 
-                <div style="text-align:left">
+                <div style="text-align:left;margin-left:10px;">
                    To complete set up, do the following:
-                    <div>
-                        <ol type="1">
+                        <ol class="orderedlist" style="margin-top:10px">
                             <li>Download Kidstagram on another device</li>
                             <li>During setup, choose "Kid" </li>
                             <li>Enter {{newkidname}}'s registration code</li>
                         </ol>
-                    </div>
                 </div>
 
-                <div style="font-size:30px;margin-top:10px">{{regCode}}</div>
-                <div style="font-size:12px;color:#999;line-height:16px;margin-top:15px;margin-bottom:25px;">You can always find {{newkidname}}'s registration code on their details page</div>
+                <div style="font-size:30px;margin-top:20px">{{regCode}}</div>
+                <div style="font-size:12px;color:#999;line-height:16px;margin:25px 0px 25px 10px;">You can always find {{newkidname}}'s registration code on their details page</div>
 
-                <div style="float:left;margin-left:25px;margin-right:30px" ng-click="hideaddclientuibutton()">CLOSE</div>
-                <div ng-click="addanotherclientbutton()">ADD ANOTHER KID</div>
+                <div class="buttonlink" style="float:left;width:37%" ng-click="hideaddclientuibutton()">CLOSE</div>
+                <div class="buttonlink" ng-click="addanotherclientbutton()">ADD ANOTHER KID</div>
             </div>
 
         </div><!--newkidmodal-->
