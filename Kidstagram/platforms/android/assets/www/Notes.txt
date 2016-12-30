@@ -5,8 +5,7 @@
 - Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
 - fix admin controller for 1) date for multiple shares 4) html - same fix as on clientstartcontroller
 - ADMIN
-	- !!!!!!  Message after Client Add - Clean up modal
-	- Use star count
+	- !!!!!!! Use star count - animation still comes from horizontalcenter but verticlTOP?
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
 
 - CLIENTPROPERTIES VIEW
@@ -23,6 +22,8 @@ TEST CASES
 - Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
 - On Invitation Accept, Insert into Event Record  /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.  Alternatively, do this from Admin side after invitation accept
 
+SOUNDS
+	- http://www.looperman.com/loops "Legends"
 
 
 NOTES

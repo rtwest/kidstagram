@@ -139,7 +139,7 @@ angular.module('cordovaNG', [
     // Check for User Array - for registration
         if (localStorage.getItem('RYB_userarray')) {
 
-            //  Add to globalservice var to make available to all views 
+            //  Add to globalservice var to make available to all views *******************************************************************
             globalService.userarray = JSON.parse(localStorage.getItem('RYB_userarray')); // get array from localstorage key pair and string
 
             if (globalService.userarray[1] == 'admin') { // if user type is 'admin', go to admin home screen

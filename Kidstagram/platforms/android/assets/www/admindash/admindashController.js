@@ -18,8 +18,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     var adminGuid = globalService.userarray[0];
     $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[5]);
     $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
-    $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
-    $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+    updateStarCountUI();
     // ==========================================
 
     // Grab event log and see if it should be updated
@@ -28,6 +27,14 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         getEventLog();
         globalService.lastTimeChecked = Date.now();
     };
+
+    // Update the Star Count CSS
+    function updateStarCountUI() {
+        $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+        $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+        $("#starwrapper").removeClass("animation-target"); //try to remove so its not stacked up
+        $("#starwrapper").addClass("animation-target"); //add CSS3 animation
+    }
 
     // ==========================================
     //  Get the Event log based on Admin GUID.   THIS CODE USED ON CLIENTPROPERTIESCONTROLLER.JS and CLIENTSTARTCONTROLLER.JS and ADMINDASHCONTROLLER.JS
@@ -379,6 +386,12 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.addNewClient = function (name) {
         addKid(name);
         $scope.newkidname = name;
+
+        // increase star count  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        globalService.userarray[6] = globalService.userarray[6] + 5;  // Get 5pt for adding a client
+        localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
+        $scope.starCount = globalService.userarray[6]; // update view model
+        updateStarCountUI();// update star UI
     };
 
     function makeRegistrationCode() {
