@@ -61,6 +61,10 @@
 		7D0681BCACD0436A9DE82BAE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9F1F06B9DF4AF092B5FCB0 /* libz.dylib */; };
 		B87947644E964188907D7C45 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF7151455704496B8322BAA /* CFNetwork.framework */; };
 		F571CDB9ECD9489A907F243D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432BF3679ECD4886B0B2D70E /* SystemConfiguration.framework */; };
+		B96A3D4337C54F78839EB082 /* NativeAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2204739F644AEE91E54830 /* NativeAudio.m */; };
+		25B1475E175843319479A127 /* NativeAudioAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC2F68DAD7E4157918C7E69 /* NativeAudioAsset.m */; };
+		27A1EF308001441F97CDA174 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB5CDE0ADB6943B8A9B4E1E5 /* Foundation.framework */; };
+		36223B30700B42638DD07A40 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0419F2714FC997B619C4 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +176,12 @@
 		DA9F1F06B9DF4AF092B5FCB0 /* libz.dylib */ = {isa = PBXFileReference; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
 		FEF7151455704496B8322BAA /* CFNetwork.framework */ = {isa = PBXFileReference; name = "CFNetwork.framework"; path = "System/Library/Frameworks/CFNetwork.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		432BF3679ECD4886B0B2D70E /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		CD2204739F644AEE91E54830 /* NativeAudio.m */ = {isa = PBXFileReference; name = "NativeAudio.m"; path = "cordova-plugin-nativeaudio/NativeAudio.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		5DC2F68DAD7E4157918C7E69 /* NativeAudioAsset.m */ = {isa = PBXFileReference; name = "NativeAudioAsset.m"; path = "cordova-plugin-nativeaudio/NativeAudioAsset.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		81DEC37523944E50AAD5995F /* NativeAudio.h */ = {isa = PBXFileReference; name = "NativeAudio.h"; path = "cordova-plugin-nativeaudio/NativeAudio.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		AB84FB9DE9434FC99B1CF563 /* NativeAudioAsset.h */ = {isa = PBXFileReference; name = "NativeAudioAsset.h"; path = "cordova-plugin-nativeaudio/NativeAudioAsset.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		BB5CDE0ADB6943B8A9B4E1E5 /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0E0E0419F2714FC997B619C4 /* AVFoundation.framework */ = {isa = PBXFileReference; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +224,8 @@
 				7D0681BCACD0436A9DE82BAE /* libz.dylib in Frameworks */,
 				B87947644E964188907D7C45 /* CFNetwork.framework in Frameworks */,
 				F571CDB9ECD9489A907F243D /* SystemConfiguration.framework in Frameworks */,
+				27A1EF308001441F97CDA174 /* Foundation.framework in Frameworks */,
+				36223B30700B42638DD07A40 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +330,8 @@
 				DA9F1F06B9DF4AF092B5FCB0 /* libz.dylib */,
 				FEF7151455704496B8322BAA /* CFNetwork.framework */,
 				432BF3679ECD4886B0B2D70E /* SystemConfiguration.framework */,
+				BB5CDE0ADB6943B8A9B4E1E5 /* Foundation.framework */,
+				0E0E0419F2714FC997B619C4 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -380,6 +394,10 @@
 				C840EB6C535949C5B45F56F0 /* GCMReceiverDelegate.h */,
 				430C75E27E5946DEA88F22BB /* GCMService.h */,
 				275CF9BA115C4A88B834FD6E /* GoogleCloudMessaging.h */,
+				CD2204739F644AEE91E54830 /* NativeAudio.m */,
+				5DC2F68DAD7E4157918C7E69 /* NativeAudioAsset.m */,
+				81DEC37523944E50AAD5995F /* NativeAudio.h */,
+				AB84FB9DE9434FC99B1CF563 /* NativeAudioAsset.h */,
 			);
 			name = Plugins;
 			path = "Kidstagram/Plugins";
@@ -506,6 +524,8 @@
 				A9633F150FF6463D9651D9FC /* Canvas2ImagePlugin.m in Sources */,
 				F1C5343BED464C02B3F26741 /* AppDelegate+notification.m in Sources */,
 				D1CEB694A9AD4BC695FB97D9 /* PushPlugin.m in Sources */,
+				B96A3D4337C54F78839EB082 /* NativeAudio.m in Sources */,
+				25B1475E175843319479A127 /* NativeAudioAsset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

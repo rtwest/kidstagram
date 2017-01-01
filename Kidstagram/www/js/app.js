@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('cordovaNG', [
     'ionic',
+    'ngCordova',
     'azure-mobile-service.module',//NG wrapper around Azure mobile service
     'ngOpenFB', //NG wrapper for OpenFB wrapper around FB api
 ])
@@ -13,7 +14,7 @@ angular.module('cordovaNG', [
 .constant('AzureMobileServiceClient', { API_URL: "https://service-poc.azure-mobile.net/", API_KEY: 'IfISqwqStqWVFuRgKbgJtedgtBjwrc24' })
 
 
-.run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', function ($ionicPlatform, $state, globalService, Azureservice) {
+.run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', '$cordovaNativeAudio', function ($ionicPlatform, $state, globalService, Azureservice, $cordovaNativeAudio) {
 
     $ionicPlatform.ready(function () {
 
@@ -30,6 +31,29 @@ angular.module('cordovaNG', [
         if (window.StatusBar) {
             StatusBar.styleDefault();
         };
+
+        // SOUNDS - all calls to $cordovaNativeAudio return promises
+        if (window.plugins && window.plugins.NativeAudio) {
+
+            // Preload audio resources
+            window.plugins.NativeAudio.preloadComplex('loop1', 'audio/loop1.wav', 1, 1, 0, function (msg) {
+            }, function (msg) {
+                console.log('error: ' + msg);
+            });
+
+            window.plugins.NativeAudio.preloadComplex('loop1', 'audio/loop1.wav');  WHICK ONE OF THESE WORKS?
+
+            window.plugins.NativeAudio.preloadSimple('highhat', 'audio/highhat.mp3'); // THIS WORKS
+
+            // Stop multichannel clip after 60 seconds
+            //window.setTimeout(function () {
+            //    window.plugins.NativeAudio.stop('music');
+            //    window.plugins.NativeAudio.unload('music');
+            //    window.plugins.NativeAudio.unload('click');
+            //}, 1000 * 60);
+        }
+        // -------
+
 
     // =========================================================================================
     // =========================================================================================

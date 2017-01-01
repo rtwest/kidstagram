@@ -93,6 +93,14 @@ module.exports = [
         "clobbers": [
             "PushNotification"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-nativeaudio/www/nativeaudio.js",
+        "id": "cordova-plugin-nativeaudio.nativeaudio",
+        "pluginId": "cordova-plugin-nativeaudio",
+        "clobbers": [
+            "window.plugins.NativeAudio"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -109,7 +117,8 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "2.2.1",
     "org.rtwest.Canvas2ImagePlugin": "0.7.1",
     "phonegap-plugin-push": "1.8.1",
-    "cordova-plugin-android-permissions": "0.10.0"
+    "cordova-plugin-android-permissions": "0.10.0",
+    "cordova-plugin-nativeaudio": "3.0.7"
 }
 // BOTTOM OF METADATA
 });

@@ -1,51 +1,114 @@
 ﻿<!-- Client start and home page -->
+<ion-view style="background-color:#f7f7f7">
+    <ion-content>
 
-<p>Client start and home page</p>
+        <div id="eventlogheader">
+            <img src="./img/header/headeravatarbackground.svg" class="avatarbackground">
+            <img src={{avatarID}} class="headeravatar">
+            <!--{{clientName}}-->    
+        </div>
 
-<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoCanvasView()">Draw</button>
-<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoGalleryView()">Gallery</button>
-<button type="button" class="btn btn-primary" style="box-shadow:none;">Friends</button>
+        <div id="eventlogheaderbuttons">
+            <div class="imagebuttonwrapper" style="float:left">
+                <img src="./img/draw_button_large.svg" ng-click="gotoCanvasView()">
+                <div>DRAW</div>
+            </div>
+            <div style="float:left; width:120px;text-align:center;margin-top:-3px">
+                <div id="starwrapper">
+                    <!--for animation-->
+                    <div class="starprogressbackground"></div>
+                    <div id="starprogress"></div>
+                    <img src="./img/star_chart_overlay2.svg" style="height:60px;position:absolute;margin-left:-32px;">
+                </div>
+                <div style="margin-top:67px;font-size:24px">{{starCount}}</div>
+            </div>
+            <div class="imagebuttonwrapper" style="float:left">
+                <img src="./img/gallery_button_large.svg" width="61" ng-click="gotoGalleryView()">
+                <div>MY ART</div>
+            </div>
+        </div>
 
-
-<div>client name, registration code, avatar</div>
-<div>{{clientName}}</div>
-<div>{{avatarID}}</div>
-
-
-<!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
-<div>
-    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
-    <!--'row' is a new local var created here then used in controllerJS-->
-    <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
-    <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'"></div>
-    <div ng-show="noEventsFlag">No events</div>
-</div>
-<!-- This is one way to specify the repeater item template used above
-    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
-    Have to have the element ID on everything because the obj id is passed where ever you click-->
-<script type="text/ng-template" id="repeaterTemplate.html">
-    <div>
-        <!--If row.day is not Null, then show it-->
-        <div ng-show="row.day"><strong> day is {{row.day}}</strong></div>
+        <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML and ADMINDASH.HTML -->
         <div>
-            <!--{{row.datetime | date:"EEEE, MMM d"}}-->
-            {{row.time}}
+            <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+            <!--'row' is a new local var created here then used in controllerJS-->
+            <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+            <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'" style="margin-bottom:-12px"></div>
+            <div ng-show="noEventsFlag">No events</div>
         </div>
-        <div>{{row.fromkid}}</div>
-        <div>{{row.fromkidavatar}}</div>
-        <div>{{row.event_type}}</div>
+        <!-- This is one way to specify the repeater item template used above
+            Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+            Have to have the element ID on everything because the obj id is passed where ever you click-->
+        <script type="text/ng-template" id="repeaterTemplate.html">
+            
+            <!--If row.day is not Null, then show it-->
+            <div class="eventlogdate" ng-show="row.day">{{row.day}}</div>
 
-        <!--Nested repeater within the first JSON array-->
-        <div ng-repeat="subarrayitem in row.tokid">
-            <div style="color:red">{{subarrayitem.tokidname}}</div>
-            <div>{{subarrayitem.tokidavatar}}</div>
-            <div>{{subarrayitem.tokidreply}}</div>
+            <div class="eventlogcard">            
+                
+                <div class="eventlogcardcontainer">
+                    
+                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
+                    <div ng-show="row.event_type=='friends'"> 
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <img src={{subarrayitem.tokidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                        </div>
+                        <div class="eventlogdesc" style="padding-top:5px;display:block">{{row.event_desc}}</div>
+                        <div class="eventlogtime"><!--{{row.datetime | date:"EEEE, MMM d"}}-->{{row.time}}</div>
+                    </div> <!--end conditional format-->
+
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to 1 person.  ToKid array does NOT have n>1.  Could be TO or FROM you -->
+                    <div ng-show="row.event_type=='sharepicture' && !row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">                  
+                        <div class="eventdescblock">
+                            <div class="eventlogdesc">{{row.event_desc}}</div>
+                            <div class="eventlogtime">{{row.time}}</div>
+                            <!--Nested repeater within the first JSON array.  This is a hack because there's only 1 in here-->
+                            <div ng-repeat="subarrayitem in row.tokid" style="margin-top:5px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
+                                <div>{{subarrayitem.tokidreply}}</div>
+                            </div>
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                    </div> <!--end conditional format--> 
+
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to MORE THAN 1 person.  Only case can be that you sent it.  ToKid array does have n>1 -->
+                    <div ng-show="row.event_type=='sharepicture' && row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                        <div class="eventdescblock">
+                            <div class="eventlogdesc">{{row.event_desc}}</div>
+                            <div class="eventlogtime">{{row.time}}</div>
+                            <br />
+                            <!--Nested repeater within the first JSON array-->
+                            <div ng-repeat="subarrayitem in row.tokid" style="float:left;margin-right:6px;margin-top:5px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <!--{{subarrayitem.tokidname}}-->
+                            </div>
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                        <!--Nested repeater within the first JSON array-->
+                        <div class="eventlogdesc">These friends sent you stars!</div>
+                        <div ng-repeat="subarrayitem in row.tokid">  <!--Show if there are Likes-->
+                            <div ng-show="subarrayitem.tokidreply" style="float:left;margin-right:6px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <div>{{subarrayitem.tokid_name}}</div>
+                                <div>STAR IMAGE GOES HERE</div>
+                            </div>
+                        </div>
+                    </div> <!--end conditional format--> 
+
+                </div>  <!--end event container-->
+
+            </div>  <!--end eventlog card-->
+        </script>
+
+        <div class="eventlogdate" style="color:black;margin-bottom:20px">
+            <p>
+                What are you waiting for!
+            </p>
+            <img src="./img/draw_button_large.svg" ng-click="gotoCanvasView()" width="56">
         </div>
 
-        <div ng-show="row.picture_url">
-            <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" class="smallimage" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
-        </div>
-
-    </div>
-</script>
-
+</ion-content>
+</ion-view>

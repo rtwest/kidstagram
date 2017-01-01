@@ -13,7 +13,8 @@ angular.module('cordovaNG', [
 // Configuration for AzureMobileServiceClient
 .constant('AzureMobileServiceClient', { API_URL: "https://service-poc.azure-mobile.net/", API_KEY: 'IfISqwqStqWVFuRgKbgJtedgtBjwrc24' })
 
-.run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', function ($ionicPlatform, $state, globalService, Azureservice) {
+
+.run(['$ionicPlatform', '$state', 'globalService', 'Azureservice', '$cordovaNativeAudio', function ($ionicPlatform, $state, globalService, Azureservice, $cordovaNativeAudio) {
 
     $ionicPlatform.ready(function () {
 
@@ -31,12 +32,50 @@ angular.module('cordovaNG', [
             StatusBar.styleDefault();
         };
 
-    //});// end ready
+        // SOUNDS - all calls to $cordovaNativeAudio return promises
+        if (window.cordova.plugins && window.cordova.plugins.NativeAudio) {
+        //if (window.plugins && window.plugins.NativeAudio) {
+
+            console.log('got this far');
+
+            // Preload audio resources
+            //window.plugins.NativeAudio.preloadComplex('loop1', 'audio/loop1.wav', 1, 1, 0, function (msg) {
+            //}, function (msg) {
+            //    console.log('error: ' + msg);
+            //});
+
+            window.plugins.NativeAudio.preloadSimple('highhat', 'audio/highhat.mp3', function (msg) {
+            }, function (msg) {
+                console.log('error: ' + msg);
+            });
+
+
+            // Play
+            window.plugins.NativeAudio.play('highhat');
+            //window.plugins.NativeAudio.loop('loop1');
+
+
+            // Stop multichannel clip after 60 seconds
+            //window.setTimeout(function () {
+
+            //    window.plugins.NativeAudio.stop('music');
+
+            //    window.plugins.NativeAudio.unload('music');
+            //    window.plugins.NativeAudio.unload('click');
+
+            //}, 1000 * 60);
+        }
+        else { console.log('plugin not found'); }
+
+        //$cordovaNativeAudio.preloadSimple('highhat', 'highhat.mp3');
+
+        // -------
 
 
     // =========================================================================================
     // =========================================================================================
     // Define the PushPlugin.
+    // NOTE: PushNotificationSetup code used on SigninController and App.js
     // Includes Factory NG Azure Wrapper around the Azure Pluging and uses Push Plugin.
     // https://github.com/Azure/mobile-services-samples/blob/master/CordovaNotificationsArticle/BackboneToDo/www/services/mobileServices/settings/services.js
     // =========================================================================================
@@ -44,7 +83,7 @@ angular.module('cordovaNG', [
 
         function PushNotificationSetup() {
 
-            alert(globalService.userarray[0]);
+            //alert(globalService.userarray[0]);
 
             var tags = [];
             tags[0] = globalService.userarray[0]; //Azure Notification Hub 'Tags' var seems to expect an array.  Get the local user GUID to send to user
@@ -59,7 +98,7 @@ angular.module('cordovaNG', [
 
             // Handle the registration event.
             pushNotification.on('registration', function (data) {
-                alert(JSON.stringify(data)); console.log(JSON.stringify(data));
+                //alert(JSON.stringify(data)); console.log(JSON.stringify(data));
                 // Get the native platform of the device.
                 var platform = device.platform;
                 // Get the handle returned during registration.
@@ -87,6 +126,7 @@ angular.module('cordovaNG', [
             pushNotification.on('notification', function (data) {
                 // Display the alert message in an alert.
                 alert(data.message);
+                console.log(data.message);
                 // Reload the items list.
                 //app.Storage.getData();
             });
@@ -95,13 +135,16 @@ angular.module('cordovaNG', [
             pushNotification.on('error', function (e) {
                 // Display the error message in an alert.
                 alert('error on registration = ' + e.message);
+                console.log('error on registration = ' + e.message);
             });
 
             var registrationSuccess = function () {
-                alert('Registered with Azure!'); console.log('Registered with Azure');
+                //alert('Registered with Azure!');
+                console.log('Registered with Azure');
             }
             var registrationFailure = function (error) {
-                alert('Failed registering with Azure: ' + error); console.log('Failed registering with Azure: ' + error);
+                alert('Failed registering with Azure: ' + error);
+                console.log('Failed registering with Azure: ' + error);
             }
 
         };//end Push Notification setup
@@ -111,13 +154,33 @@ angular.module('cordovaNG', [
     // ==================================================
     // Things to check for on start up 
     // ==================================================
-    //console.log("local stored user data is: " + localStorage.getItem('RYB_userarray'));
-        alert("local stored user data is: " + localStorage.getItem('RYB_userarray'));
+
+        // Check for permission on Android for Android 6+
+        // ----------------------
+        var platform = device.platform;
+        if ((platform == 'android' || platform == 'Android')) {
+            var permissions = cordova.plugins.permissions;
+            permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, checkPermissionCallback, null);
+
+            function checkPermissionCallback(status) {
+                if (!status.hasPermission) {
+                    var errorCallback = function () { console.warn('storage permission is not turned on'); }
+                    permissions.requestPermission(
+                      permissions.WRITE_EXTERNAL_STORAGE,
+                      function (status) {
+                          if (!status.hasPermission) errorCallback();
+                      }, errorCallback);
+                }
+            }
+        }
+        // ----------------------
+
+    console.log("local stored user data is: " + localStorage.getItem('RYB_userarray'));
 
     // Check for User Array - for registration
         if (localStorage.getItem('RYB_userarray')) {
 
-            // add to globalservice var to make available to all views
+            //  Add to globalservice var to make available to all views *******************************************************************
             globalService.userarray = JSON.parse(localStorage.getItem('RYB_userarray')); // get array from localstorage key pair and string
 
             if (globalService.userarray[1] == 'admin') { // if user type is 'admin', go to admin home screen
@@ -155,7 +218,6 @@ angular.module('cordovaNG', [
 
 
 .config(['$stateProvider','$urlRouterProvider','$compileProvider', '$ionicConfigProvider',function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
-//.config(function ($compileProvider, $ionicConfigProvider, $stateProvider, $urlRouterProvider) {
 
     // PERFORMANCE BOOTS ???
     // Performance Boosts 
@@ -261,11 +323,6 @@ angular.module('cordovaNG', [
         // Global functions
         // ----------------
 
-        // NOT USED ANYMORE
-        //changeView: function (view) { // Simple method to change view anywhere
-        //    $location.path(view); // path not hash
-        //},
-
         simpleKeys: function (original) { // Helper Recommedation from AngularJS site. Return a copy of an object with only non-object keys we need this to avoid circular references - though I'm not really sure why
             return Object.keys(original).reduce(function (obj, key) {
                 obj[key] = typeof original[key] === 'object' ? '{ ... }' : original[key];
@@ -298,6 +355,43 @@ angular.module('cordovaNG', [
             });
             return uuid;
         },
+
+        //Get Avatar from AvatarID
+        //------------------------
+        getAvatarFromID: function getAvatar(id) {
+            avatarimagenamearray = [
+                "avatar.bear",
+                "avatar.bee",
+                "avatar.bird",
+                "avatar.catgrey",
+                "avatar.catred",
+                "avatar.dogbrown",
+                "avatar.dogears",
+                "avatar.dogearsblack",
+                "avatar.doggrey",
+                "avatar.dogred",
+                "avatar.elephant",
+                "avatar.fox",
+                "avatar.horse",
+                "avatar.horsegrey",
+                "avatar.koala",
+                "avatar.leopard",
+                "avatar.lion",
+                "avatar.lizardblue",
+                "avatar.monkey",
+                "avatar.moose",
+                "avatar.panda",
+                "avatar.rabbitbrown",
+                "avatar.rabbitred",
+                "avatar.racoon",
+                "avatar.robot",
+                "avatar.wolf",
+                "avatar.zebra",
+            ];
+            avatarimage = "./img/avatars/" + avatarimagenamearray[id] + ".svg";
+            return avatarimage;
+        },
+
 
     };//end global function defintion
 

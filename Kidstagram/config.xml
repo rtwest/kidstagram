@@ -84,10 +84,8 @@
   </platform>
   <preference name="Orientation" value="portrait" />
   <access origin="http://rtwdevstorage.blob.core.windows.net" />
-  
   <allow-navigation href="*://*.facebook.com/*" />
   <allow-intent href="*://*.facebook.com/*" />
-  
   <plugin name="cordova-plugin-dialogs" version="1.2.1" />
   <plugin name="phonegap-plugin-push" version="1.8.1">
     <variable name="SENDER_ID" value="168753624064" />
@@ -98,4 +96,5 @@
   <preference name="deployment-target" value="8.3" />
   <preference name="Fullscreen" value="True" />
   <plugin name="cordova-plugin-android-permissions" version="0.10.0" src="https://github.com/NeoLSN/cordova-plugin-android-permission.git" />
+  <plugin name="cordova-plugin-nativeaudio" version="3.0.7" src="C:\Users\ryan__000\Desktop\cordova-plugin-nativeaudio" />
 </widget>

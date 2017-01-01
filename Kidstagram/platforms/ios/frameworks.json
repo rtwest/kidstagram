@@ -1,10 +1,12 @@
 {
-    "AudioToolbox.framework": 1,
+    "AudioToolbox.framework": 2,
     "WebKit.framework": 1,
     "AddressBook.framework": 1,
     "libsqlite3.tbd": 1,
     "libz.tbd": 1,
     "libz.dylib": 1,
     "CFNetwork.framework": 1,
-    "SystemConfiguration.framework": 1
+    "SystemConfiguration.framework": 1,
+    "Foundation.framework": 1,
+    "AVFoundation.framework": 1
 }

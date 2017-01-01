@@ -12,9 +12,12 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
     // ==========================================
 
     var clientGUID = globalService.userarray[0];
-    $scope.avatarID = globalService.userarray[3];
+    $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[3]); 
     $scope.clientName = globalService.userarray[4];
 
+    $scope.starCount = globalService.userarray[5]; //because it's the client view, admin order of var is different
+    $("#starprogress").css("height", 56*($scope.starCount/50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+    $("#starprogress").css("margin-top", 59-56*($scope.starCount/50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
     // ==========================================
 
     // Set the local data model here to the data in the global service between views
@@ -58,7 +61,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                 record_id: items[i].id,
                                 friend_id: items[i].kid2_id,
                                 friend_name: items[i].kid2_name,
-                                friend_avatar: items[i].kid2_avatar,  
+                                friend_avatar: items[i].kid2_avatar,
                                 //friend_parentname: ' ',
                                 //friend_parentemail: ' ',
                             };
@@ -132,7 +135,8 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                   var day, time, fromkid, tokid, lastimageurl, lasteventtype;
                   thiseventday = new Date();
                   nexteventday = new Date();
-                  montharray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  montharray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                  dayarray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 
                   for (i = 0; i < len; i++) {
 
@@ -153,7 +157,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               // If Day is Today-1, Then its Yesterday
                           else if ((thiseventday.getDate() == (today.getDate() - 1)) && (thiseventday.getMonth() == today.getMonth())) {
                               day = 'Yesterday';}
-                          else { day = montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
+                          else { day = dayarray[thiseventday.getDay()] + ", " + montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
                       }
                       else { // If this IS last in array, then it has to have the date header
                           if ((thiseventday.getDate() == today.getDate()) && (thiseventday.getMonth() == today.getMonth())) {
@@ -161,7 +165,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               // If Day is Today-1, Then its Yesterday
                           else if ((thiseventday.getDate() == (today.getDate() - 1)) && (thiseventday.getMonth() == today.getMonth())) {
                               day = 'Yesterday';}
-                          else { day = montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
+                          else { day = dayarray[thiseventday.getDay()] + ", " + montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
                       }
 
                       // @@@ Get time 
@@ -172,10 +176,10 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                           minutes = "0" + minutes;
                       };
                       if (t > 12) {
-                          time = Math.abs(12 - t) + ":" + minutes + "pm";  // break down the 24h and use Am/pm
+                          time = Math.abs(12 - t) + ":" + minutes + " pm";  // break down the 24h and use Am/pm
                       }
                       else {
-                          time = t + ":" + minutes + "am";  // break down the 24h and use Am/pm
+                          time = t + ":" + minutes + " am";  // break down the 24h and use Am/pm
                       }
 
                       // @@@ Small check to personalize the event details if it is YOU
@@ -198,22 +202,31 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       // @@@ If a 'friend' event, it does not have a URL
                       // ---------------------------------
                       if (event_type == 'friends') {
+                          var event_desc;
+                          if (items[i].fromkid_id == clientGUID) {
+                              event_desc = "You and " + items[i].tokid_name + " are now friends";
+                          }
+                          else {
+                              event_desc = "You and " + items[i].fromkid_name + " are now friends";
+                          };
+
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                               //picture_url: items[i].picture_url,  // not relevant in this case
                               //fromkid: from_check,  // who shared it
                               fromkid: items[i].fromkid_name,
-                              fromkidavatar: items[i].fromkid_avatar,
+                              fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                               fromkid_id: items[i].fromkid_id,
                               tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                   tokidname: items[i].tokid_name,  // each kids shared with
                                   tokid_id: items[i].tokid_id,
-                                  tokidavatar: items[i].tokid_avatar,
+                                  tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                   tokidreply: '',  // null in this case
                               }],
                               event_type: event_type, // 
                               comment_content: items[i].comment_content,
                               day: day,
                               time: time,
+                              event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
                       }
@@ -229,26 +242,25 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       var tempArrayLength = tempArray.length;
                       for (x = 0; x < tempArrayLength; x++) { // Loop through to array for ImageID
 
+                          // ********* If known image found - Inspect to know how to add to Object *********
+                          // *******************************************************************************
                           if (tempArray[x].picture_url == items[i].picture_url) {
 
-                              ///alert('found imageurl')
-                              // Inspect to know how to add to Object
-                              // ------------
-                              // cases: SharePicture - track this url.  Like Picture - append to tracked url.  
-                              
                               // url, shared, to any kid
                               if (event_type == 'sharepicture') {
                                   // Update object to add ToKid element
                                   // ------------
                                   var kidobject = {
                                       tokidname: items[i].tokid_name,
-                                      tokidavatar: items[i].tokid_avatar,
+                                      tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                       tokidreply: '', //null in this case
                                   };
                                   tempArray[x].tokid.push(kidobject);
-                              }
 
-                                  // @@@@@@@@@@@@@@@@@@@@
+                                  // *********** Build the event description string better by looping through 'ToKid' so you know first and last
+                                  tempArray[x].event_desc = tempArray[x].event_desc + ", " + items[i].tokid_name;
+                                  
+                              }
                               // url, liked, from any kid
                               else if (event_type == 'like') {
                                   // Update your reply in the ToKid element
@@ -279,7 +291,6 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                                                   };
                                               }; //end for
                                               localStorage["RYB_imagepropertiesarray"] = JSON.stringify(imagepropertiesarray); //push back to localStorage
-                                              //alert("update image array with like comment" + JSON.stringify(imagepropertiesarray))
                                           };
 
                                           break;
@@ -288,6 +299,9 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                               }
                               else { alert('unknown case') };
 
+                              // Since you updated the event log objects for Likes and Share based on new event, update the Day also
+                              tempArray[x].day = day;
+
                               imageurlfound = true;
                               break;
                           } // end if URL found
@@ -295,25 +309,33 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
                       }; //end for
 
                       if ((imageurlfound == false) && (event_type == 'sharepicture')) {  // New SharedUrl found 
+                          var event_desc;
+                          if (items[i].fromkid_id == clientGUID) {
+                              event_desc = "You shared a drawing with " + items[i].tokid_name;
+                          }
+                          else {
+                              event_desc = items[i].fromkid_name + "shared a drawing with you";
+                          };
 
                           // @@@@ Make new array object for UI 
                           // ==============================
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                               picture_url: items[i].picture_url, // this object is all about what happens around this image url
                               fromkid: from_check,  // who shared it
-                              fromkidavatar: items[i].fromkid_avatar,
+                              fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                               fromkid_id: items[i].fromkid_id,
                               tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                   tokidname: items[i].tokid_name,  // each kids shared with
                                   //tokidname: from_check,  // each kids shared with
                                   tokid_id: items[i].tokid_id,
-                                  tokidavatar: items[i].tokid_avatar,
+                                  tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                   tokidreply: "",  // null right now
                               }],
                               event_type: event_type, // 
                               comment_content: items[i].comment_content,
-                              day: day,
+                              day: day,  // ************************** day is getting passed NULL from the first check that its a repeat day. New share found.
                               time: time,
+                              event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
                       };
@@ -325,6 +347,7 @@ angular.module('cordovaNG').controller('clientstartController', function ($scope
 
                   // @@@ Push the cleaned up array of objects into the $scope
                   globalService.eventArray = tempArray.reverse();// Reverse order of array so most recent is first
+                  //alert(JSON.stringify(tempArray));
                   $scope.eventarray = globalService.eventArray;
 
               }; // end if

@@ -40,6 +40,9 @@
         },
         "cordova-plugin-android-permissions": {
             "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
+        },
+        "cordova-plugin-nativeaudio": {
+            "PACKAGE_NAME": "com.rockitshop.cordovapushnotification"
         }
     },
     "dependent_plugins": {

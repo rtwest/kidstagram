@@ -2,16 +2,40 @@
 
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop) {
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state) {
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
-    //$scope.message = "Nothing here yet";  //- TEST ONLY
-
     $scope.showaddclientui = false; // boolean for ng-show for add client modal
     $scope.showClientAddedUI = false; // boolean for ng-show for ClientAdded message
     $scope.noClientFlag = false; // boolean for ng-show for 'no client' message
     $scope.showInvitationForm = false; // boolean for ng-show for add invitation modal
+
+    // ==========================================
+    //  Get local user name, guid, and avatar
+    // ==========================================
     var adminGuid = globalService.userarray[0];
+    $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[5]);
+    $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
+
+    // initial star progress 
+    updateStarCountUI(); // FOR TESTING ANIMATION EASILY
+    $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+    $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+
+    //// Preload Audio
+    //$cordovaNativeAudio
+    //.preloadSimple('highhat', 'audio/highhat.mp3')
+    //.then(function (msg) {
+    //    console.log(msg);
+    //}, function (error) {
+    //    alert(error);
+    //});
+    //$scope.playSound_highhat = function () {
+    //    $cordovaNativeAudio.play('highhat');
+    //};
+    //$cordovaNativeAudio.play('highhat');
+
+    // ==========================================
 
     // Grab event log and see if it should be updated
     $scope.eventarray = globalService.eventArray;
@@ -20,11 +44,25 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         globalService.lastTimeChecked = Date.now();
     };
 
+    // Update the Star Count CSS
+    function updateStarCountUI() {
+        $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+        $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+        $("#starwrapper").removeClass("animation-target"); //try to remove so its not stacked up
+        $("#starwrapper").addClass("animation-target"); //add CSS3 animation
+
+        //$cordovaNativeAudio.play('highhat');
+
+    }
+
     // ==========================================
     //  Get the Event log based on Admin GUID.   THIS CODE USED ON CLIENTPROPERTIESCONTROLLER.JS and CLIENTSTARTCONTROLLER.JS and ADMINDASHCONTROLLER.JS
     // ==========================================
 
     function getEventLog() {
+
+        $scope.listloadspinner = true;
+        //$('#loader').addClass('spinner-calm');
 
         // Before getting the event log from Azure, take Imagepropertiesarray and make a new local array of ['ImageIDUserID',] so its easy to check against
         // ---------------
@@ -49,7 +87,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
               if (items.length == 0) { // if no Event record found, then
                   $scope.noEventsFlag = true;   // '...Flag' is a flag the UI uses to check for 'show/hide' msg div
-                  console.log('no events in last 2 weeks')
+                  console.log('no events in last 2 weeks');
+                  $scope.listloadspinner = false;
               }
               else {
 
@@ -61,7 +100,8 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                   var day, time, fromkid, tokid, lastimageurl, lasteventtype;
                   thiseventday = new Date();
                   nexteventday = new Date();
-                  montharray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  montharray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                  dayarray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
                   for (i = 0; i < len; i++) {
 
@@ -84,7 +124,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           else if ((thiseventday.getDate() == (today.getDate() - 1)) && (thiseventday.getMonth() == today.getMonth())) {
                               day = 'Yesterday';
                           }
-                          else { day = montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
+                          else { day = dayarray[thiseventday.getDay()] + ", " + montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
                       }
                       else { // If this IS last in array, then it has to have the date header
                           if ((thiseventday.getDate() == today.getDate()) && (thiseventday.getMonth() == today.getMonth())) {
@@ -94,7 +134,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           else if ((thiseventday.getDate() == (today.getDate() - 1)) && (thiseventday.getMonth() == today.getMonth())) {
                               day = 'Yesterday';
                           }
-                          else { day = montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
+                          else { day = dayarray[thiseventday.getDay()] + ", " + montharray[thiseventday.getMonth()] + " " + thiseventday.getDate(); }
                       }
 
                       // @@@ Get time 
@@ -105,10 +145,10 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           minutes = "0" + minutes;
                       };
                       if (t > 12) {
-                          time = Math.abs(12 - t) + ":" + minutes + "pm";  // break down the 24h and use Am/pm
+                          time = Math.abs(12 - t) + ":" + minutes + " pm";  // break down the 24h and use Am/pm
                       }
                       else {
-                          time = t + ":" + minutes + "am";  // break down the 24h and use Am/pm
+                          time = t + ":" + minutes + " am";  // break down the 24h and use Am/pm
                       }
 
                       // @@@ Small check to personalize the event details if it is YOU
@@ -131,22 +171,31 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                       // @@@ If a 'friend' event, it does not have a URL
                       // ---------------------------------
                       if (event_type == 'friends') {
+                          var event_desc;
+                          if (items[i].fromkid_id == adminGuid) {
+                              event_desc = "You and " + items[i].tokid_name + " are now friends";
+                          }
+                          else {
+                              event_desc = "You and " + items[i].fromkid_name + " are now friends";
+                          };
+
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                               //picture_url: items[i].picture_url,  // not relevant in this case
                               //fromkid: from_check,  // who shared it
                               fromkid: items[i].fromkid_name,
-                              fromkidavatar: items[i].fromkid_avatar,
+                              fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                               fromkid_id: items[i].fromkid_id,
                               tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                   tokidname: items[i].tokid_name,  // each kids shared with
                                   tokid_id: items[i].tokid_id,
-                                  tokidavatar: items[i].tokid_avatar,
+                                  tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                   tokidreply: '',  // null in this case
                               }],
                               event_type: event_type, // 
                               comment_content: items[i].comment_content,
                               day: day,
                               time: time,
+                              event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
                       }
@@ -162,11 +211,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           var tempArrayLength = tempArray.length;
                           for (x = 0; x < tempArrayLength; x++) { // Loop through to array for ImageID
 
+                              // ********* If known image found - Inspect to know how to add to Object *********
+                              // *******************************************************************************
                               if (tempArray[x].picture_url == items[i].picture_url) {
-
-                                  // Inspect to know how to add to Object
-                                  // ------------
-                                  // cases: SharePicture - track this url.  Like Picture - append to tracked url.  
 
                                   // url, shared, to any kid
                                   if (event_type == 'sharepicture') {
@@ -174,13 +221,15 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                       // ------------
                                       var kidobject = {
                                           tokidname: items[i].tokid_name,
-                                          tokidavatar: items[i].tokid_avatar,
+                                          tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                           tokidreply: '', //null in this case
                                       };
                                       tempArray[x].tokid.push(kidobject);
+
+                                      // *********** Build the event description string better by looping through 'ToKid' so you know first and last
+                                      tempArray[x].event_desc = tempArray[x].event_desc + ", " + items[i].tokid_name;
                                   }
 
-                                      // @@@@@@@@@@@@@@@@@@@@
                                       // url, liked, from any kid
                                   else if (event_type == 'like') {
                                       // Update your reply in the ToKid element
@@ -199,7 +248,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                                   // Make new JSON element with the Like event details
                                                   var event = items[i].event_type;
                                                   var name = items[i].fromkid_name;
-                                                  var avatar = items[i].fromkid_avatar;
+                                                  var avatar = globalService.getAvatarFromID(items[i].fromkid_avatar);
                                                   var kid_id = items[i].fromkid_id;
                                                   var comment_element = { event_type: event, name: name, avatar: avatar, kid_id: kid_id }; // New object
                                                   // Update 'RYB_imagepropertiesarray' in LocalStorage
@@ -219,6 +268,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                   }
                                   else { alert('unknown case') };
 
+                                  // Since you updated the event log objects for Likes and Share based on new event, update the Day also
+                                  tempArray[x].day = day;
+
                                   imageurlfound = true;
                                   break;
                               } // end if URL found
@@ -226,25 +278,33 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           }; //end for
 
                           if ((imageurlfound == false) && (event_type == 'sharepicture')) {  // New SharedUrl found 
+                              var event_desc;
+                              if (items[i].fromkid_id == adminGUID) {
+                                  event_desc = "You shared a drawing with " + items[i].tokid_name;
+                              }
+                              else {
+                                  event_desc = items[i].fromkid_name + "shared a drawing with you";
+                              };
 
                               // @@@@ Make new array object for UI 
                               // ==============================
                               var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
                                   picture_url: items[i].picture_url, // this object is all about what happens around this image url
                                   fromkid: from_check,  // who shared it
-                                  fromkidavatar: items[i].fromkid_avatar,
+                                  fromkidavatar: globalService.getAvatarFromID(items[i].fromkid_avatar),
                                   fromkid_id: items[i].fromkid_id,
                                   tokid: [{ // this is a notation for a nested object.  If someone sent to YOU, this has just your name in it
                                       tokidname: items[i].tokid_name,  // each kids shared with
                                       //tokidname: from_check,  // each kids shared with
                                       tokid_id: items[i].tokid_id,
-                                      tokidavatar: items[i].tokid_avatar,
+                                      tokidavatar: globalService.getAvatarFromID(items[i].tokid_avatar),
                                       tokidreply: "",  // null right now
                                   }],
                                   event_type: event_type, // 
                                   comment_content: items[i].comment_content,
                                   day: day,
                                   time: time,
+                                  event_desc: event_desc,
                               };
                               tempArray.push(element); // add into array for UI & $scope
                           };
@@ -257,6 +317,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                   // @@@ Push the cleaned up array of objects into the $scope
                   globalService.eventArray = tempArray.reverse();// Reverse order of array so most recent is first
                   $scope.eventarray = globalService.eventArray;
+                  $scope.listloadspinner = false;
 
               }; // end if
 
@@ -280,43 +341,85 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
     if (localStorage.getItem('RYB_clientarray')) { 
         $scope.clientarray = JSON.parse(localStorage.getItem('RYB_clientarray')); // get array from localstorage key pair and string
-        alert("array length: " + $scope.clientarray.length + " - " + $scope.clientarray)
+        //alert("array length: " + $scope.clientarray.length + " - " + $scope.clientarray)
     }
     else { // if no clients, show special message for this case 
-        alert('no clients found')
+        //alert('no clients found')
         $scope.noClientFlag = true;
     };
     // ==========================================
 
+
+    // simple helper to get avatar image from ClientArray
+    $scope.getavatarimagefromclientarray = function (index) {
+        var avatarid = $scope.clientarray[index][2];
+        var img = globalService.getAvatarFromID(avatarid);
+        return img;
+    };
     // This will be a default avatar the kid can change on first logon
     // ==========================================
-    $scope.randomAvatarID = function() {
-        
-        var arrindex = Math.floor((Math.random() * 24) + 1); // Random number between 1-24
-
-        var avatarArray = [
-        "./img/avatars/lion-small.svg",
-        "./img/avatars/unicorn-small.svg",
-        "./img/avatars/catface-small.svg",
-        "./img/avatars/tigerface-small.svg",
-        "./img/avatars/giraffe-small.svg",
-        "./img/avatars/shark-small.svg",
-
-        ];
-
-        $scope.avatarID = avatarArray[arrindex];   // I THINK THIS NEEDS TO BE INT IN AZURE?
-
+    function randomAvatarID() {
+        $scope.newKidAvatarID = Math.floor(Math.random() * 27); // Random number between 0-23 // 24 items in array. Also used on SigninController.js
+        $scope.newKidAvatarURL = globalService.getAvatarFromID($scope.newKidAvatarID)
+        $('#newclientavatar').attr("src", $scope.newKidAvatarURL);
     };
     // ==========================================
 
 
+    // ==========================================
+    //  Toggle Add Client Modal and Ionic Background
+    // ==========================================
+
+    // Load the Ionic modal from the given template URL
+    //$ionicModal.fromTemplateUrl('modal.html', {
+    //    scope: $scope, // modal's scope is same as controller scope
+    //    animation: 'slide-in-up'
+    //}).then(function (modal) { $scope.modal = modal; });
+
+
+    $scope.showaddclientuibutton = function () {
+        if ($scope.showaddclientui == false) {
+            randomAvatarID(); // select kid avatar when making the modal.
+            $scope.showaddclientui = true;
+            $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
+            $ionicBackdrop.retain();
+        }
+        else {
+            $scope.showaddclientui = false;
+            $ionicBackdrop.release();
+        };
+    };
+    $scope.addanotherclientbutton = function () {
+        randomAvatarID(); // select kid avatar when making the modal.
+        $scope.showClientAddedUI = false; //hide added message and show form
+    };
+    $scope.hideaddclientuibutton = function () {
+        $scope.showaddclientui = false; // hide modal
+        $scope.showClientAddedUI = false; // hide added message
+        $ionicBackdrop.release();
+    };
 
     // ==========================================
     //  Create new client.  Store locally and create on Azure
     // ==========================================
     $scope.addNewClient = function (name) {
         addKid(name);
-        $scope.showaddclientui = false;
+        $scope.newkidname = name;
+
+        // increase star count  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // -------------------------------------------------------
+        // test for max
+        if (globalService.userarray[6] + 5 >= 50) {
+            alert("GOAL REACHED");
+            // TRIGGER BIGGER ANIMATION GOES HERE
+            globalService.userarray[6] = 0; //resent counter
+        }
+        else {
+            globalService.userarray[6] = globalService.userarray[6] + 5;  // Get 5pt for adding a client
+        }
+        localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
+        $scope.starCount = globalService.userarray[6]; // update view model
+        updateStarCountUI();// update star UI
     };
 
     function makeRegistrationCode() {
@@ -325,6 +428,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         var possible = "abcdefghijklmnopqrstuvwxyz";
         for (var i = 0; i < 6; i++)
             text += possible.charAt(Math.floor(Math.random() * possible.length));
+        $scope.regCode = text;
         return text;
     };
 
@@ -338,24 +442,14 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         var clientitemarray = [];
         clientitemarray[0] = guid;
         clientitemarray[1] = name;
-        clientitemarray[2] = $scope.avatarID;
+        clientitemarray[2] = $scope.newKidAvatarID;
         clientitemarray[3] = registrationCode
 
         $scope.clientarray.push(clientitemarray); //add first item to localstorage arraystring
         localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-        //if ($scope.clientarray.length > 0) { // if it exists already (not the first one)
-        //    var arraylength = $scope.clientarray.length; // 'length' is actually array+1 because of zero index
-        //    $scope.clientarray[arraylength] = clientitemarray; //add new item to client array
-        //    localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-        //}
-        //else{ // it doesn't already exist and this is the first one
-        //    $scope.clientarray[0] = clientitemarray; //add first item to localstorage arraystring
-        //    localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-        //};
         $scope.clientarray = JSON.parse(localStorage.getItem('RYB_clientarray')); // get updated array from localstorage key pair and string
         //alert("array length = "+ $scope.clientarray.length + " - " + $scope.clientarray)
 
-        // Confirmation message
         $scope.showClientAddedUI = true; // toggle this boolean for ng-show in the UI
         $scope.noClientFlag = false;
 
@@ -367,7 +461,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             parent_id: globalService.userarray[0],
             registration_code: registrationCode,
             reg_status: '0',
-            avatar_id: $scope.avatarID,
+            avatar_id: $scope.newKidAvatarID,
             parent_name:globalService.userarray[4],
             parent_email: globalService.userarray[3],
         })
@@ -375,7 +469,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             console.log('new client insert successful');
 
             // Make array of parent and friends to iterate through recursively to add as friends
-            var kid_array = [guid, name, $scope.avatarID];// new kid
+            var kid_array = [guid, name, $scope.newKidAvatarID];// new kid
             var client_item_array = [];
             client_item_array = $scope.clientarray.slice(0); // add all the clients.  ".slice(0)" make sure you copy the array, not link to it.
             var admin_array = [globalService.userarray[0], globalService.userarray[4], globalService.userarray[5]];  // id, firstname, avatar
@@ -454,112 +548,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
 
 
-    // ==========================================
-    // Delete Client
-    // ==========================================
-    $scope.deleteClientClick = function (clickEvent) {
-        $scope.clickEvent = globalService.simpleKeys(clickEvent);
-        $scope.clientId = clickEvent.target.id;
-        alert('delete item = ' + $scope.clientId);
-
-        deleteClient($scope.clientId);
-    }
-
-    function deleteClient(id) {
-        // Delete from localStorage
-        // ---------------
-        var foundIndex;
-        var len = $scope.clientarray.length;
-        for (i = 0; i < len; i++) {
-            if ($scope.clientarray[i].indexOf(id) > -1) { // If found in this subarray 
-                foundIndex = i;
-                //alert('found at: ' + foundIndex);
-                $scope.clientarray.splice(foundIndex, 1) // remove from this element at index number from 'clientarray'
-                //alert($scope.clientarray);
-                localStorage["RYB_clientarray"] = JSON.stringify($scope.clientarray); //push back to localStorage
-
-                // Delete on Azure
-                // ---------------
-                Azureservice.del('kid', {
-                    id: id // ID for the row to delete    
-                })
-                .then(function () {
-                    console.log('Delete successful');
-
-                    // @@@ Once the Client is deleted, have to delecte other records this client is in
-                    GetFriendRecordsAndDelete(id);
-
-                }, function (err) {
-                    //console.error('Azure Error: ' + err);
-                    alert('Azure Error: ' + err);
-                });
-
-                break;
-            };
-        };
-        if (len == 1) { $scope.noClientFlag = true }; // If only one item in client array and you remove it, then show no clients UI
-
-    };
-    // ==========================================
-
-    // ==========================================
-    //  Delete friends records from Azure based on Client GUID
-    // ==========================================
-    var len, j;
-
-    function GetFriendRecordsAndDelete(id) {
-
-     Azureservice.read('friends', "$filter=kid1_id eq '" + id + "' or kid2_id eq '" + id + "'")
-        .then(function (items) {
-            if (items.length == 0) { // if no Friend record found, then
-                console.log('no connections yet')
-            }
-            else { // if friend records found, Go through Items and Delete them  
-                alert(JSON.stringify(items));
-
-                // Different way of setting up the loop 
-                // ---
-                j = 0;
-                len = items.length;
-                DeleteFriendRecords(items); // @@@ Call recursive Azure call
-
-            };
-        }).catch(function (error) {
-            console.log(error); alert(error);
-        });
-    };
-
-    // RECURSIVELY Go through Friend array and delete each from Friends table in Azure 
-    // !!!!! LOTS OF CALL TO AZURE NOW  // !!!!! BETTER TO HAVE A CUSTOM API IN NODE TO DO THIS JOINING
-    // --------------------------------------
-    function DeleteFriendRecords(items) {
-        alert(j);
-        // Delete on Azure
-        // ---------------
-        Azureservice.del('friends', {
-            id: items[j].id // ID for the row to delete    
-        })
-        .then(function () {
-            console.log('Delete successful');
-            // @@@ RECUSIVE PART.  Regular FOR loop didn't work.
-            // ------
-            j++;
-            if (j < len) {
-                DeleteFriendRecords(items);
-            };
-        }, function (err) {
-            //console.error('Azure Error: ' + err);
-            alert('Azure Error: ' + err);
-        });
-        // ---------------
-
-    };
-
-    // ==========================================
-
-
-
-
 
     // ==========================================
     // Click on Client
@@ -590,7 +578,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     //4. create new invitation record with the 4 corresponding IDs
     // INVITATION RECORD: fromparent_id, toparent_id, fromkid, tokid, datetime
 
-    // #########################################################################################################################################################
+    // ######################################################################
     //var ToParentID, ToParentName, ToKidName, FromKidName, FromKidID, ToKidID;
     //var clientarray2 = [];
 
@@ -717,13 +705,11 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $state.go('invitationlist');
     };
     $scope.gotoCanvasView = function () {
-        //globalService.changeView('/canvas');
         $state.go('canvas');
-        globalService.lastView = '/admindash';
+        globalService.lastView = 'admindash';
     };
     $scope.gotoGalleryView = function () {
-        globalService.lastView = '/admindash';  // for knowing where to go with the back button
-        //globalService.changeView('/gallery');
+        globalService.lastView = 'admindash';  // for knowing where to go with the back button
         $state.go('gallery');
     };
 
@@ -770,7 +756,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         };
 
         //globalService.pictureViewParams = $scope.idParameters;  // pass the 3 values as a string and split at the next view
-        globalService.lastView = '/admindash';  // for knowing where to go with the back button
+        globalService.lastView = 'admindash';  // for knowing where to go with the back button
     }; //end func
 
 

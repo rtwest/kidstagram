@@ -1,23 +1,38 @@
 ﻿W O R K I N G   R I G H T   N O W
 -----------------------------
-- Failed saving image on CanvasController on Andriod.  
-	- security or File vs URL problem to Android? EACCES 
-	- Tried installed ngCordova on a hope.  should remove this later.
-	- Grante storage permission in Settings made it work.
-	- why not asking on first run?  how to make it owrk for new and old API?
+- TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
+- Have to send LIKE on friends PIC
+- Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares,   Animate when Stars Happen!
+- fix admin controller for 1) date for multiple shares 4) html - same fix as on clientstartcontroller
+- ADMIN
+	- Use star count - bigger animation on Goal reached
+	- repeaters all jacked.  id='data' is screwed up on images when shared?
 
-- PushNotificationSetup not called after OOBE.  It is bypassed when going through OOBE.
+- CLIENTPROPERTIES VIEW
+	- Redo UI
+	- Redo event log on ClientProperties Controller
+
+- modal action sheets / Sharing
 - On Canvas, the ColoringBook image covers up the Share list Action Sheet so you can't interact with it.
-
-- Header / Footer - ionic UI makes them wrap and I need them to scroll X.  Trying set fixed width and overflow on parent.
-- Have to replace HTML UI with Ionic format
+- Need better NO EVENTS message (like No Kids message)
 
 - Routing - Can, in HTML, make buttons go to named states with "ui-sref" in place of ng-click.  <a class="btn btn-danger navbar-btn" ui-sref="main" >Nav</a>
-
 
 TEST CASES
 - Collapsing repeat share event events, when looking at a client sharing to several people at once	- /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.
 - On Invitation Accept, Insert into Event Record  /// @@@@@@  HAVE TO BE SIGNED IN AS ADMIN TO TEST THIS OUT.  Alternatively, do this from Admin side after invitation accept
+
+SOUNDS
+	- http://www.looperman.com/loops "Legends"
+	- Added on App.js on initial configuration and OnReady
+	- Added on AdminDashController.js on initial configuration 
+	- !!!!!!!!! NativeAudio not really loaded.
+
+
+NOTES
+-----------------------------
+- Any changes to EventLog.js or EventLog.html is replicated in ClientStart, ClientProperties, and AdminDash
+- Changes to random Avatar setup happen in AdminDash and SigninController 
 
 
 
@@ -50,7 +65,8 @@ P R O B L E M S
 - Don't forget, if you delete a Client, you have to delete it from other records across all tables
 - The iteration on friends to go get details of each friend is still going over the count and errors.  Mitigated with an IF,THEN check
 //  - Security Content Policy with PouchDB.  Added -- <meta http-equiv="Content-Security-Policy" connect-src * blob: data:; ... ...> which seems to work.
-
+- Image Upload not working after migration to Azure App Service.  Table insert works.  Just not Blob Storage. Tried a fix from Blog about changing Expiry around SAS.  Now it works but the problem can be random.  https://blogs.msdn.microsoft.com/kwill/2013/08/27/http-403-server-failed-to-authenticate-the-request-when-using-shared-access-signatures/
+- Parent hung after facebook login.  Got past this error, "loginWindow_loadStopHandler".  API seems to failed.  Fix was to add Facebook.com access in Config.xml to whitelist
 
 
 // FAIL BUILD ON IOS
@@ -65,7 +81,7 @@ P R O B L E M S
 		- Add to go into XCode project Capabilities and make sure PushNotifications was Enabled.
 // SAVING IMAGE FAIL ON ANDROID
 	- In Android 6+ and API level 23+ there is a new in-time permissions model like iOS that Canvas2Image doesn't support.
-	- Fix is to add new permission model or target lower level API (22) in Config.xml.
+	- Fix with Android permission plugin
 // PUSH NOTIFICATION SETUP ON iOS.
 	- Problem was wrong development APNS Cert for iOS from Apple.  Maybe too many old certs.  WILL NEED TO UPLOAD PRODUCTION CERT (.P12) TO AZURE SERVICE-POC IOS APNS SETTINGS TO CHANGE FOR DEPLOYMENT.
 	- https://azure.microsoft.com/en-us/documentation/articles/notification-hubs-ios-apple-push-notification-apns-get-started/
@@ -80,7 +96,7 @@ S T O R A G E
 =======================================================================================
 Azure Tables
 ------------
-PARENT RECORD: id, name, email
+PARENT RECORD: id, name, email, avatar
 KID RECORD: id, name, parent_id, registration_code, reg_status, avatar_id, parent_name, parent_email
 FRIEND RECORD: id, kid1_id, kid2_id, kid1_name, kid2_name
 INVITATION RECORD: id, fromparent_id, toparent_id, fromkid (name), tokid (name), fromparent_name, toparent_name, fromkid_id, tokid_id.  - Status is implied as pending because its in the table.  Remove when accepted.
@@ -97,10 +113,10 @@ Other local client side needs
 - Flag for first time launch: Look for "localStorage.getItem('RYB_oobeflag')"
 - FaceBook Access Token: Calling the NbFB module automatically stores the user's FaceBook token:  Look for "localStorage.getItem('fbAccessToken')"
 - What user mode is this in? Look for "localStorage.getItem('RYB_userarray')"
-	- 'RYB_userarray' (id, usertype, name, email, first name, avatar ..other_as_needed..)
+	- 'RYB_userarray' (id, usertype, name, email, first name, avatar, stars, colorbookstatus ..other_as_needed..)
 		- globalService.userarray[]
-		- admin details (id, usertype, name, email, first name, avatar)
-		- client details (id, usertype, '', avatar, first name) - if not, show client code input
+		- admin details (id, usertype, name, email, first name, avatar, stars, colorbookstatus)
+		- client details (id, usertype, '', avatar, first name, stars, colorbookstatus) - if not, show client code input
 - In CLIENT mode
 	- FRIENDS ARRAY - list of friends (name, kid_id, avatar_id,) 
 	- 'RYB_imagepropertiesarray' - replacement of PouchDB, this is a list of images (id, filepath, datetime,commentarray)  // This is an array of objects - [{...,...}{...,...}{...,...}]
@@ -110,23 +126,6 @@ Other local client side needs
 	- 'RYB_clientarray'
 
 =======================================================================================
-
-
-
-View
-------------
-- Add splash screen
-- Start with Gallery as Home screen.  Seed it with one picture.
--	easy button for New Picture.  easy button for Add Friends.
--	show shares and likes on the gallery - remember kids are learning counting - be visual.
--	order by most recent activity - new picture, new likes, new stickers
--	show your pictures, and pictures shared with you.  
--		Clearly divide these. split screen.
--		Color code friends. Stack pictures by friend. Profile image has colored circle background. Image shared has colored background.
--		Easy button to like friends picture
-- gallery detailed image view
--	where you delete image if yours
--	if shared image, you can like it here also
 
 
 

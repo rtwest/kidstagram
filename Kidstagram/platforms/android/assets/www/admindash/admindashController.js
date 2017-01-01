@@ -2,11 +2,9 @@
 
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop) {
-//angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop) {
-    // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
-    //$scope.message = "Nothing here yet";  //- TEST ONLY
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop,$cordovaNativeAudio) {
 
+    // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     $scope.showaddclientui = false; // boolean for ng-show for add client modal
     $scope.showClientAddedUI = false; // boolean for ng-show for ClientAdded message
     $scope.noClientFlag = false; // boolean for ng-show for 'no client' message
@@ -18,7 +16,16 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     var adminGuid = globalService.userarray[0];
     $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[5]);
     $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
-    updateStarCountUI();
+
+    // initial star progress 
+    updateStarCountUI(); // FOR TESTING ANIMATION EASILY
+    $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+    $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+
+    // Preload Audio in App.js and use like this
+    $cordovaNativeAudio.play('highhat'); // Using PreLoad in App.js on start like this works
+    $cordovaNativeAudio.loop('loop1'); // Using PreLoad in App.js on start like this works
+
     // ==========================================
 
     // Grab event log and see if it should be updated
@@ -34,6 +41,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
         $("#starwrapper").removeClass("animation-target"); //try to remove so its not stacked up
         $("#starwrapper").addClass("animation-target"); //add CSS3 animation
+
+        $cordovaNativeAudio.play('highhat');
+
     }
 
     // ==========================================
@@ -211,7 +221,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                       tempArray[x].event_desc = tempArray[x].event_desc + ", " + items[i].tokid_name;
                                   }
 
-                                  // url, liked, from any kid
+                                      // url, liked, from any kid
                                   else if (event_type == 'like') {
                                       // Update your reply in the ToKid element
                                       // ------------
@@ -388,7 +398,16 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $scope.newkidname = name;
 
         // increase star count  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        globalService.userarray[6] = globalService.userarray[6] + 5;  // Get 5pt for adding a client
+        // -------------------------------------------------------
+        // test for max
+        if (globalService.userarray[6] + 5 >= 50) {
+            alert("GOAL REACHED");
+            // TRIGGER BIGGER ANIMATION GOES HERE
+            globalService.userarray[6] = 0; //resent counter
+        }
+        else {
+            globalService.userarray[6] = globalService.userarray[6] + 5;  // Get 5pt for adding a client
+        }
         localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
         $scope.starCount = globalService.userarray[6]; // update view model
         updateStarCountUI();// update star UI

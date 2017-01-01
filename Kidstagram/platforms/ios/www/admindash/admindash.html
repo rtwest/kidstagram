@@ -1,106 +1,208 @@
 ﻿<!-- Admin Dashboard and Home Screen -->
+<ion-view style="background-color:#f7f7f7;" cache-view="false">
+    <ion-content>
 
-<p>Admin Dashboard and Home Screen</p>
+        <div id="eventlogheader">
+            <img src="./img/header/headeravatarbackground.svg" class="avatarbackground">
+            <img src={{avatarID}} class="headeravatar">
+            <!--{{clientName}}-->
+        </div>
 
-<div>header goes here</div>
+        <div id="eventlogheaderbuttons">
+            <div class="imagebuttonwrapper" style="float:left">
+                <img src="./img/draw_button_large.svg" ng-click="gotoCanvasView()">
+                <div>DRAW</div>
+            </div>
+            <div style="float:left; width:120px;text-align:center;margin-top:-3px">
+                <div id="starwrapper"> <!--for animation-->
+                    <div class="starprogressbackground"></div>
+                    <div id="starprogress"></div>
+                    <img src="./img/star_chart_overlay2.svg" style="height:60px;position:absolute;margin-left:-32px;">
+                </div>
+                <div style="margin-top:67px;font-size:24px">{{starCount}}</div>
+            </div>
+            <div class="imagebuttonwrapper" style="float:left">
+                <img src="./img/gallery_button_large.svg" width="61" ng-click="gotoGalleryView()">
+                <div>MY ART</div>
+            </div>
+        </div>
 
-<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showaddclientui=true;randomAvatarID();">Add</button>
-<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoInvitationView()">Invitations</button>
-<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoCanvasView()">Draw</button>
-<button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="gotoGalleryView()">Gallery</button>
 
-Tabs for My Activity and My Clients
 
-<!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML -->
-<div>
-    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
-    <!--'row' is a new local var created here then used in controllerJS-->
-    <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
-    <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate_2.html'"></div>
-    <div ng-show="noEventsFlag">No events</div>
-</div>
-<!-- This is one way to specify the repeater item template used above
-    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
-    Have to have the element ID on everything because the obj id is passed where ever you click-->
-<script type="text/ng-template" id="repeaterTemplate_2.html">
-    <div>
-        <!--If row.day is not Null, then show it-->
-        <div ng-show="row.day"><strong> day is {{row.day}}</strong></div>
+        <!--Client List Repeater-->
+        <div style="margin-left:12px;margin-right:12px;border-bottom:1px solid #e4e4e4;padding-top:30px;"></div>
+        <div style="margin-left:10px;margin-right:10px;padding-bottom:17px;font-size:18px;padding-top:24px;">
+            <div style="padding-left:17px;float:left">Kids</div>
+            <div class="buttonlink" ng-click="gotoInvitationView()" style="text-align:right;display:block;font-size:14px">You Have <strong>X</strong> Invitations</div>
+        </div>
+
+
+        <div class="eventlogcard">
+            <div class="eventlogcardcontainer">
+
+                <div ng-show="noClientFlag" style="font-size:16px;color:#bbbdbf">
+                    <div ng-click="showaddclientuibutton();">
+                        <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium" style="float:left;margin-right:15px;">
+                        <div class="buttonlink" style="padding-top:15px">ADD A KID</div>
+                    </div>
+                    <div style="margin-right:auto;margin-left:auto;width:300px;text-align:center;margin-top:25px">
+                        <div>Hey, it's lonely in here!</div>
+                        <img src="./img/emptylist.svg" style="margin-top:15px" />
+                    </div>
+                </div>
+
+                <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+                <!--'row' is a new local var created here then used in controllerJS-->
+                <!-- Can use 'arr[x]' for array and 'ParamName.Colname' if JSON -->
+                <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate2.html'" style="width:180px;float:left"></div>
+
+                <div ng-hide="noClientFlag" ng-click="showaddclientuibutton();" style="display:table">
+                    <img src="./img/avatars/avatar.addnew.svg" class="avatar-medium" style="float:left;margin-right:15px">
+                    <div class="buttonlink" style="display:table-cell;vertical-align:middle">ADD A KID</div>
+                </div>
+
+            </div> <!--end container-->
+        </div>  <!--end card-->
+        <!-- This is one way to specify the repeater item template used above
+        Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+        Have to have the element ID on everything because the obj id is passed where ever you click.
+        Data is ID, name, avatar, reg code
+        -->
+        <script type="text/ng-template" id="repeaterTemplate2.html">
+            <img id="{{row[0]}}" ng-src="{{getavatarimagefromclientarray($index)}}" class="avatar-medium" ng-click="clientclick($event)" style="float:left;margin-right:15px">
+            <div id="{{row[0]}}" ng-click="clientclick($event)" style="margin-top:15px">{{row[1]}}</div>
+        </script>
+
+
+
+
+
+        <!--Event Log  Repeater. THIS CODE USED IN CLIENTSTART.HTML and  CLIENTPROPERTIES.HTML and ADMINDASH.HTML -->
+        <div style="margin-left:27px;font-size:18px;padding-top:42px;margin-bottom:-32px">My Timeline</div>
+
         <div>
-            <!--{{row.datetime | date:"EEEE, MMM d"}}-->
-            {{row.time}}
+            <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
+            <!--'row' is a new local var created here then used in controllerJS-->
+            <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
+            <div ng-repeat="row in eventarray track by $index" ng-include="'repeaterTemplate.html'"></div>
+            <div id="listloader" ng-show="listloadspinner">
+                <ion-spinner id="loader" icon="android" class="spinner-royal"></ion-spinner>
+            </div>
+            <div ng-show="noEventsFlag">No events</div>
         </div>
-        <div>{{row.fromkid}}</div>
-        <div>{{row.fromkidavatar}}</div>
-        <div>{{row.event_type}}</div>
+        <!-- This is one way to specify the repeater item template used above
+        Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'"
+        Have to have the element ID on everything because the obj id is passed where ever you click-->
+        <script type="text/ng-template" id="repeaterTemplate.html">
 
-        <!--Nested repeater within the first JSON array-->
-        <div ng-repeat="subarrayitem in row.tokid">
-            <div style="color:red">{{subarrayitem.tokidname}}</div>
-            <div>{{subarrayitem.tokidavatar}}</div>
-            <div>{{subarrayitem.tokidreply}}</div>
-        </div>
+            <!--If row.day is not Null, then show it-->
+            <div class="eventlogdate" ng-show="row.day">{{row.day}}</div>
 
-        <div ng-show="row.picture_url">
-            <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" class="smallimage" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
-        </div>
+            <div class="eventlogcard">
 
-    </div>
-</script>
+                <div class="eventlogcardcontainer">
 
+                    <!--TEMPLATE EVENT TYPE IS 'friends'-->
+                    <div ng-show="row.event_type=='friends'">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <img src={{subarrayitem.tokidavatar}} class="avatar-medium" style="float:left;margin-right:10px">
+                        </div>
+                        <div class="eventlogdesc" style="padding-top:5px;display:block">{{row.event_desc}}</div>
+                        <div class="eventlogtime"><!--{{row.datetime | date:"EEEE, MMM d"}}-->{{row.time}}</div>
+                    </div> <!--end conditional format-->
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to 1 person.  ToKid array does NOT have n>1.  Could be TO or FROM you -->
+                    <div ng-show="row.event_type=='sharepicture' && !row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                        <div class="eventdescblock">
+                            <div class="eventlogdesc">{{row.event_desc}}</div>
+                            <div class="eventlogtime">{{row.time}}</div>
+                            <!--Nested repeater within the first JSON array.  This is a hack because there's only 1 in here-->
+                            <div ng-repeat="subarrayitem in row.tokid" style="margin-top:5px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-medium">
+                                <div>{{subarrayitem.tokidreply}}</div>
+                            </div>
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                    </div> <!--end conditional format-->
+                    <!--TEMPLATE EVENT TYPE IS 'sharepicture' to MORE THAN 1 person.  Only case can be that you sent it.  ToKid array does have n>1 -->
+                    <div ng-show="row.event_type=='sharepicture' && row.tokid[1]">
+                        <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
+                        <div class="eventdescblock">
+                            <div class="eventlogdesc">{{row.event_desc}}</div>
+                            <div class="eventlogtime">{{row.time}}</div>
+                            <br />
+                            <!--Nested repeater within the first JSON array-->
+                            <div ng-repeat="subarrayitem in row.tokid" style="float:left;margin-right:6px;margin-top:5px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <!--{{subarrayitem.tokidname}}-->
+                            </div>
+                        </div>
+                        <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
+                        <!--Nested repeater within the first JSON array-->
+                        <div class="eventlogdesc">These friends sent you stars!</div>
+                        <div ng-repeat="subarrayitem in row.tokid">
+                            <!--Show if there are Likes-->
+                            <div ng-show="subarrayitem.tokidreply" style="float:left;margin-right:6px">
+                                <img src={{subarrayitem.tokidavatar}} class="avatar-small">
+                                <div>{{subarrayitem.tokid_name}}</div>
+                                <div>STAR IMAGE GOES HERE</div>
+                            </div>
+                        </div>
+                    </div> <!--end conditional format-->
 
+                </div>  <!--end event container-->
 
-
-<!-- ------------------------------------------------------------------------------------------------  -->
-
-<!--Client List Repeater-->
-<div>
-    <!--'For Each' loop using object 'clientlist' known to the $scope when defined in the controller -->
-    <!--'row' is a new local var created here then used in controllerJS-->
-    <!-- Can use 'arr.[x]' for array and 'ParamName/Colname' if JSON -->
-    <div ng-repeat="row in clientarray track by $index" ng-include="'repeaterTemplate.html'"></div>
-    <div ng-show="noClientFlag">No clients</div> 
-</div>
-<!-- This is one way to specify the repeater item template used above
-    Could also be in separate HTML file loaded with ng-include="'folder/repeaterTemplate.html'" 
-    Have to have the element ID on everything because the obj id is passed where ever you click.
-    Data is ID, name, avatar, reg code
-    -->
-<script type="text/ng-template" id="repeaterTemplate.html">
-    <div id="{{row[0]}}" ng-click="clientclick($event)">
-        <div id="{{row[0]}}" >
-            {{row[1]}}
-        </div>
-        <div id="{{row[0]}}">
-            {{row[2]}}
-        </div>
-        <div id="{{row[0]}}">
-            {{row[3]}}
-        </div>
-    </div>
-    <div id="{{row[0]}}" ng-click="deleteClientClick($event)">Delete</div>
-</script>
-
-
-
-
-<!--Modal for add new client-->
-<div id="addclientUI" ng-show="showaddclientui"> <!--ng-show is logic to toggle show/hide for this UI-->
-    <div>Add new kid</div>
-    <div>Avatar Image Goes Here {{avatarID}}</div>
-    <input id="kidnameinput" type="text" ng-model='kidname' placeholder="Name" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
-    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="addNewClient(kidname);kidname=''">Add</button>
-    <button type="button" class="btn btn-primary" style="box-shadow:none;" ng-click="showaddclientui=false;kidname=''">Cancel</button>
-
-</div> 
-<!--Modal for client added message-->
-<div id="clientAddedUI" ng-show="showClientAddedUI">
-    <!--ng-show is logic to toggle show/hide for this UI-->
-    <div>Next steps</div>
-    <div>Install on another device. Choose Kid mode and enter this registration code.</div>
-    <div type="button" ng-click="showClientAddedUI=false;">close</div>
-</div>
+            </div>  <!--end eventlog card-->
+        </script>
 
 
 
+        <!--ng-show is logic to toggle show/hide for this UI-->
+        <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
 
+            <!--NEED THIS TO BE DYNAMICALLY LOADED-->
+            <img id="newclientavatar" src="" style="height:70px;margin-top:15px;margin-bottom:60px">
+
+            <!--Content for client added message-->
+            <div ng-hide="showClientAddedUI">
+
+                <div style="font-size:20px">Hi, my name is:</div>
+
+                <!--Validation requiring this input to enable the Add-->
+                <form name="newclientform">
+                    <input required name="newclientinput" class="textinput" id="kidnameinput" type="text" ng-model='kidname' placeholder="" ng-focus="kidname=''" />  <!--'kidname' is only defined here and not in controller-->
+                    <div style="float:left;width:50%" ng-click="showaddclientuibutton();kidname=''">CANCEL</div>
+                    <button ng-disabled="newclientform.newclientinput.$invalid" ng-click="addNewClient(kidname);kidname=''" ng-class="{'borderlessbuttonlink disable': newclientform.newclientinput.$invalid, 'borderlessbuttonlink': newclientform.newclientinput.$valid}">ADD</button>
+                </form>
+            </div>
+
+            <!--Content for client added message-->
+            <div id="clientAddedUI" ng-show="showClientAddedUI">
+                <!--ng-show is logic to toggle show/hide for this UI-->
+
+                <div style="font-size:25px;margin-bottom:25px">{{newkidname}}'s Set Up</div>
+
+                <div style="text-align:left;margin-left:10px;">
+                   To complete set up, do the following:
+                        <ol class="orderedlist" style="margin-top:10px">
+                            <li>Download Kidstagram on another device</li>
+                            <li>During setup, choose "Kid" </li>
+                            <li>Enter {{newkidname}}'s registration code</li>
+                        </ol>
+                </div>
+
+                <div style="font-size:30px;margin-top:20px">{{regCode}}</div>
+                <div style="font-size:12px;color:#999;line-height:16px;margin:25px 0px 25px 10px;">You can always find {{newkidname}}'s registration code on their details page</div>
+
+                <div class="buttonlink" style="float:left;width:37%" ng-click="hideaddclientuibutton()">CLOSE</div>
+                <div class="buttonlink" ng-click="addanotherclientbutton()">ADD ANOTHER KID</div>
+            </div>
+
+        </div><!--newkidmodal-->
+
+
+
+
+    </ion-content>
+</ion-view>

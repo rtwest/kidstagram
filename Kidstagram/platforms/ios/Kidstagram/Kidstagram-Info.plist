@@ -48,6 +48,13 @@
     <dict>
       <key>NSExceptionDomains</key>
       <dict>
+        <key>facebook.com/*</key>
+        <dict>
+          <key>NSIncludesSubdomains</key>
+          <true/>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
         <key>service-poc.azure-mobile.net</key>
         <dict/>
         <key>rtwdevstorage.blob.core.windows.net</key>

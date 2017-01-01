@@ -107,5 +107,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-nativeaudio": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\ryan__000\\Desktop\\cordova-plugin-nativeaudio"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

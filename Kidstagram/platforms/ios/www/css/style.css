@@ -13,27 +13,38 @@ body{
     text-rendering: optimizeLegibility;
     Remove grey highlight when tapping links
     -webkit-tap-highlight-color: transparent;*/ 
+
+    font-family: 'Kingthings Clarity' !important; /*Doesn't work without Important to override the Ionic.css*/
 }
 
 
-/*for NG Animate */ 
-/* slide in from the right */
-/*@keyframes slideInRight {
-    from    { transform:translateX(100%); }
-    to      { transform: translateX(0); }
+/* FONT ========================================================= */
+@font-face {
+    font-family: 'Kingthings Clarity';
+    src: url('../fonts/Kingthings Clarity1.1.ttf');
 }
-@keyframes slideOutLeft {
-	to 		{ transform: translateX(-100%); }
+@font-face {
+    font-family: 'KingthingsClarity1_1';  /*Note: this is not the name in the font file.  It's same as above.  PUT IN BODY TAG TO TEST*/
+    src: url('../fonts/KingthingsClarity1_1.eot');
+    src: url('../fonts/KingthingsClarity1_1.eot') format('embedded-opentype'),
+         url('../fonts/KingthingsClarity1_1.woff2') format('woff2'),
+         url('../fonts/KingthingsClarity1_1.woff') format('woff'),
+         url('../fonts/KingthingsClarity1_1.ttf') format('truetype'),
+         url('../fonts/KingthingsClarity1_1.svg#KingthingsClarity1_1') format('svg');
 }
-.pageview.ng-enter{ 
-    animation: slideInRight 0.5s both ease-in; z-index: 8888; 
-}
-.pageview.ng-leave{ 
-    animation: slideOutLeft 0.5s both ease-in; z-index: 9999; 
-}*/
 
 
-/* ========================================================= */
+/* ICONS ========================================================= */
+
+.spinner svg {
+  /*stroke: #ff00a4;
+  fill: #ff00a4;*/
+  transition: all 1s ease;
+}
+#listloader {
+    text-align:center;
+    margin-top:50px;
+}
 
 .svgicon {
     background-image: url('../img/kidstagramicons.svg');
@@ -151,23 +162,339 @@ body{
     height: 32px;
 }
 
-/*========================================*/
 
+/* SPINNER ========================================================= */
+
+.spinnerbuttonprogress {
+  height: 30px;
+  width: 30px;
+  -webkit-animation: rotation .7s infinite linear;
+  -moz-animation: rotation .7s infinite linear;
+  -o-animation: rotation .7s infinite linear;
+  animation: rotation .7s infinite linear;
+  border-left: 3px solid rgba(153, 153, 153, 0.3);
+  border-right: 3px solid rgba(153, 153, 153, 0.3);
+  border-bottom: 3px solid rgba(153, 153, 153, 0.3);
+  border-top: 3px solid rgba(153, 153, 153, 1);
+  border-radius: 100%;
+}
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+  from {-o-transform: rotate(0deg);}
+  to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
+.spinnerbuttonsuccess {
+    transition:background-color 0.3s, border-color 0.3s, color 0.3s;
+    background-color:#5bb265;
+}
+.spinnerbuttonfail {
+    transition:background-color 0.3s, border-color 0.3s, color 0.3s;
+    background-color:#e65c5c;
+}
+
+
+
+
+
+
+
+
+/* picture thumbnail in event log ========================================*/
 .smallimage {
     max-width: 33.33%;
     height: auto;
 }
-
 /*.no-gutter > [class*='col-'] {
     padding-right:0;
     padding-left:0;
 }*/
-
-/*========================================*/
+/* for testing only ========================================*/
 .selecteddiv {
     background-color: #00bfff;
     color: #fff;
 }
+
+
+
+
+
+
+/* TRYING TO OVERWRITE DEFAULT IONIC STYLES ========================================*/
+/* ---whitebackground for loader------*/
+.loading-container .loading {
+    background-color: white;
+    color: #333;
+    border-width: 1px !important;
+    border-color: #fff !important;
+    border-style: solid !important;
+}
+
+
+
+
+
+
+/* EVENT LOGS ========================================*/
+
+.eventlogdate {
+    color:#bbbdbf;
+    font-size:14px;
+    text-align:center;
+    padding-top:42px; /*was 30 then added 12 to compensate for the neg margin on card to make single days (no date inbetween) overlap and look like 1 card*/
+    padding-bottom:17px;
+}
+.eventlogcard {
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.15);
+    border-radius: 8px; 
+    margin-left:10px;
+    margin-right:10px;
+    margin-bottom:-12px; /*neg margin to pull bottom of card up for overlapping cards within a day*/
+    background-color:#fff;
+    padding-bottom:10px;    /*space for curve of card*/
+}
+.eventlogcardcontainer {
+    padding: 17px;
+}
+.eventdescblock {
+    margin-left:67px;
+    padding-top:6px;
+}
+.eventlogdesc {
+    font-size:16px;
+    display:inline;
+    margin-right:5px;
+}.eventlogtime {
+    color: #d0d2d3;
+    font-size:12px;
+    display:inline;
+}
+.avatar-medium {
+    height:55px;
+    width:55px;
+}
+.avatar-small {
+    height:25px;
+    width:30px;
+}
+/*----------- HEADER AND AVATAR ----------------*/
+#eventlogheader {
+    background-color:#262261;
+    height:90px;
+    background-image: url('../img/header/headerbackground.svg');
+    background-repeat: repeat-x;
+    /*background-size:120%;*/
+}
+.avatarbackground {
+    padding-top:10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; 
+    height:98px; 
+}
+.headeravatar {
+    height:60px;
+    width:60px; 
+    margin-left: auto;
+    margin-right: auto;
+    display: block; 
+    margin-top:-74px; 
+}
+/*@media screen and (min-width: 760px) {*/  /*Tablet size*/
+@media screen and (min-width: 600px) {  /*Tablet size*/
+    .avatarbackground {
+        padding-top:10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block; 
+        height:108px; 
+    }
+    .headeravatar {
+        height:80px;
+        width:80px; 
+        margin-left: auto;
+        margin-right: auto;
+        display: block; 
+        margin-top:-89px; 
+    }
+}
+/*------------------------------------------*/
+
+#eventlogheaderbuttons {
+    margin-top:20px;
+    height:82px;
+    width:235px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:-12px; /*to compensate for space pulled tighter between cards to make them look like one for different events on a day*/
+}
+.imagebuttonwrapper {
+    width:56px;
+    height:56px;
+    text-align:center;
+    color:#26a9e0;
+}
+.buttonlink {
+    color:#26a9e0;
+}
+.borderlessbuttonlink {
+    color:#26a9e0;
+    border:none;
+    background-color:#fff;
+    font-family:'Kingthings Clarity' !important;
+}
+#starprogress {
+    width:56px;
+    height:20px;  /*this is the height of the progress indicator*/
+    background-color:#fff100;
+    margin-left:34px;
+    position: absolute;
+    margin-top:36px; /*this also has to change to keep it anchored bottom = height + margin-top = star height = 56px */
+}
+.starprogressbackground {
+    width:56px;
+    height:56px;  
+    background-color:#fff;
+    position: absolute;
+    margin-left: 34px;
+    margin-top: 2px; 
+}
+
+/*Modal for Adding a New Kid*/
+.newkidmodal {
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.15);
+    border-radius: 8px; 
+    margin-left:-175px;  /*trick for center absolutely positioned el*/
+    left:50%;   /*trick for center absolutely positioned el*/
+    width:350px;
+    height:auto;
+    background-color:#fff;
+    padding:17px 17px 35px 17px;  /*space for curve of card*/
+    background-image: url('../img/newkid_background.svg');
+    background-repeat:no-repeat;
+    text-align:center;
+    position:absolute;
+    top:273px;
+    z-index:12;
+}
+.textinput {
+    width:200px;
+    margin-bottom:30px;
+    margin-left:auto;
+    margin-right:auto;
+    border-bottom:2px solid #26a9e0 !important;
+    font-size:24px !important;
+    margin-top:5px;
+    text-align:center;
+    font-family:'Kingthings Clarity' !important;
+}
+.disable {
+    color:#cccccc;
+}
+
+/*------- popup override ------- */
+.popup {
+    width:350px !important;
+}
+.popup-container
+{}
+.popup
+{
+  padding:17px 17px 17px 17px;  /*space for curve of card*/
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.15);
+  border-radius: 8px !important; 
+}
+.popup-head
+{
+    border:none !important;
+}
+.popup-title
+{}
+.popup-body
+{
+    /*color: #797979;*/
+    font-size: 18px;
+    text-align: center;
+    float: none;
+    margin: 0;
+    padding: 0;
+    line-height: normal; 
+    font-family:'Kingthings Clarity' !important;
+}
+.popup-buttons .button
+{
+    font-family:'Kingthings Clarity' !important;
+    font-size: 14px;
+}
+.popup-buttons .button.activated
+{}
+
+.orderedlist {
+  list-style-type: decimal;
+  list-style-position:inside;
+}
+
+
+/*=================== ANIMATION ==================================*/
+/* Generated with Bounce.js. Edit at https://goo.gl/J3jXR8 */
+.animation-target {
+  -webkit-animation: animation 1300ms linear both;
+  animation: animation 1300ms linear both;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+}
+@-webkit-keyframes animation { 
+  0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  2.1% { -webkit-transform: matrix3d(1.223, 0, 0, 0, 0, 1.223, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.223, 0, 0, 0, 0, 1.223, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  4.1% { -webkit-transform: matrix3d(1.361, 0, 0, 0, 0, 1.361, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.361, 0, 0, 0, 0, 1.361, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  8.21% { -webkit-transform: matrix3d(1.46, 0, 0, 0, 0, 1.46, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.46, 0, 0, 0, 0, 1.46, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  11.41% { -webkit-transform: matrix3d(1.416, 0, 0, 0, 0, 1.416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.416, 0, 0, 0, 0, 1.416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  14.51% { -webkit-transform: matrix3d(1.321, 0, 0, 0, 0, 1.321, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.321, 0, 0, 0, 0, 1.321, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  20.72% { -webkit-transform: matrix3d(1.106, 0, 0, 0, 0, 1.106, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.106, 0, 0, 0, 0, 1.106, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  27.03% { -webkit-transform: matrix3d(0.968, 0, 0, 0, 0, 0.968, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.968, 0, 0, 0, 0, 0.968, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  33.23% { -webkit-transform: matrix3d(0.931, 0, 0, 0, 0, 0.931, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.931, 0, 0, 0, 0, 0.931, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  45.75% { -webkit-transform: matrix3d(0.984, 0, 0, 0, 0, 0.984, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.984, 0, 0, 0, 0, 0.984, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  58.26% { -webkit-transform: matrix3d(1.01, 0, 0, 0, 0, 1.01, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.01, 0, 0, 0, 0, 1.01, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  83.28% { -webkit-transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+@keyframes animation { 
+  0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  2.1% { -webkit-transform: matrix3d(1.223, 0, 0, 0, 0, 1.223, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.223, 0, 0, 0, 0, 1.223, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  4.1% { -webkit-transform: matrix3d(1.361, 0, 0, 0, 0, 1.361, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.361, 0, 0, 0, 0, 1.361, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  8.21% { -webkit-transform: matrix3d(1.46, 0, 0, 0, 0, 1.46, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.46, 0, 0, 0, 0, 1.46, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  11.41% { -webkit-transform: matrix3d(1.416, 0, 0, 0, 0, 1.416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.416, 0, 0, 0, 0, 1.416, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  14.51% { -webkit-transform: matrix3d(1.321, 0, 0, 0, 0, 1.321, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.321, 0, 0, 0, 0, 1.321, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  20.72% { -webkit-transform: matrix3d(1.106, 0, 0, 0, 0, 1.106, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.106, 0, 0, 0, 0, 1.106, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  27.03% { -webkit-transform: matrix3d(0.968, 0, 0, 0, 0, 0.968, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.968, 0, 0, 0, 0, 0.968, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  33.23% { -webkit-transform: matrix3d(0.931, 0, 0, 0, 0, 0.931, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.931, 0, 0, 0, 0, 0.931, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  45.75% { -webkit-transform: matrix3d(0.984, 0, 0, 0, 0, 0.984, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.984, 0, 0, 0, 0, 0.984, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  58.26% { -webkit-transform: matrix3d(1.01, 0, 0, 0, 0, 1.01, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.01, 0, 0, 0, 0, 1.01, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  83.28% { -webkit-transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(0.998, 0, 0, 0, 0, 0.998, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+/*=================== ANIMATION ==================================*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
