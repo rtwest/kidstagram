@@ -22,8 +22,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
     $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
 
-    // Preload Audio in App.js and use like this
-    $cordovaNativeAudio.play('highhat'); // Using PreLoad in App.js on start like this works
+    // Preload Audio in App.js and use like this // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
     $cordovaNativeAudio.loop('loop1'); // Using PreLoad in App.js on start like this works
 
     // ==========================================
@@ -41,9 +40,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
         $("#starwrapper").removeClass("animation-target"); //try to remove so its not stacked up
         $("#starwrapper").addClass("animation-target"); //add CSS3 animation
-
-        $cordovaNativeAudio.play('highhat');
-
+        $cordovaNativeAudio.play('highhat');// Play sound. Using PreLoad in App.js on start like this works
     }
 
     // ==========================================

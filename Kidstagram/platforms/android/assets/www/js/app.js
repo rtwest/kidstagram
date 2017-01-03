@@ -36,12 +36,9 @@ angular.module('cordovaNG', [
         if (window.plugins && window.plugins.NativeAudio) {
 
             // Preload audio resources
-            window.plugins.NativeAudio.preloadComplex('loop1', 'audio/loop1.wav', 1, 1, 0, function (msg) {
-            }, function (msg) {
-                console.log('error: ' + msg);
-            });
-
-            window.plugins.NativeAudio.preloadComplex('loop1', 'audio/loop1.wav');  WHICK ONE OF THESE WORKS?
+            //window.plugins.NativeAudio.preloadComplex('loop1', 'audio/loop1.wav', 1, 1, 0, function (msg) {}, function (msg) {
+            //    console.log('error: ' + msg);
+            //});// THIS WORKS.  The 2 functions above are success and error outcomes
 
             window.plugins.NativeAudio.preloadSimple('highhat', 'audio/highhat.mp3'); // THIS WORKS
 
@@ -49,7 +46,6 @@ angular.module('cordovaNG', [
             //window.setTimeout(function () {
             //    window.plugins.NativeAudio.stop('music');
             //    window.plugins.NativeAudio.unload('music');
-            //    window.plugins.NativeAudio.unload('click');
             //}, 1000 * 60);
         }
         // -------

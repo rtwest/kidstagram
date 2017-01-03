@@ -24,10 +24,9 @@ TEST CASES
 
 SOUNDS
 	- http://www.looperman.com/loops "Legends"
-	- Added on App.js on initial configuration and OnReady
-	- Added on AdminDashController.js on initial configuration 
-	- !!!!!!!!! NativeAudio not really loaded.
-
+ - https://www.audioblocks.com/royalty-free-audio/sound-effects/bell?search-origin=searchBar
+CSS KEYFRAME ANIMATION
+	- http://cssanimate.com/
 
 NOTES
 -----------------------------
