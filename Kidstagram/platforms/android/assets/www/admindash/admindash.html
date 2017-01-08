@@ -158,10 +158,10 @@
 
 
 
-        <!--ng-show is logic to toggle show/hide for this UI-->
+        <!-- ADD CLIENT MODAL -->
         <div id="addclientUI" ng-show="showaddclientui" class="newkidmodal">
 
-            <!--NEED THIS TO BE DYNAMICALLY LOADED-->
+            <!--this is dynamicaly loaded-->
             <img id="newclientavatar" src="" style="height:70px;margin-top:15px;margin-bottom:60px">
 
             <!--Content for client added message-->
@@ -177,7 +177,7 @@
                 </form>
             </div>
 
-            <!--Content for client added message-->
+            <!--CLIENT ADDED MESSAGE WITHIN MODAL -->
             <div id="clientAddedUI" ng-show="showClientAddedUI">
                 <!--ng-show is logic to toggle show/hide for this UI-->
 
@@ -202,7 +202,8 @@
         </div><!--newkidmodal-->
 
 
-
+        <!--GOAL SUCCESS MODAL-->
+        <div ng-init="showgoalsuccessmodal=false" ng-show="showgoalsuccessmodal" ng-include="'./templates/goalsuccessmodal.html'"></div>
 
     </ion-content>
 </ion-view>

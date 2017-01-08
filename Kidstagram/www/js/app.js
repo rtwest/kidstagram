@@ -32,7 +32,7 @@ angular.module('cordovaNG', [
             StatusBar.styleDefault();
         };
 
-        // SOUNDS - all calls to $cordovaNativeAudio return promises
+        // SOUNDS - all calls to $cordovaNativeAudio return promises @@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
         if (window.plugins && window.plugins.NativeAudio) {
 
             // Preload audio resources

@@ -2,7 +2,7 @@
 
 // - Load the client array.  CRUD operations here are pushed to web, so the local store is always most current
 
-angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop,$cordovaNativeAudio) {
+angular.module('cordovaNG').controller('admindashController', function ($scope, globalService, Azureservice, $state, $ionicBackdrop, $ionicPopup,$cordovaNativeAudio) {
 
     // Scope is like the view datamodel.  'message' is defined in the paritial view html {{message}}
     $scope.showaddclientui = false; // boolean for ng-show for add client modal
@@ -17,13 +17,13 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.avatarID = globalService.getAvatarFromID(globalService.userarray[5]);
     $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
 
-    // initial star progress 
-    updateStarCountUI(); // FOR TESTING ANIMATION EASILY
+    // Initial star progress 
     $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
     $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
 
-    // Preload Audio in App.js and use like this // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
-    $cordovaNativeAudio.loop('loop1'); // Using PreLoad in App.js on start like this works
+    // Preload Audio in App.js and use like this 
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
+    //$cordovaNativeAudio.loop('loop1'); // Using PreLoad in App.js on start like this works
 
     // ==========================================
 
@@ -366,16 +366,19 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
 
     $scope.showaddclientuibutton = function () {
-        if ($scope.showaddclientui == false) {
-            randomAvatarID(); // select kid avatar when making the modal.
-            $scope.showaddclientui = true;
-            $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
-            $ionicBackdrop.retain();
-        }
-        else {
-            $scope.showaddclientui = false;
-            $ionicBackdrop.release();
-        };
+
+        showGoalModal(); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+
+        //if ($scope.showaddclientui == false) {
+        //    randomAvatarID(); // select kid avatar when making the modal.
+        //    $scope.showaddclientui = true;
+        //    $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
+        //    $ionicBackdrop.retain();
+        //}
+        //else {
+        //    $scope.showaddclientui = false;
+        //    $ionicBackdrop.release();
+        //};
     };
     $scope.addanotherclientbutton = function () {
         randomAvatarID(); // select kid avatar when making the modal.
@@ -394,17 +397,19 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         addKid(name);
         $scope.newkidname = name;
 
+
         // increase star count  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         // -------------------------------------------------------
         // test for max
-        if (globalService.userarray[6] + 5 >= 50) {
-            alert("GOAL REACHED");
-            // TRIGGER BIGGER ANIMATION GOES HERE
-            globalService.userarray[6] = 0; //resent counter
+        c = globalService.userarray[6] + 5; // Get 5pt for adding a client
+        if ((globalService.userarray[6] < 50) && (c >= 50)) {
+            //showgoalsuccessmodal = true;
+            showGoalModal();
+            globalService.userarray[6] = c;
         }
-        else {
-            globalService.userarray[6] = globalService.userarray[6] + 5;  // Get 5pt for adding a client
-        }
+        //else if ((globalService.userarray[6] < 100) && (c >= 100)) { }
+        //else if ((globalService.userarray[6] < 150) && (c >= 150)) { }
+        else {globalService.userarray[6] = c;}
         localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
         $scope.starCount = globalService.userarray[6]; // update view model
         updateStarCountUI();// update star UI
@@ -748,6 +753,17 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     }; //end func
 
 
-
+    // Goal Modal
+    function showGoalModal() {
+        var goalModalPopup = $ionicPopup.show({
+            title: '',
+            templateUrl: './templates/goalsuccessmodal.html',
+            scope: $scope,
+            buttons: [{
+                text: 'CLOSE',
+                type: 'button button-clear button-dark'
+            }]
+        });
+    };
 
 }); //controller end
