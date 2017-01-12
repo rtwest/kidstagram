@@ -346,6 +346,7 @@ body{
 }
 .buttonlink {
     color:#26a9e0;
+    height:20px; /*for a larger click state*/
 }
 .borderlessbuttonlink {
     color:#26a9e0;

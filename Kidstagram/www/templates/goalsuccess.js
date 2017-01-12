@@ -1,22 +1,55 @@
-﻿
-alert('loaded');
+﻿alert('loaded');
 
-TweenMax.set("img", { xPercent: "-50%", yPercent: "-50%" })
+const Confettiful = function (el) {
+    this.el = el;
+    this.containerEl = null;
 
-var total = 170, container = document.getElementById('container'),
-w = container.offsetWidth, h = container.offsetHeight;
+    this.confettiFrequency = 9;
+    this.confettiColors = ['#fce18a', '#ff726d', '#b48def', '#f4306d'];
+    this.confettiAnimations = ['slow', 'medium', 'fast'];
 
-for (var i = 0, div ; i < total; i++) {
-    div = document.createElement('div'); div.className = 'dot';
-    container.appendChild(div);
-    TweenMax.set(div, { x: R(0, w), y: R(-100, 100), opacity: 1, scale: R(0, 0.5) + 0.5, backgroundColor: "hsl(" + R(170, 360) + ",50%,50%)" });
-    animm(div);
+    this._setupElements();
+    this._renderConfetti();
 };
 
-function animm(elm) {
-    TweenMax.to(elm, R(0, 5) + 3, { y: h, ease: Linear.easeNone, repeat: -1, delay: -5 });
-    TweenMax.to(elm, R(0, 5) + 1, { x: '+=70', repeat: -1, yoyo: true, ease: Sine.easeInOut })
-    TweenMax.to(elm, R(0, 1) + 0.5, { opacity: 0, repeat: -1, yoyo: true, ease: Sine.easeInOut })
+Confettiful.prototype._setupElements = function () {
+    const containerEl = document.createElement('div');
+    const elPosition = this.el.style.position;
+
+    if (elPosition !== 'relative' || elPosition !== 'absolute') {
+        this.el.style.position = 'relative';
+    }
+
+    containerEl.classList.add('confetti-container');
+
+    this.el.appendChild(containerEl);
+
+    this.containerEl = containerEl;
 };
 
-function R(min, max) { return min + (Math.random() * (max - min)) };
+Confettiful.prototype._renderConfetti = function () {
+    this.confettiInterval = setInterval(() => {
+        const confettiEl = document.createElement('div');
+        const confettiSize = (Math.floor(Math.random() * 3) + 7) + 'px';
+        const confettiBackground = this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)];
+        const confettiLeft = (Math.floor(Math.random() * this.el.offsetWidth)) + 'px';
+        const confettiAnimation = this.confettiAnimations[Math.floor(Math.random() * this.confettiAnimations.length)];
+
+        confettiEl.classList.add('confetti', 'confetti--animation-' + confettiAnimation);
+        confettiEl.style.left = confettiLeft;
+        confettiEl.style.width = confettiSize;
+        confettiEl.style.height = confettiSize;
+        confettiEl.style.backgroundColor = confettiBackground;
+
+        confettiEl.removeTimeout = setTimeout(function () {
+            confettiEl.parentNode.removeChild(confettiEl);
+        }, 3000);
+
+        this.containerEl.appendChild(confettiEl);
+    }, 25);
+};
+
+window.confettiful = new Confettiful(document.querySelector('.js-container'));
+
+
+

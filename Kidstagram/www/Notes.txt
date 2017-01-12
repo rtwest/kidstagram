@@ -11,7 +11,7 @@
 			https://codepen.io/jacobgunnarsson/pen/pbPwga
 
 			- check for Goal on add new Kid AFTER the newkidmessage!!!!!!!
-			- CONFETTI JS AND CSS NOT LOADING CORRECTLY
+			- HAVE TO HAVE CONFETTI JS IN THE CONTROLLER AND HAVE MANUAL MODAL
 
 	- repeaters all jacked.  id='data' is screwed up on images when shared?
 
