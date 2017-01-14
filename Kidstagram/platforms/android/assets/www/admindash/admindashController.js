@@ -368,7 +368,18 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
 
     $scope.showaddclientuibutton = function () {
 
-        showGoalModal(); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+        //showGoalModal(); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+
+        if ($scope.showGoalSuccessModal == false) {
+            $scope.showGoalSuccessModal = true;
+            $("#GoalSuccessModal").appendTo('body') // stick the UI at end of 'body'
+            $ionicBackdrop.retain();
+            animateGoalModal();
+        }
+        else {
+            $scope.showGoalSuccessModal = false;
+            $ionicBackdrop.release();
+        };
 
         //if ($scope.showaddclientui == false) {
         //    randomAvatarID(); // select kid avatar when making the modal.
@@ -757,20 +768,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // Goal Modal
     function showGoalModal() {
 
-
-        //// IONIC MODAL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //var goalModalPopup = $ionicPopup.show({
-        //    title: '',
-        //    templateUrl: './templates/goalsuccessmodal.html',
-        //    scope: $scope,
-        //    buttons: [{
-        //        text: 'CLOSE',
-        //        type: 'button button-clear button-dark'
-        //    }]
-        //});
-        //animateGoalModal();
-        //// =================================================
-
         // MANUAL MODAL WITHOUT IONIC
         if ($scope.showGoalSuccessModal == false) {
             $scope.showGoalSuccessModal = true;
@@ -782,9 +779,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
             $scope.showGoalSuccessModal = false;
             $ionicBackdrop.release();
         };
-        // =================================================
-
-        
+        // =================================================     
     };
 
 

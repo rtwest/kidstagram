@@ -344,10 +344,13 @@ body{
     text-align:center;
     color:#26a9e0;
 }
+/*----------------------------------------------*/
 .buttonlink {
     color:#26a9e0;
-    height:20px; /*for a larger click state*/
+    height:40px; /*for a larger click state*/
+    padding-top:10px;
 }
+/*----------------------------------------------*/
 .borderlessbuttonlink {
     color:#26a9e0;
     border:none;
