@@ -195,8 +195,8 @@
                 <div style="font-size:30px;margin-top:20px">{{regCode}}</div>
                 <div style="font-size:12px;color:#999;line-height:16px;margin:25px 0px 25px 10px;">You can always find {{newkidname}}'s registration code on their details page</div>
 
-                <div class="buttonlink" style="float:left;width:37%" ng-click="hideaddclientuibutton()">CLOSE</div>
-                <div class="buttonlink" ng-click="addanotherclientbutton()">ADD ANOTHER KID</div>
+                <div class="buttonlink" style="float:left;width:37%" ng-click="hideaddclientuibutton();IncreaseStarCount(5)">CLOSE</div>
+                <div class="buttonlink" ng-click="addanotherclientbutton();IncreaseStarCount(5)">ADD ANOTHER KID</div>
             </div>
 
         </div><!--newkidmodal-->

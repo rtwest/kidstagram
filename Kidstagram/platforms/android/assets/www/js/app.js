@@ -104,7 +104,7 @@ angular.module('cordovaNG', [
             // Handles the notification received event.
             pushNotification.on('notification', function (data) {
                 // Display the alert message in an alert.
-                alert(data.message);
+                //alert(data.message);
                 console.log(data.message);
                 // Reload the items list.
                 //app.Storage.getData();
@@ -113,7 +113,7 @@ angular.module('cordovaNG', [
             // Handles an error event.
             pushNotification.on('error', function (e) {
                 // Display the error message in an alert.
-                alert('error on registration = ' + e.message);
+                //alert('error on registration = ' + e.message);
                 console.log('error on registration = ' + e.message);
             });
 
@@ -124,6 +124,10 @@ angular.module('cordovaNG', [
             var registrationFailure = function (error) {
                 alert('Failed registering with Azure: ' + error);
                 console.log('Failed registering with Azure: ' + error);
+
+                // NEED TO HANDLE CASE OF AZURE FAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
             }
 
         };//end Push Notification setup

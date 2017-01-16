@@ -44,6 +44,29 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $cordovaNativeAudio.play('highhat');// Play sound. Using PreLoad in App.js on start like this works
     }
 
+    // Increase star count 
+    $scope.IncreaseStarCount = function (increase_amt) {
+            // test for max
+        c = globalService.userarray[6] + increase_amt; // Get 5pt for adding a client
+        if ((globalService.userarray[6] < 50) && (c >= 50)) { // Reached 50
+            showGoalModal(); // Call to GoalMoal ***
+            globalService.userarray[6] = c;
+        }
+        else if ((globalService.userarray[6] < 100) && (c >= 100)) { // Reached 100
+            showGoalModal(); // Call to GoalMoal ***
+            globalService.userarray[6] = c;
+        }
+        else if ((globalService.userarray[6] < 150) && (c >= 150)) { // Reached 150
+            showGoalModal(); // Call to GoalMoal ***
+            globalService.userarray[6] = c;
+        }
+        else { globalService.userarray[6] = c; }
+        localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
+        $scope.starCount = globalService.userarray[6]; // update view model
+        updateStarCountUI();// update star UI ***
+    }
+
+
     // ==========================================
     //  Get the Event log based on Admin GUID.   THIS CODE USED ON CLIENTPROPERTIESCONTROLLER.JS and CLIENTSTARTCONTROLLER.JS and ADMINDASHCONTROLLER.JS
     // ==========================================
@@ -365,32 +388,17 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     //    animation: 'slide-in-up'
     //}).then(function (modal) { $scope.modal = modal; });
 
-
     $scope.showaddclientuibutton = function () {
-
-        //showGoalModal(); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
-
-        if ($scope.showGoalSuccessModal == false) {
-            $scope.showGoalSuccessModal = true;
-            $("#GoalSuccessModal").appendTo('body') // stick the UI at end of 'body'
+        if ($scope.showaddclientui == false) {
+            randomAvatarID(); // select kid avatar when making the modal.
+            $scope.showaddclientui = true;
+            $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
             $ionicBackdrop.retain();
-            animateGoalModal();
         }
         else {
-            $scope.showGoalSuccessModal = false;
+            $scope.showaddclientui = false;
             $ionicBackdrop.release();
         };
-
-        //if ($scope.showaddclientui == false) {
-        //    randomAvatarID(); // select kid avatar when making the modal.
-        //    $scope.showaddclientui = true;
-        //    $("#addclientUI").appendTo('body') // stick the UI at end of 'body'
-        //    $ionicBackdrop.retain();
-        //}
-        //else {
-        //    $scope.showaddclientui = false;
-        //    $ionicBackdrop.release();
-        //};
     };
     $scope.addanotherclientbutton = function () {
         randomAvatarID(); // select kid avatar when making the modal.
@@ -408,23 +416,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.addNewClient = function (name) {
         addKid(name);
         $scope.newkidname = name;
-
-
-        // increase star count  // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        // -------------------------------------------------------
-        // test for max
-        c = globalService.userarray[6] + 5; // Get 5pt for adding a client
-        if ((globalService.userarray[6] < 50) && (c >= 50)) {
-            //showgoalsuccessmodal = true;
-            showGoalModal();
-            globalService.userarray[6] = c;
-        }
-        //else if ((globalService.userarray[6] < 100) && (c >= 100)) { }
-        //else if ((globalService.userarray[6] < 150) && (c >= 150)) { }
-        else {globalService.userarray[6] = c;}
-        localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
-        $scope.starCount = globalService.userarray[6]; // update view model
-        updateStarCountUI();// update star UI
     };
 
     function makeRegistrationCode() {
