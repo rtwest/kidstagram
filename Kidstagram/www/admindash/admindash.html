@@ -111,6 +111,7 @@
                         <div class="eventlogdesc" style="padding-top:5px;display:block">{{row.event_desc}}</div>
                         <div class="eventlogtime"><!--{{row.datetime | date:"EEEE, MMM d"}}-->{{row.time}}</div>
                     </div> <!--end conditional format-->
+
                     <!--TEMPLATE EVENT TYPE IS 'sharepicture' to 1 person.  ToKid array does NOT have n>1.  Could be TO or FROM you -->
                     <div ng-show="row.event_type=='sharepicture' && !row.tokid[1]">
                         <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">
@@ -125,6 +126,7 @@
                         </div>
                         <img id="{{row.picture_url}},{{row.fromkid}},{{row.fromkidavatar}},{{row.fromkid_id}}" style="width:100%" src="{{row.picture_url}}" alt="Shared drawing" ng-click="gotoPictureView($event)" />
                     </div> <!--end conditional format-->
+
                     <!--TEMPLATE EVENT TYPE IS 'sharepicture' to MORE THAN 1 person.  Only case can be that you sent it.  ToKid array does have n>1 -->
                     <div ng-show="row.event_type=='sharepicture' && row.tokid[1]">
                         <img src={{row.fromkidavatar}} class="avatar-medium" style="float:left">

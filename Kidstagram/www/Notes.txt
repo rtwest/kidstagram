@@ -3,7 +3,13 @@
 - TEST OUT THE LIKE CASES.  Have to see like on your image for SINGLE friend and MULTIPLE friends.
 - Have to send LIKE on friends PIC
 - ADMIN
-	- Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares.  CanvasView - 1)sending pictures   
+	- ((RESET THE STAR BUCKET))
+	- WHAT to give stars for when viewing event log???
+
+	- Add Stars.   
+		EventLog - becoming Friends, Revceiving like.  
+		CanvasView - sending picture
+		sending a like   
 	- fix admin controller for 1) date for multiple shares 4) html - same fix as on clientstartcontroller
 	- Put the Success Modal trigger/check at the right place - StarCount change - After Add Client modal closed 
 	- Handle Register Azure Fail case - Repeat the call 1 time.

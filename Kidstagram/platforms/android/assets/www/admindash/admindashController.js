@@ -210,6 +210,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                               event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
+                          $scope.IncreaseStarCount(2); // count up reward
                       }
 
                       else { // If not a 'friend' event, it should have a URL
@@ -381,13 +382,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     // ==========================================
     //  Toggle Add Client Modal and Ionic Background
     // ==========================================
-
-    // Load the Ionic modal from the given template URL
-    //$ionicModal.fromTemplateUrl('modal.html', {
-    //    scope: $scope, // modal's scope is same as controller scope
-    //    animation: 'slide-in-up'
-    //}).then(function (modal) { $scope.modal = modal; });
-
     $scope.showaddclientuibutton = function () {
         if ($scope.showaddclientui == false) {
             randomAvatarID(); // select kid avatar when making the modal.
@@ -409,6 +403,12 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $scope.showClientAddedUI = false; // hide added message
         $ionicBackdrop.release();
     };
+    // Load the Ionic modal from the given template URL
+    //$ionicModal.fromTemplateUrl('modal.html', {
+    //    scope: $scope, // modal's scope is same as controller scope
+    //    animation: 'slide-in-up'
+    //}).then(function (modal) { $scope.modal = modal; });
+
 
     // ==========================================
     //  Create new client.  Store locally and create on Azure
@@ -773,8 +773,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         // =================================================     
     };
 
-
-    // TESTING THE CONFETTI ANAMATION CALLED FROM WITHIN CONTROLLER VS LOADED JS FILE
+    // CONFETTI ANAMATION
     function animateGoalModal() {
 
         const Confettiful = function (el) {
