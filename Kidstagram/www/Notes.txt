@@ -7,6 +7,7 @@
 	- WHAT to give stars for when viewing event log???
 
 	- Add Stars.   
+		-	!!!!! PROBLEM - it adds stars every time the event log is loaded - repeats adding stars
 		EventLog - becoming Friends, Revceiving like.  
 		CanvasView - sending picture
 		sending a like   
@@ -31,7 +32,7 @@ TEST CASES
 
 SOUNDS
 	- http://www.looperman.com/loops "Legends"
- - https://www.audioblocks.com/royalty-free-audio/sound-effects/bell?search-origin=searchBar
+	- https://freesound.org/browse/tags/sound-effects/
 CSS KEYFRAME ANIMATION
 	- http://cssanimate.com/
 
@@ -44,7 +45,7 @@ NOTES
 
  TO DO
 -----------------------------
-- XX - RESEARCH - WHY THE FAIL ON CONNECTING TO AZURE SOMETIMES?
+- XX - RESEARCH - WHY THE FAIL ON CONNECTING TO AZURE SOMETIMES? 
 - XX - RESEARCH - ALSO NEED TO CLEAN BLOB STORAGE WEEKLY.  Maybe have to convert mobile services to app services.  Get scheduler.  Web Pages.  New Pricing?? 
 - XX - remove console.log for better performance
 
@@ -56,6 +57,7 @@ NOTES
 - Kid Design Like Nintendo 3DS - Class DoJo - sticker like white borders and box shadows
 - Clients create Avatar - Random Avatar like HopScotch
  - Lanie says - add paint bucket, sized erasers, print option, only color in the lines
+ - UI - fix the header to not be so clean - chalk line that matches background grey
 
 
 P R O B L E M S

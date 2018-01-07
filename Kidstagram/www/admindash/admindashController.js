@@ -19,8 +19,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
 
     // Initial star progress 
-    $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
-    $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+    updateStarCountUI(false);
+    //$("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+    //$("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
 
     // Preload Audio in App.js and use like this 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
@@ -36,7 +37,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
 
     // Update the Star Count CSS
-    function updateStarCountUI() {
+    function updateStarCountUI(playsound) {
         var nextgoal;
         if ($scope.starCount < 50) { nextgoal = 50; }
         else if (($scope.starCount >= 50) && ($scope.starCount < 100)) { nextgoal = 100; }
@@ -47,7 +48,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / nextgoal)); // 56 is image height, 50 is goal.  +3px for an offset compensation
         $("#starwrapper").removeClass("animation-target"); //try to remove so its not stacked up
         $("#starwrapper").addClass("animation-target"); //add CSS3 animation
-        $cordovaNativeAudio.play('highhat');// Play sound. Using PreLoad in App.js on start like this works
+        if (playsound == true) { $cordovaNativeAudio.play('bell') };// Play sound. Using PreLoad in App.js on start like this works
     }
 
     // Increase star count 
@@ -73,7 +74,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
         else { globalService.userarray[6] = c; }
         localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
         $scope.starCount = globalService.userarray[6]; // update view model
-        updateStarCountUI();// update star UI ***
+        updateStarCountUI(true);// update star UI ***
     }
 
 

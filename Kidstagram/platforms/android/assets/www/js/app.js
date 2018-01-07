@@ -40,7 +40,7 @@ angular.module('cordovaNG', [
             //    console.log('error: ' + msg);
             //});// THIS WORKS.  The 2 functions above are success and error outcomes
 
-            window.plugins.NativeAudio.preloadSimple('highhat', 'audio/highhat.mp3'); // THIS WORKS
+            window.plugins.NativeAudio.preloadSimple('bell', 'audio/coin.wav'); // THIS WORKS
 
             // Stop multichannel clip after 60 seconds
             //window.setTimeout(function () {
@@ -87,7 +87,7 @@ angular.module('cordovaNG', [
                     // Template registration.
                     var template = '{ "data" : {"message":"$(message)"}}';
                     // Register for notifications.
-                    if (AMSClient.push) { alert('client push up') };
+                    //if (AMSClient.push) {alert('client push up')}; //was for testing
                     AMSClient.push.gcm.registerTemplate(handle,
                         'myTemplate', template, tags)
                         .done(registrationSuccess, registrationFailure);

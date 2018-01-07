@@ -6,7 +6,11 @@
 	- ((RESET THE STAR BUCKET))
 	- WHAT to give stars for when viewing event log???
 
-	- Add Stars.   EventLog - for 2) new Friends, 3) Revceiving shares.  CanvasView - 1)sending pictures   
+	- Add Stars.   
+		-	!!!!! PROBLEM - it adds stars every time the event log is loaded - repeats adding stars
+		EventLog - becoming Friends, Revceiving like.  
+		CanvasView - sending picture
+		sending a like   
 	- fix admin controller for 1) date for multiple shares 4) html - same fix as on clientstartcontroller
 	- Put the Success Modal trigger/check at the right place - StarCount change - After Add Client modal closed 
 	- Handle Register Azure Fail case - Repeat the call 1 time.
@@ -28,7 +32,7 @@ TEST CASES
 
 SOUNDS
 	- http://www.looperman.com/loops "Legends"
- - https://www.audioblocks.com/royalty-free-audio/sound-effects/bell?search-origin=searchBar
+	- https://freesound.org/browse/tags/sound-effects/
 CSS KEYFRAME ANIMATION
 	- http://cssanimate.com/
 

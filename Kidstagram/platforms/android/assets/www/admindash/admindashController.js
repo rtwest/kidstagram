@@ -19,8 +19,9 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     $scope.starCount = globalService.userarray[6]; //because it's the admin view, client order of var is different
 
     // Initial star progress 
-    $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
-    $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+    updateStarCountUI(false);
+    //$("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
+    //$("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
 
     // Preload Audio in App.js and use like this 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
@@ -36,34 +37,44 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
     };
 
     // Update the Star Count CSS
-    function updateStarCountUI() {
-        $("#starprogress").css("height", 56 * ($scope.starCount / 50)); // adjust the star progress indicator CSS - (what % of goal) of height?
-        $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / 50)); // 56 is image height, 50 is goal.  +3px for an offset compensation
+    function updateStarCountUI(playsound) {
+        var nextgoal;
+        if ($scope.starCount < 50) { nextgoal = 50; }
+        else if (($scope.starCount >= 50) && ($scope.starCount < 100)) { nextgoal = 100; }
+        else if (($scope.starCount >= 100) && ($scope.starCount < 150)) { nextgoal = 150; }
+        else if (($scope.starCount >= 150) && ($scope.starCount < 200)) { nextgoal = 200; }
+        else { nextgoal = $scope.starCount; }; //meaning no more goals and the star stays full
+        $("#starprogress").css("height", 56 * ($scope.starCount / nextgoal)); // adjust the star progress indicator CSS - (what % of goal) of height?
+        $("#starprogress").css("margin-top", 59 - 56 * ($scope.starCount / nextgoal)); // 56 is image height, 50 is goal.  +3px for an offset compensation
         $("#starwrapper").removeClass("animation-target"); //try to remove so its not stacked up
         $("#starwrapper").addClass("animation-target"); //add CSS3 animation
-        $cordovaNativeAudio.play('highhat');// Play sound. Using PreLoad in App.js on start like this works
+        if (playsound == true) { $cordovaNativeAudio.play('bell') };// Play sound. Using PreLoad in App.js on start like this works
     }
 
     // Increase star count 
     $scope.IncreaseStarCount = function (increase_amt) {
             // test for max
         c = globalService.userarray[6] + increase_amt; // Get 5pt for adding a client
-        if ((globalService.userarray[6] < 50) && (c >= 50)) { // Reached 50
+        if ((globalService.userarray[6] < 50) && (c >= 50)) { // Reached 50 - goal 1
             showGoalModal(); // Call to GoalMoal ***
             globalService.userarray[6] = c;
         }
-        else if ((globalService.userarray[6] < 100) && (c >= 100)) { // Reached 100
+        else if ((globalService.userarray[6] < 100) && (c >= 100)) { // Reached 100 - goal 2
             showGoalModal(); // Call to GoalMoal ***
             globalService.userarray[6] = c;
         }
-        else if ((globalService.userarray[6] < 150) && (c >= 150)) { // Reached 150
+        else if ((globalService.userarray[6] < 150) && (c >= 150)) { // Reached 150 - goal 3
+            showGoalModal(); // Call to GoalMoal ***
+            globalService.userarray[6] = c;
+        }
+        else if ((globalService.userarray[6] < 200) && (c >= 200)) { // Reached 200 - goal 4 - last goal
             showGoalModal(); // Call to GoalMoal ***
             globalService.userarray[6] = c;
         }
         else { globalService.userarray[6] = c; }
         localStorage["RYB_userarray"] = JSON.stringify(globalService.userarray); //push back to localStorage
         $scope.starCount = globalService.userarray[6]; // update view model
-        updateStarCountUI();// update star UI ***
+        updateStarCountUI(true);// update star UI ***
     }
 
 
@@ -189,6 +200,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                           }
                           else {
                               event_desc = "You and " + items[i].fromkid_name + " are now friends";
+                              $scope.IncreaseStarCount(1); // ** count up reward for becoming a friend
                           };
 
                           var element = {  // @@@ Make a new array object.  If items[i] is NULL, the HTML binding for ng-show will hide the HTML templating
@@ -210,7 +222,6 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                               event_desc: event_desc,
                           };
                           tempArray.push(element); // add into array for UI & $scope
-                          $scope.IncreaseStarCount(2); // count up reward
                       }
 
                       else { // If not a 'friend' event, it should have a URL
@@ -273,6 +284,7 @@ angular.module('cordovaNG').controller('admindashController', function ($scope, 
                                                       };
                                                   }; //end for
                                                   localStorage["RYB_imagepropertiesarray"] = JSON.stringify(imagepropertiesarray); //push back to localStorage
+                                                  $scope.IncreaseStarCount(1); // ** count up reward for recieving a like
                                               };
 
                                               break;
